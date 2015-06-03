@@ -1,4 +1,12 @@
 {
-  "name": "tabs",
-  "app_id": ""
+  "name": "Pearl Client iOS",
+  "app_id": "46122480",
+  "gulpStartupTasks": [
+    "sass",
+    "watch"
+  ],
+  "watchPatterns": [
+    "www/**/*",
+    "!www/lib/**/*"
+  ]
 }
