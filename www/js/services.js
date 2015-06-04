@@ -1,1 +1,1 @@
-angular.module('starter.services', []);
+module.exports = angular.module('pearl-client', []);

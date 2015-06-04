@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+module.exports = angular.module('pearl-client.controllers', [])
   .controller('PearlCtrl', PearlCtrl);
 
 PearlCtrl.$inject = ["$http"];

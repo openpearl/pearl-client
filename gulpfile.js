@@ -1,4 +1,7 @@
 var gulp = require('gulp');
+var source = require('vinyl-source-stream');
+var browserify = require('browserify');
+var watchify = require('watchify');
 var gutil = require('gulp-util');
 var bower = require('bower');
 var concat = require('gulp-concat');
@@ -11,7 +14,29 @@ var paths = {
   sass: ['./scss/**/*.scss']
 };
 
-gulp.task('default', ['sass']);
+gulp.task('default', ['sass', 'watch', 'browserify']);
+
+gulp.task('browserify', function() {
+  
+  var bundler = browserify('www/js/app.js', {
+    // Configurations.
+    cache: {}, 
+    packageCache: {},
+    fullPaths: true,
+  });
+  bundler = watchify(bundler);
+
+  function rebundle() {
+    return bundler.bundle()
+      .pipe(source('app.js'))
+      .pipe(rename('bundle.js'))
+      .pipe(gulp.dest("www/js"));
+  }
+
+  bundler.on('update', rebundle);
+
+  return rebundle();
+});
 
 gulp.task('sass', function(done) {
   gulp.src('./scss/ionic.app.scss')
