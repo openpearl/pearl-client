@@ -1,9 +1,12 @@
 angular.module('starter.controllers', [])
+  .controller('PearlCtrl', PearlCtrl);
 
-.controller('PearlCtrl', function($scope) {})
+function PearlCtrl() {
+  var vm = this;
 
-.controller('SettingsCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
-  };
-});
+  vm.sendInformation = sendInformation;
+
+  function sendInformation(){
+    console.log("I am being clicked!");
+  }
+}

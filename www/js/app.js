@@ -43,7 +43,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     views: {
       'tab-pearl': {
         templateUrl: 'templates/tab-pearl.html',
-        controller: 'PearlCtrl'
       }
     }
   })
