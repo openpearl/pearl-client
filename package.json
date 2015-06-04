@@ -21,9 +21,19 @@
     "cordova-plugin-console",
     "cordova-plugin-whitelist",
     "cordova-plugin-splashscreen",
-    "com.ionic.keyboard"
+    "com.ionic.keyboard",
+    {
+      "locator": "https://github.com/Telerik-Verified-Plugins/HealthKit",
+      "id": "com.telerik.plugins.healthkit"
+    },
+    "cordova-plugin-statusbar"
   ],
   "cordovaPlatforms": [
-    "ios"
+    "ios",
+    {
+      "platform": "ios",
+      "version": "",
+      "locator": "ios"
+    }
   ]
 }
