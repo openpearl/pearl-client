@@ -1,16 +1,17 @@
 <ion-view view-title="Pearl" ng-controller="PearlCtrl as pearlCtrl">
-  <ion-content class="padding">
-
-    <div class="list">
-      <label class="item item-input">
-        <span class="input-label">Message</span>
-        <input type="text" ng-model="pearlCtrl.message">
-      </label>
-    </div>
-
-    <button ng-click="pearlCtrl.sendInformation()" class="button button-full button-positive">
-      Send
-    </button>
-
+  <ion-content>
   </ion-content>
+
+  <!-- <div class="text-input-area"> -->
+  <ion-footer-bar>
+    <div class="item-input-inset pl-full-width">
+      <label class="item-input-wrapper ">
+        <input type="text" ng-model="pearlCtrl.message" placeholder="Message">
+      </label>
+
+      <button ng-click="pearlCtrl.sendInformation()" class="button button-small button-positive">
+        <i class="icon ion-paper-airplane"></i>
+      </button>
+    </div>
+  </ion-footer-bar>
 </ion-view>

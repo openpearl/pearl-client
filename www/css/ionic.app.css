@@ -7674,3 +7674,13 @@ a.button {
   opacity: 0;
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
+
+.pl-full-width {
+  display: flex;
+  width: 100%;
+  padding: 0; }
+  .pl-full-width > label {
+    flex: 2;
+    padding: 0; }
+    .pl-full-width > label > input {
+      width: 100%; }

@@ -13,19 +13,21 @@ function PearlCtrl($http) {
   function sendInformation(){
     console.log(vm.message);
 
+    // TODO: Add data to speech bubble.
+
     // TODO: Implement POST request.
     var url = "http://localhost:3000/test";
     var msg = vm.message;
 
-    $http.post(url, {msg:msg}).
-      success(function(data, status, headers, config) {
-        // this callback will be called asynchronously
-        // when the response is available
-      }).
-      error(function(data, status, headers, config) {
-        // called asynchronously if an error occurs
-        // or server returns response with an error status.
-      });
+    // $http.post(url, {msg:msg}).
+    //   success(function(data, status, headers, config) {
+    //     // this callback will be called asynchronously
+    //     // when the response is available
+    //   }).
+    //   error(function(data, status, headers, config) {
+    //     // called asynchronously if an error occurs
+    //     // or server returns response with an error status.
+    //   });
 
     vm.message = "";
   }
@@ -34,13 +36,38 @@ function PearlCtrl($http) {
 },{}],"/Users/davidzhu/pearl-client/www/js/services.js":[function(require,module,exports){
 module.exports = angular.module('pearl-client', []);
 
+},{}],"/Users/davidzhu/pearl-client/www/js/utils/LocalStorageService.js":[function(require,module,exports){
+module.exports = angular.module('utils', [])
+  .factory('$localstorage', $localstorage);
+
+$localstorage.$inject = ['$window'];
+
+function $localstorage($window) {
+  return {
+    set: function(key, value) {
+      $window.localStorage[key] = value;
+    },
+    get: function(key, defaultValue) {
+      return $window.localStorage[key] || defaultValue;
+    },
+    setObject: function(key, value) {
+      $window.localStorage[key] = JSON.stringify(value);
+    },
+    getObject: function(key) {
+      return JSON.parse($window.localStorage[key] || '{}');
+    }
+  }
+};
+
 },{}],"www/js/app.js":[function(require,module,exports){
+var utils = require("./utils/LocalStorageService");
 var controllers = require("./controllers");
 var services = require("./services");
 
 angular.module('pearl-client', [
   'ionic', 
   'ngCordova',
+  utils.name,
   controllers.name, 
   services.name
 ])
@@ -100,4 +127,4 @@ angular.module('pearl-client', [
 
 });
 
-},{"./controllers":"/Users/davidzhu/pearl-client/www/js/controllers.js","./services":"/Users/davidzhu/pearl-client/www/js/services.js"}]},{},["www/js/app.js"]);
+},{"./controllers":"/Users/davidzhu/pearl-client/www/js/controllers.js","./services":"/Users/davidzhu/pearl-client/www/js/services.js","./utils/LocalStorageService":"/Users/davidzhu/pearl-client/www/js/utils/LocalStorageService.js"}]},{},["www/js/app.js"]);
