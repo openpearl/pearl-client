@@ -1,0 +1,14 @@
+.pl-full-width {
+  display: flex;
+  width: 100%;
+  padding: 0;
+
+  & > label {
+    flex: 2;
+    padding: 0;
+
+    & > input {
+      width: 100%;
+    }
+  }
+}

@@ -2,8 +2,7 @@
   "name": "Pearl Client iOS",
   "app_id": "46122480",
   "gulpStartupTasks": [
-    "sass",
-    "watch"
+    "default"
   ],
   "watchPatterns": [
     "www/**/*",
