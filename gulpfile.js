@@ -18,7 +18,7 @@ gulp.task('default', ['sass', 'watch', 'browserify']);
 
 gulp.task('browserify', function() {
   
-  var bundler = browserify('www/js/app.js', {
+  var bundler = browserify('www/app/app.m.js', {
     // Configurations.
     cache: {}, 
     packageCache: {},
@@ -28,9 +28,9 @@ gulp.task('browserify', function() {
 
   function rebundle() {
     return bundler.bundle()
-      .pipe(source('app.js'))
+      .pipe(source('app.m.js'))
       .pipe(rename('bundle.js'))
-      .pipe(gulp.dest("www/js"));
+      .pipe(gulp.dest("www/app/"));
   }
 
   bundler.on('update', rebundle);
@@ -43,12 +43,12 @@ gulp.task('sass', function(done) {
     .pipe(sass({
       errLogToConsole: true
     }))
-    .pipe(gulp.dest('./www/css/'))
+    .pipe(gulp.dest('./www/assets/css/'))
     .pipe(minifyCss({
       keepSpecialComments: 0
     }))
     .pipe(rename({ extname: '.min.css' }))
-    .pipe(gulp.dest('./www/css/'))
+    .pipe(gulp.dest('./www/assets/css/'))
     .on('end', done);
 });
 
