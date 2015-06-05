@@ -1,14 +1,9 @@
-var appRoutes = require('./app.r.js');
-console.log(appRoutes);
-
 var appCore = require('./core/core.m.js');
-
 var appChat = require('./components/chat/chat.m.js');
 
-angular.module('app', [
+var app = angular.module('app', [
 
   appCore.name,
-
   appChat.name,
 
 ])
@@ -25,6 +20,6 @@ angular.module('app', [
       StatusBar.styleLightContent();
     }
   });
-})
+});
 
-.config(appRoutes);
+require('./app.r.js')(app);

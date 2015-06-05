@@ -1,12 +1,4 @@
-var ChatController = require('./chat.c.js');
-console.log(ChatController);
+appChat = angular.module('app.chat', []);
 
-console.log("Now I'm here!");
-
-module.exports = angular.module('app.chat', [
-
-])
-
-.controller('ChatController', ChatController)
-
-;
+require('./chat.c.js')(appChat);
+module.exports = appChat;

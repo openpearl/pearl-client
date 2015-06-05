@@ -1,4 +1,8 @@
-var ChatController = function ChatController($http) {
+module.exports = function(app) {
+  app.controller('ChatController', ['$http', ChatController]);
+}
+
+function ChatController($http) {
   console.log("Am I even running?");
   // console.log($cordovaHealthKit);
 
@@ -43,7 +47,3 @@ var ChatController = function ChatController($http) {
     vm.message = "";
   }
 }
-
-ChatController.$inject = ["$http"];
-
-module.exports = ChatController;
