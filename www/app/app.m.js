@@ -9,7 +9,9 @@ var app = angular.module('app', [
 ])
 
 .run(function($ionicPlatform) {
+  console.log($ionicPlatform);
   $ionicPlatform.ready(function() {
+    console.log("Is this ionicPlatform working?");
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {

@@ -45,36 +45,48 @@ function appRoutes($stateProvider, $urlRouterProvider) {
 
 },{}],"/Users/davidzhu/pearl-client/www/app/components/chat/chat.c.js":[function(require,module,exports){
 module.exports = function(app) {
-  app.controller('ChatController', ['$http', ChatController]);
+  app.controller('ChatController', [
+    '$http',
+    '$ionicPlatform',
+    '$cordovaHealthKit', 
+    ChatController
+  ]);
 }
 
-function ChatController($http) {
-  console.log("Am I even running?");
-  // console.log($cordovaHealthKit);
+function ChatController($http, $ionicPlatform, $cordovaHealthKit) {
 
-  // $cordovaHealthKit.isAvailable().then(function(yes){
-  //   var permissions = ['HKQuantityTypeIdentifierHeight'];
-  //   console.log(permissions);
+  // TODO: Test this when Healthkit entitlement becomes possible.
+  $ionicPlatform.ready(function() {
+    console.log("Platform is ready here.");
+    $cordovaHealthKit.isAvailable().then(
+      function(yes) {
+        var permissions = ['HKQuantityTypeIdentifierHeight'];
+        console.log(permissions);      
+        
+        $cordovaHealthKit.requestAuthorization(
+          permissions,
+          permissions
+        ).then(function(success){
+          console.log("Requested permissions to read and write health information.");
+        });
+      },
 
-  //   $cordovaHealthKit.requestAuthorization(
-  //     permissions,
-  //     permissions
-  //   ).then(function(success){
+      function(no) {
 
-  //   });
-  // }, function() {
-
-  // });
+      });
+  });
 
   var vm = this;
 
   vm.message = "";
   vm.sendInformation = sendInformation;
+  vm.chatMessages = [];
 
   function sendInformation(){
     console.log(vm.message);
 
     // TODO: Add data to speech bubble.
+    vm.chatMessages.push(vm.message);
 
     // TODO: Implement POST request.
     var url = "http://localhost:3000/test";
@@ -100,13 +112,22 @@ appChat = angular.module('app.chat', []);
 require('./chat.c.js')(appChat);
 module.exports = appChat;
 
-},{"./chat.c.js":"/Users/davidzhu/pearl-client/www/app/components/chat/chat.c.js"}],"/Users/davidzhu/pearl-client/www/app/core/core.m.js":[function(require,module,exports){
+},{"./chat.c.js":"/Users/davidzhu/pearl-client/www/app/components/chat/chat.c.js"}],"/Users/davidzhu/pearl-client/www/app/core/core.c.js":[function(require,module,exports){
+module.exports = function(app) {
+  app.run(CoreController);
+}
+
+function CoreController() {
+}
+
+},{}],"/Users/davidzhu/pearl-client/www/app/core/core.m.js":[function(require,module,exports){
 'use strict';
 
-module.exports = angular.module('app.core', [
+ var appCore = angular.module('app.core', [
 	 
   // Angular modules.
 	'ionic',
+  'ngCordova',
 	
   // Our reusable cross app code modules.
 	// 'blocks.exception', 
@@ -118,7 +139,11 @@ module.exports = angular.module('app.core', [
 
 ]);
 
-},{}],"www/app/app.m.js":[function(require,module,exports){
+require('./core.c.js')(appCore);
+
+module.exports = appCore;
+
+},{"./core.c.js":"/Users/davidzhu/pearl-client/www/app/core/core.c.js"}],"www/app/app.m.js":[function(require,module,exports){
 var appCore = require('./core/core.m.js');
 var appChat = require('./components/chat/chat.m.js');
 
@@ -130,7 +155,9 @@ var app = angular.module('app', [
 ])
 
 .run(function($ionicPlatform) {
+  console.log($ionicPlatform);
   $ionicPlatform.ready(function() {
+    console.log("Is this ionicPlatform working?");
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
