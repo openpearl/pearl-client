@@ -14,11 +14,19 @@ var paths = {
   sass: ['./scss/**/*.scss']
 };
 
-gulp.task('default', ['sass', 'watch', 'browserify']);
+gulp.task('default', ['sass', 'watch', 'watchify']);
 
-gulp.task('browserify', function() {
+// FIXME: This doesn't work.
+// gulp.task('browserify', function () {
+//   return gulp.src('./www/app/app.m.js')
+//    .pipe(browserify())
+//    .pipe(rename('bundle.js'))
+//    .pipe(gulp.dest('./dist'));
+// });
+
+gulp.task('watchify', function() {
   
-  var bundler = browserify('www/app/app.m.js', {
+  var bundler = browserify({
     // Configurations.
     cache: {}, 
     packageCache: {},
@@ -27,6 +35,7 @@ gulp.task('browserify', function() {
   bundler = watchify(bundler);
 
   function rebundle() {
+    console.log("Rebundling Angular scripts.");
     return bundler.bundle()
       .pipe(source('app.m.js'))
       .pipe(rename('bundle.js'))
@@ -34,6 +43,7 @@ gulp.task('browserify', function() {
   }
 
   bundler.on('update', rebundle);
+  bundler.add('www/app/app.m.js');
 
   return rebundle();
 });

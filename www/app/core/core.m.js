@@ -1,9 +1,10 @@
 'use strict';
 
-module.exports = angular.module('app.core', [
+ var appCore = angular.module('app.core', [
 	 
   // Angular modules.
 	'ionic',
+  'ngCordova',
 	
   // Our reusable cross app code modules.
 	// 'blocks.exception', 
@@ -14,3 +15,7 @@ module.exports = angular.module('app.core', [
 	// 'ngplus'
 
 ]);
+
+require('./core.c.js')(appCore);
+
+module.exports = appCore;

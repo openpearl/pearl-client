@@ -1,24 +1,35 @@
 module.exports = function(app) {
-  app.controller('ChatController', ['$http', ChatController]);
+  app.controller('ChatController', [
+    '$http',
+    '$ionicPlatform',
+    // '$cordovaHealthKit', 
+    ChatController
+  ]);
 }
 
-function ChatController($http) {
+function ChatController($http, $ionicPlatform) {
   console.log("Am I even running?");
   // console.log($cordovaHealthKit);
 
-  // $cordovaHealthKit.isAvailable().then(function(yes){
-  //   var permissions = ['HKQuantityTypeIdentifierHeight'];
-  //   console.log(permissions);
+  $ionicPlatform.ready(function() {
+    console.log("Platform is ready here.");
+    // $cordovaHealthKit.isAvailable().then(
+    //   function(yes) {
+    //     var permissions = ['HKQuantityTypeIdentifierHeight'];
+    //     console.log(permissions);      
+        
+    //     $cordovaHealthKit.requestAuthorization(
+    //       permissions,
+    //       permissions
+    //     ).then(function(success){
 
-  //   $cordovaHealthKit.requestAuthorization(
-  //     permissions,
-  //     permissions
-  //   ).then(function(success){
+    //     });
+    //   },
 
-  //   });
-  // }, function() {
+    //   function(no) {
 
-  // });
+    //   });
+  });
 
   var vm = this;
 
