@@ -48,12 +48,18 @@ module.exports = function(app) {
   app.controller('ChatController', [
     '$http',
     '$ionicPlatform',
-    '$cordovaHealthKit', 
+    '$ionicScrollDelegate', 
+    '$cordovaHealthKit',
     ChatController
   ]);
 }
 
-function ChatController($http, $ionicPlatform, $cordovaHealthKit) {
+function ChatController(
+    $http, 
+    $ionicPlatform, 
+    $ionicScrollDelegate, 
+    $cordovaHealthKit
+  ) {
 
   // TODO: Test this when Healthkit entitlement becomes possible.
   $ionicPlatform.ready(function() {
@@ -86,7 +92,9 @@ function ChatController($http, $ionicPlatform, $cordovaHealthKit) {
     console.log(vm.message);
 
     // TODO: Add data to speech bubble.
+    // TODO: Move this either to a factory or a service.
     vm.chatMessages.push(vm.message);
+    $ionicScrollDelegate.scrollBottom(true);
 
     // TODO: Implement POST request.
     var url = "http://localhost:3000/test";
@@ -123,7 +131,10 @@ function CoreController() {
 },{}],"/Users/davidzhu/pearl-client/www/app/core/core.m.js":[function(require,module,exports){
 'use strict';
 
- var appCore = angular.module('app.core', [
+// Comment this line when in actual device.
+require('../../assets/js/browserSettings.js');
+
+var appCore = angular.module('app.core', [
 	 
   // Angular modules.
 	'ionic',
@@ -143,7 +154,16 @@ require('./core.c.js')(appCore);
 
 module.exports = appCore;
 
-},{"./core.c.js":"/Users/davidzhu/pearl-client/www/app/core/core.c.js"}],"www/app/app.m.js":[function(require,module,exports){
+},{"../../assets/js/browserSettings.js":"/Users/davidzhu/pearl-client/www/assets/js/browserSettings.js","./core.c.js":"/Users/davidzhu/pearl-client/www/app/core/core.c.js"}],"/Users/davidzhu/pearl-client/www/assets/js/browserSettings.js":[function(require,module,exports){
+window.plugins = {
+  "healthkit": {
+    available:function(abc){
+      return false; 
+    }
+  }
+};
+
+},{}],"www/app/app.m.js":[function(require,module,exports){
 var appCore = require('./core/core.m.js');
 var appChat = require('./components/chat/chat.m.js');
 

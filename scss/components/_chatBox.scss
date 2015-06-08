@@ -1,0 +1,26 @@
+.chat-history {
+}
+
+.chat-bubble-wrapper {
+  width: 100%;
+
+  // TODO: Not sure if best practice.
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.chat-bubble {
+  padding: 5px 10px;
+  margin-right: 10px;
+  background-color: $orange;
+  color: white; 
+
+  width: -moz-max-content; 
+  width: -webkit-max-content; 
+  width: max-content;
+
+  max-width: 70%;
+  border-radius: 12px;
+  border-bottom-right-radius: 0px;
+}

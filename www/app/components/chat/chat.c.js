@@ -2,12 +2,18 @@ module.exports = function(app) {
   app.controller('ChatController', [
     '$http',
     '$ionicPlatform',
-    '$cordovaHealthKit', 
+    '$ionicScrollDelegate', 
+    '$cordovaHealthKit',
     ChatController
   ]);
 }
 
-function ChatController($http, $ionicPlatform, $cordovaHealthKit) {
+function ChatController(
+    $http, 
+    $ionicPlatform, 
+    $ionicScrollDelegate, 
+    $cordovaHealthKit
+  ) {
 
   // TODO: Test this when Healthkit entitlement becomes possible.
   $ionicPlatform.ready(function() {
@@ -40,7 +46,9 @@ function ChatController($http, $ionicPlatform, $cordovaHealthKit) {
     console.log(vm.message);
 
     // TODO: Add data to speech bubble.
+    // TODO: Move this either to a factory or a service.
     vm.chatMessages.push(vm.message);
+    $ionicScrollDelegate.scrollBottom(true);
 
     // TODO: Implement POST request.
     var url = "http://localhost:3000/test";
