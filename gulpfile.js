@@ -6,6 +6,8 @@ var gutil = require('gulp-util');
 var bower = require('bower');
 var concat = require('gulp-concat');
 var sass = require('gulp-sass');
+var postcss = require('gulp-postcss');
+var autoprefixer = require('autoprefixer-core');
 var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var sh = require('shelljs');
@@ -49,10 +51,16 @@ gulp.task('watchify', function() {
 });
 
 gulp.task('sass', function(done) {
+
+  var processors = [
+    autoprefixer({browsers: ['last 2 version']})
+  ];
+
   gulp.src('./scss/ionic.app.scss')
     .pipe(sass({
       errLogToConsole: true
     }))
+    .pipe(postcss(processors))
     .pipe(gulp.dest('./www/assets/css/'))
     .pipe(minifyCss({
       keepSpecialComments: 0

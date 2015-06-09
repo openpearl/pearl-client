@@ -19,16 +19,18 @@ $dark:                            #444 !default;
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 // Include all of Ionic
-@import "www/lib/ionic/scss/ionic";
+@import "www/assets/lib/ionic/scss/ionic";
 
 // Vendors
 
 // Helpers
+@import "./helpers/colors";
 
 // Base
 
 // Components
-@import "scss/components/textInputArea";
+@import "./components/chatBox";
+@import "./components/textInputArea";
 
 // Pages
 

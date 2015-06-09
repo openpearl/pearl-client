@@ -1,6 +1,9 @@
 'use strict';
 
- var appCore = angular.module('app.core', [
+// Comment this line when in actual device.
+require('../../assets/js/browserSettings.js');
+
+var appCore = angular.module('app.core', [
 	 
   // Angular modules.
 	'ionic',

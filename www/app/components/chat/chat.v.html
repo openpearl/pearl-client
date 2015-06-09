@@ -1,6 +1,10 @@
 <ion-view view-title="Pearl" ng-controller="ChatController as chatCtrl">
-  <ion-content>
-    <div ng-repeat="chatMessage in chatCtrl.chatMessages">{{chatMessage}}</div>
+  <ion-content class="chat-history">
+    <div class="chat-bubble-wrapper" ng-repeat="chatMessage in chatCtrl.chatMessages track by $index">
+      <div class="chat-bubble">
+        {{chatMessage}}
+      </div>
+    </div>
   </ion-content>
 
   <!-- <div class="text-input-area"> -->
