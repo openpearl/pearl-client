@@ -7,6 +7,7 @@
   // TODO: Not sure if best practice.
   display: flex;
   justify-content: flex-end;
+
   margin-top: 10px;
 }
 
@@ -16,8 +17,6 @@
   background-color: $orange;
   color: white; 
 
-  width: -moz-max-content; 
-  width: -webkit-max-content; 
   width: max-content;
 
   max-width: 70%;
