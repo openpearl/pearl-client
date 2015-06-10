@@ -1,14 +1,10 @@
 .chat-history {
-  background: linear-gradient($light, $sky);
+  padding-top: 20px + $statusBarHeight;
 }
 
 .chat-bubble-wrapper {
   width: 100%;
-
-  // TODO: Not sure if best practice.
   display: flex;
-  justify-content: flex-end;
-
   margin-top: 10px;
 }
 
@@ -17,10 +13,21 @@
   margin-right: 10px;
   background-color: $orange;
   color: white; 
+  margin-left: auto;
 
-  width: max-content;
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 70%;  
 
-  max-width: 70%;
   border-radius: 12px;
   border-bottom-right-radius: 0px;
+}
+
+.chat-bubble-left {
+  margin-left: 10px;
+  background-color: white;
+  color: black; 
+
+  border-radius: 12px;
+  border-top-left-radius: 0px;
 }

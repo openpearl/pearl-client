@@ -31,11 +31,6 @@
     "cordova-plugin-statusbar"
   ],
   "cordovaPlatforms": [
-    {
-      "platform": "ios",
-      "version": "",
-      "locator": "ios"
-    },
     "ios"
   ]
 }

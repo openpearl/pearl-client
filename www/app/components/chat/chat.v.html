@@ -1,9 +1,17 @@
 <ion-view view-title="Pearl" ng-controller="ChatController as chatCtrl">
   <ion-content class="chat-history">
-    <div class="chat-bubble-wrapper" ng-repeat="chatMessage in chatCtrl.chatMessages track by $index">
-      <div class="chat-bubble">
-        {{chatMessage}}
+    <div 
+      prl-chat-scroll
+      val="chatCtrl.chatMessages" 
+      class="chat-bubble-wrapper" 
+      ng-repeat="chatMessage in chatCtrl.chatMessages track by $index">
+
+      <!-- TODO: This should not be hardcoded in the future. -->
+      <div class="chat-bubble" 
+        ng-class="{'chat-bubble-left': chatMessage.username !== 'client'}">
+        {{chatMessage.message}}
       </div>
+
     </div>
   </ion-content>
 
