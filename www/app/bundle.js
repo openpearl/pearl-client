@@ -1,4 +1,33 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"/Users/davidzhu/pearl-client/www/app/app.r.js":[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"/Users/davidzhu/PearlClient/www/app/app.m.js":[function(require,module,exports){
+var appCore = require('./core/core.m.js');
+var appChat = require('./components/chat/chat.m.js');
+
+var app = angular.module('app', [
+
+  appCore.name,
+  appChat.name,
+
+])
+
+.run(function($ionicPlatform) {
+  console.log($ionicPlatform);
+  $ionicPlatform.ready(function() {
+    console.log("Is this ionicPlatform working?");
+    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+    // for form inputs)
+    if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
+      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+    }
+    if (window.StatusBar) {
+      // org.apache.cordova.statusbar required
+      StatusBar.styleLightContent();
+    }
+  });
+});
+
+require('./app.r.js')(app);
+
+},{"./app.r.js":"/Users/davidzhu/PearlClient/www/app/app.r.js","./components/chat/chat.m.js":"/Users/davidzhu/PearlClient/www/app/components/chat/chat.m.js","./core/core.m.js":"/Users/davidzhu/PearlClient/www/app/core/core.m.js"}],"/Users/davidzhu/PearlClient/www/app/app.r.js":[function(require,module,exports){
 module.exports = function(app) {
   app.config(appRoutes); 
 }
@@ -43,7 +72,7 @@ function appRoutes($stateProvider, $urlRouterProvider) {
 
 }
 
-},{}],"/Users/davidzhu/pearl-client/www/app/components/chat/chat.c.js":[function(require,module,exports){
+},{}],"/Users/davidzhu/PearlClient/www/app/components/chat/chat.c.js":[function(require,module,exports){
 module.exports = function(app) {
   app.controller('ChatController', [
     '$http',
@@ -141,13 +170,13 @@ function ChatController(
   }
 }
 
-},{}],"/Users/davidzhu/pearl-client/www/app/components/chat/chat.m.js":[function(require,module,exports){
+},{}],"/Users/davidzhu/PearlClient/www/app/components/chat/chat.m.js":[function(require,module,exports){
 appChat = angular.module('app.chat', []);
 
 require('./chat.c.js')(appChat);
 module.exports = appChat;
 
-},{"./chat.c.js":"/Users/davidzhu/pearl-client/www/app/components/chat/chat.c.js"}],"/Users/davidzhu/pearl-client/www/app/core/core.c.js":[function(require,module,exports){
+},{"./chat.c.js":"/Users/davidzhu/PearlClient/www/app/components/chat/chat.c.js"}],"/Users/davidzhu/PearlClient/www/app/core/core.c.js":[function(require,module,exports){
 module.exports = function(app) {
   app.run(CoreController);
 }
@@ -155,7 +184,7 @@ module.exports = function(app) {
 function CoreController() {
 }
 
-},{}],"/Users/davidzhu/pearl-client/www/app/core/core.m.js":[function(require,module,exports){
+},{}],"/Users/davidzhu/PearlClient/www/app/core/core.m.js":[function(require,module,exports){
 'use strict';
 
 // Comment this line when in actual device.
@@ -181,7 +210,7 @@ require('./core.c.js')(appCore);
 
 module.exports = appCore;
 
-},{"../../assets/js/browserSettings.js":"/Users/davidzhu/pearl-client/www/assets/js/browserSettings.js","./core.c.js":"/Users/davidzhu/pearl-client/www/app/core/core.c.js"}],"/Users/davidzhu/pearl-client/www/assets/js/browserSettings.js":[function(require,module,exports){
+},{"../../assets/js/browserSettings.js":"/Users/davidzhu/PearlClient/www/assets/js/browserSettings.js","./core.c.js":"/Users/davidzhu/PearlClient/www/app/core/core.c.js"}],"/Users/davidzhu/PearlClient/www/assets/js/browserSettings.js":[function(require,module,exports){
 window.plugins = {
   "healthkit": {
     available:function(abc){
@@ -190,33 +219,4 @@ window.plugins = {
   }
 };
 
-},{}],"www/app/app.m.js":[function(require,module,exports){
-var appCore = require('./core/core.m.js');
-var appChat = require('./components/chat/chat.m.js');
-
-var app = angular.module('app', [
-
-  appCore.name,
-  appChat.name,
-
-])
-
-.run(function($ionicPlatform) {
-  console.log($ionicPlatform);
-  $ionicPlatform.ready(function() {
-    console.log("Is this ionicPlatform working?");
-    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs)
-    if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-    }
-    if (window.StatusBar) {
-      // org.apache.cordova.statusbar required
-      StatusBar.styleLightContent();
-    }
-  });
-});
-
-require('./app.r.js')(app);
-
-},{"./app.r.js":"/Users/davidzhu/pearl-client/www/app/app.r.js","./components/chat/chat.m.js":"/Users/davidzhu/pearl-client/www/app/components/chat/chat.m.js","./core/core.m.js":"/Users/davidzhu/pearl-client/www/app/core/core.m.js"}]},{},["www/app/app.m.js"]);
+},{}]},{},["/Users/davidzhu/PearlClient/www/app/app.m.js"]);

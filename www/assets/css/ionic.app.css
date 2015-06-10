@@ -7475,6 +7475,13 @@ a.button {
   opacity: 0;
   transition-duration: 0s; }
 
+body {
+  background: linear-gradient(red, blue);
+  /* Standard syntax */ }
+
+.chat-history {
+  background: linear-gradient(#EBF6F0, #C7E4EE); }
+
 .chat-bubble-wrapper {
   width: 100%;
   display: -webkit-flex;
