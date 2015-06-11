@@ -1,7 +1,6 @@
 <ion-view view-title="Pearl" ng-controller="ChatController as chatCtrl">
   <ion-content class="chat-history">
-    <div 
-      prl-chat-scroll
+    <prl-chat-scroll 
       val="chatCtrl.chatMessages" 
       class="chat-bubble-wrapper" 
       ng-repeat="chatMessage in chatCtrl.chatMessages track by $index">
@@ -12,11 +11,19 @@
         {{chatMessage.message}}
       </div>
 
-    </div>
+    </prl-chat-scroll>
+    <div id="spacer"></div>
   </ion-content>
 
-  <!-- <div class="text-input-area"> -->
-  <ion-footer-bar>
+  <prl-chat-input-space>
+    <div class="input-bubble"
+    ng-click="chatCtrl.sendInformation($index)" 
+    ng-repeat="inputOption in chatCtrl.inputOptions track by $index">
+      {{inputOption}}
+    </div>
+  </prl-chat-input-space>
+
+<!--   <ion-footer-bar>
     <div class="item-input-inset pl-full-width">
       <label class="item-input-wrapper ">
         <input type="text" ng-model="chatCtrl.message" placeholder="Message">
@@ -26,5 +33,5 @@
         <i class="icon ion-paper-airplane"></i>
       </button>
     </div>
-  </ion-footer-bar>
+  </ion-footer-bar> -->
 </ion-view>

@@ -1,16 +1,19 @@
 module.exports = function(app) {
+  
   app.directive('prlChatScroll', [
-    // '$http',
-    // '$ionicPlatform',
     '$ionicScrollDelegate', 
-    // '$cordovaHealthKit',
     PrlChatScroll
   ]);
+
+  app.directive('prlChatInputSpace', [
+    PrlChatInputSpace
+  ]);
+
 }
 
 function PrlChatScroll($ionicScrollDelegate) {
   return {
-    restrict: 'A',
+    restrict: 'EA',
     scope: {
       val: '='
     },
@@ -21,5 +24,11 @@ function PrlChatScroll($ionicScrollDelegate) {
         }
       }, true);
     }
+  }
+}
+
+function PrlChatInputSpace() {
+  return {
+    restrict: 'E'
   }
 }

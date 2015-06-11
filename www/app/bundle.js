@@ -90,6 +90,15 @@ function ChatController(
     $cordovaHealthKit
   ) {
 
+  var vm = this;
+
+  vm.message = "";
+  vm.chatMessages = [];
+  vm.inputOptions = ["Hello", "cats", "Another choice", "keep adding", "more"];
+
+  vm.getStepCount = getStepCount;
+  vm.sendInformation = sendInformation;
+
   // TODO: Test this when Healthkit entitlement becomes possible.
   $ionicPlatform.ready(function() {
     console.log("Platform is ready here.");
@@ -117,14 +126,6 @@ function ChatController(
 
       });
   });
-
-  var vm = this;
-
-  vm.getStepCount = getStepCount;
-
-  vm.message = "";
-  vm.sendInformation = sendInformation;
-  vm.chatMessages = [];
 
   function getStepCount(){
     console.log("Getting step count.");
@@ -161,9 +162,14 @@ function ChatController(
     });
   }
 
-  function sendInformation(){
-    vm.getStepCount();
+  function sendInformation($index){
 
+    console.log($index);
+    console.log(vm.inputOptions[$index]);
+
+    vm.message = vm.inputOptions[$index];
+
+    vm.getStepCount();
     console.log(vm.message);
 
     // TODO: Add data to speech bubble.
@@ -172,8 +178,6 @@ function ChatController(
       username: 'client',
       message: vm.message
     });
-
-    // $ionicScrollDelegate.scrollBottom(true);
 
     // TODO: Implement POST request.
     var url = "https://odmmjjialz.localtunnel.me/api/v1/tests/";
@@ -202,18 +206,21 @@ function ChatController(
 
 },{}],"/Users/davidzhu/PearlClient/www/app/components/chat/chat.d.js":[function(require,module,exports){
 module.exports = function(app) {
+  
   app.directive('prlChatScroll', [
-    // '$http',
-    // '$ionicPlatform',
     '$ionicScrollDelegate', 
-    // '$cordovaHealthKit',
     PrlChatScroll
   ]);
+
+  app.directive('prlChatInputSpace', [
+    PrlChatInputSpace
+  ]);
+
 }
 
 function PrlChatScroll($ionicScrollDelegate) {
   return {
-    restrict: 'A',
+    restrict: 'EA',
     scope: {
       val: '='
     },
@@ -224,6 +231,12 @@ function PrlChatScroll($ionicScrollDelegate) {
         }
       }, true);
     }
+  }
+}
+
+function PrlChatInputSpace() {
+  return {
+    restrict: 'E'
   }
 }
 
