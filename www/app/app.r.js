@@ -10,34 +10,37 @@ function appRoutes($stateProvider, $urlRouterProvider) {
   // Each state's controller can be found in controllers.js
   $stateProvider
 
-  // setup an abstract state for the tabs directive
-  .state('tab', {
-    url: "/tab",
+  // setup an abstract state for the slider directive
+  .state('slider', {
+    url: "/slider",
     abstract: true,
-    templateUrl: "app/shared/tabs/tabs.v.html"
+    templateUrl: "app/shared/slider/slider.v.html"
   })
 
   // Each tab has its own nav history stack:
-  .state('tab.chat', {
+  .state('slider.chat', {
     url: '/chat',
     views: {
-      'tab-chat': {
-        templateUrl: 'app/components/chat/chat.v.html',
+      'slider-chat': {
+        templateUrl: 'app/components/chat/chat.v.html'
+      },
+      'slider-settings': {
+        templateUrl: 'app/components/settings/settings.v.html'
       }
     }
   })
 
-  .state('tab.settings', {
-    url: '/settings',
-    views: {
-      'tab-settings': {
-        templateUrl: 'app/components/settings/settings.v.html',
-        controller: 'SettingsCtrl'
-      }
-    }
-  });
+  // .state('slider.settings', {
+  //   url: '/settings',
+  //   views: {
+  //     'slider-settings': {
+  //       templateUrl: 'app/components/settings/settings.v.html'
+  //     }
+  //   }
+  // })
+
+  ;
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/chat');
-
+  $urlRouterProvider.otherwise('/slider/chat');
 }

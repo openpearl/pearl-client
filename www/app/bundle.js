@@ -1,11 +1,16 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"/Users/davidzhu/PearlClient/www/app/app.m.js":[function(require,module,exports){
 var appCore = require('./core/core.m.js');
-var appChat = require('./components/chat/chat.m.js');
+var sharedSlider = require('./shared/slider/slider.m.js');
+
+var componentsChat = require('./components/chat/chat.m.js');
+var componentsSettings = require('./components/settings/settings.m.js');
 
 var app = angular.module('app', [
 
   appCore.name,
-  appChat.name,
+  sharedSlider.name,
+  componentsChat.name,
+  componentsSettings.name,
 
 ])
 
@@ -27,7 +32,7 @@ var app = angular.module('app', [
 
 require('./app.r.js')(app);
 
-},{"./app.r.js":"/Users/davidzhu/PearlClient/www/app/app.r.js","./components/chat/chat.m.js":"/Users/davidzhu/PearlClient/www/app/components/chat/chat.m.js","./core/core.m.js":"/Users/davidzhu/PearlClient/www/app/core/core.m.js"}],"/Users/davidzhu/PearlClient/www/app/app.r.js":[function(require,module,exports){
+},{"./app.r.js":"/Users/davidzhu/PearlClient/www/app/app.r.js","./components/chat/chat.m.js":"/Users/davidzhu/PearlClient/www/app/components/chat/chat.m.js","./components/settings/settings.m.js":"/Users/davidzhu/PearlClient/www/app/components/settings/settings.m.js","./core/core.m.js":"/Users/davidzhu/PearlClient/www/app/core/core.m.js","./shared/slider/slider.m.js":"/Users/davidzhu/PearlClient/www/app/shared/slider/slider.m.js"}],"/Users/davidzhu/PearlClient/www/app/app.r.js":[function(require,module,exports){
 module.exports = function(app) {
   app.config(appRoutes); 
 }
@@ -40,36 +45,39 @@ function appRoutes($stateProvider, $urlRouterProvider) {
   // Each state's controller can be found in controllers.js
   $stateProvider
 
-  // setup an abstract state for the tabs directive
-  .state('tab', {
-    url: "/tab",
+  // setup an abstract state for the slider directive
+  .state('slider', {
+    url: "/slider",
     abstract: true,
-    templateUrl: "app/shared/tabs/tabs.v.html"
+    templateUrl: "app/shared/slider/slider.v.html"
   })
 
   // Each tab has its own nav history stack:
-  .state('tab.chat', {
+  .state('slider.chat', {
     url: '/chat',
     views: {
-      'tab-chat': {
-        templateUrl: 'app/components/chat/chat.v.html',
+      'slider-chat': {
+        templateUrl: 'app/components/chat/chat.v.html'
+      },
+      'slider-settings': {
+        templateUrl: 'app/components/settings/settings.v.html'
       }
     }
   })
 
-  .state('tab.settings', {
-    url: '/settings',
-    views: {
-      'tab-settings': {
-        templateUrl: 'app/components/settings/settings.v.html',
-        controller: 'SettingsCtrl'
-      }
-    }
-  });
+  // .state('slider.settings', {
+  //   url: '/settings',
+  //   views: {
+  //     'slider-settings': {
+  //       templateUrl: 'app/components/settings/settings.v.html'
+  //     }
+  //   }
+  // })
+
+  ;
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/chat');
-
+  $urlRouterProvider.otherwise('/slider/chat');
 }
 
 },{}],"/Users/davidzhu/PearlClient/www/app/components/chat/chat.c.js":[function(require,module,exports){
@@ -241,14 +249,36 @@ function PrlChatInputSpace() {
 }
 
 },{}],"/Users/davidzhu/PearlClient/www/app/components/chat/chat.m.js":[function(require,module,exports){
-appChat = angular.module('app.chat', []);
+appChat = angular.module('components.chat', []);
 
 require('./chat.c.js')(appChat);
 require('./chat.d.js')(appChat);
 
 module.exports = appChat;
 
-},{"./chat.c.js":"/Users/davidzhu/PearlClient/www/app/components/chat/chat.c.js","./chat.d.js":"/Users/davidzhu/PearlClient/www/app/components/chat/chat.d.js"}],"/Users/davidzhu/PearlClient/www/app/core/core.c.js":[function(require,module,exports){
+},{"./chat.c.js":"/Users/davidzhu/PearlClient/www/app/components/chat/chat.c.js","./chat.d.js":"/Users/davidzhu/PearlClient/www/app/components/chat/chat.d.js"}],"/Users/davidzhu/PearlClient/www/app/components/settings/settings.c.js":[function(require,module,exports){
+module.exports = function(app) {
+  app.controller('SettingsController', [
+    '$http',
+    '$ionicPlatform',
+    '$ionicScrollDelegate', 
+    '$cordovaHealthKit',
+    SettingsController
+  ]);
+}
+
+function SettingsController() {
+  var vm = this;
+}
+
+},{}],"/Users/davidzhu/PearlClient/www/app/components/settings/settings.m.js":[function(require,module,exports){
+appSettings = angular.module('components.settings', []);
+
+require('./settings.c.js')(appSettings);
+
+module.exports = appSettings;
+
+},{"./settings.c.js":"/Users/davidzhu/PearlClient/www/app/components/settings/settings.c.js"}],"/Users/davidzhu/PearlClient/www/app/core/core.c.js":[function(require,module,exports){
 module.exports = function(app) {
   app.run(CoreController);
 }
@@ -282,7 +312,53 @@ require('./core.c.js')(appCore);
 
 module.exports = appCore;
 
-},{"../../assets/js/browserSettings.js":"/Users/davidzhu/PearlClient/www/assets/js/browserSettings.js","./core.c.js":"/Users/davidzhu/PearlClient/www/app/core/core.c.js"}],"/Users/davidzhu/PearlClient/www/assets/js/browserSettings.js":[function(require,module,exports){
+},{"../../assets/js/browserSettings.js":"/Users/davidzhu/PearlClient/www/assets/js/browserSettings.js","./core.c.js":"/Users/davidzhu/PearlClient/www/app/core/core.c.js"}],"/Users/davidzhu/PearlClient/www/app/shared/slider/slider.c.js":[function(require,module,exports){
+module.exports = function(app) {
+  app.controller('SliderController', [
+    '$state',
+    SliderController
+  ]);
+}
+
+function SliderController($state) {
+  
+  var vm = this;
+
+  vm.currentSlide;
+  vm.slideHasChanged = slideHasChanged;
+
+  console.log("I am in SliderControlller.");
+
+  function slideHasChanged($index) {
+    // console.log("Slide has changed.");
+
+    // console.log("Index: ");
+    // console.log($index);
+
+    // FIXME: This is janky as hell.
+    // Animations caused by this logic creates a huge black void in the middle.
+    // switch ($index) {
+    //   case 0:
+    //     $state.go('slider.chat');
+    //     break;
+    //   case 1:
+    //     $state.go('slider.settings');
+    //     break;
+    //   default:
+    //     $state.go('slider.chat');
+    // }
+
+  }
+}
+
+},{}],"/Users/davidzhu/PearlClient/www/app/shared/slider/slider.m.js":[function(require,module,exports){
+appSlider = angular.module('app.slider', []);
+
+require('./slider.c.js')(appSlider);
+
+module.exports = appSlider;
+
+},{"./slider.c.js":"/Users/davidzhu/PearlClient/www/app/shared/slider/slider.c.js"}],"/Users/davidzhu/PearlClient/www/assets/js/browserSettings.js":[function(require,module,exports){
 window.plugins = {
   "healthkit": {
     available:function(abc){

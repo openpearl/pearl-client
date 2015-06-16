@@ -1,5 +1,9 @@
 $statusBarHeight: 20px;
 
+body {
+  font-size: 16px;
+}
+
 .pane {
   background-color: black;
   background: linear-gradient($light, $sky);
@@ -17,4 +21,8 @@ $statusBarHeight: 20px;
   @extend %sh1;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
+}
+
+.slider {
+    height: 100%;
 }

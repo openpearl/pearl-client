@@ -1,10 +1,15 @@
 var appCore = require('./core/core.m.js');
-var appChat = require('./components/chat/chat.m.js');
+var sharedSlider = require('./shared/slider/slider.m.js');
+
+var componentsChat = require('./components/chat/chat.m.js');
+var componentsSettings = require('./components/settings/settings.m.js');
 
 var app = angular.module('app', [
 
   appCore.name,
-  appChat.name,
+  sharedSlider.name,
+  componentsChat.name,
+  componentsSettings.name,
 
 ])
 
