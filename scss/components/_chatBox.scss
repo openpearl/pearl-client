@@ -1,26 +1,82 @@
 .chat-history {
-  background: linear-gradient($light, $sky);
+  padding-top: 20px + $statusBarHeight;
+}
+
+prl-chat-scroll {
+  height: 70%;
+}
+
+#spacer {
+  // TODO: Change later to reflect all screens sizes.
+  height: 200px;
+  width: 100%;
 }
 
 .chat-bubble-wrapper {
   width: 100%;
-
-  // TODO: Not sure if best practice.
   display: flex;
-  justify-content: flex-end;
-
   margin-top: 10px;
 }
 
-.chat-bubble {
+%bubble {
+  border-radius: 12px;
+  border-bottom-right-radius: 0px;
   padding: 5px 10px;
+  box-sizing: content-box;
+  animation: fadein 0.5s;
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.chat-bubble {
   margin-right: 10px;
   background-color: $orange;
   color: white; 
+  margin-left: auto;
 
-  width: max-content;
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 70%;  
 
-  max-width: 70%;
+  @extend %bubble;
+}
+
+.chat-bubble-left {
+  margin-left: 10px;
+  background-color: white;
+  color: black; 
+
   border-radius: 12px;
-  border-bottom-right-radius: 0px;
+  border-top-left-radius: 0px;
+}
+
+prl-chat-input-space {
+  position: absolute; 
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 120px;
+
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.input-bubble {
+  @extend %bubble;
+  background-color: $orange;
+  color: white;
+  height: min-content;
+  margin: 5px;
+
+  @extend %sh2;
+
+  &:active {
+    @extend %sh0;
+  }
 }

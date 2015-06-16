@@ -9,20 +9,20 @@ var app = angular.module('app', [
 
 ])
 
-.run(function($ionicPlatform) {
-  console.log($ionicPlatform);
+.run(function($ionicPlatform, $cordovaStatusbar) {
   $ionicPlatform.ready(function() {
-    console.log("Is this ionicPlatform working?");
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
-    if (window.StatusBar) {
-      // org.apache.cordova.statusbar required
-      StatusBar.styleLightContent();
-    }
+    $cordovaStatusbar.style(2);
+    // if (window.StatusBar) {
+    //   // org.apache.cordova.statusbar required
+    //   window.StatusBar.styleBlackTranslucent();
+    // }
   });
+
 });
 
 require('./app.r.js')(app);
@@ -90,18 +90,33 @@ function ChatController(
     $cordovaHealthKit
   ) {
 
+  var vm = this;
+
+  vm.message = "";
+  vm.chatMessages = [];
+  vm.inputOptions = ["Hello", "cats", "Another choice", "keep adding", "more"];
+
+  vm.getStepCount = getStepCount;
+  vm.sendInformation = sendInformation;
+
   // TODO: Test this when Healthkit entitlement becomes possible.
   $ionicPlatform.ready(function() {
     console.log("Platform is ready here.");
     $cordovaHealthKit.isAvailable().then(
       function(yes) {
-        var readPermissions = ['HKQuantityTypeIdentifierStepCount'];
+        
+        var readPermissions = [
+          'HKQuantityTypeIdentifierDistanceWalkingRunning',
+          'HKQuantityTypeIdentifierDistanceCycling',
+          'HKQuantityTypeIdentifierStepCount',
+        ];
+
         var writePermissions = [];
         console.log(readPermissions);      
         
         $cordovaHealthKit.requestAuthorization(
           readPermissions,
-          readPermissions
+          writePermissions
         ).then(function(success){
           console.log("Requested permissions to read and write health information.");
          });
@@ -112,41 +127,57 @@ function ChatController(
       });
   });
 
-  var vm = this;
-
-  vm.getStepCount = getStepCount;
-
-  vm.message = "";
-  vm.sendInformation = sendInformation;
-  vm.chatMessages = [];
-
   function getStepCount(){
     console.log("Getting step count.");
 
     var m = moment().startOf('day');  
-    var endDate = m.toDate();  
-    var startDate = moment(m).subtract('d', 1).toDate();  
+    var startDate = m.toDate();  
+    var endDate = moment(m).add(1, 'd').toDate(); 
+    
+    console.log(startDate);
+    console.log(endDate); 
 
     window.plugins.healthkit.sumQuantityType({
       'startDate': startDate,
       'endDate': endDate,
+      'distanceUnit': 'mileUnit',
+      // 'sampleType': 'HKQuantityTypeIdentifierDistanceWalkingRunning'
       'sampleType': 'HKQuantityTypeIdentifierStepCount'
-    }, function(value) {
-      console.log("HealthKit Step Count Success: " + value);
+    }, function(steps) {
+      console.log("HealthKit Step Count Success (Changed): " + steps + " steps.");
+
+      // Perform basic calculations to get time exercised.
+      var milesWalked = steps / 2000.0;
+
+      // http://en.wikipedia.org/wiki/Preferred_walking_speed
+      var timeTaken = Math.round((milesWalked / 3.1) * 60);
+
+      vm.chatMessages.push({
+        username: "ai",
+        message: "Duration of exercise today: " + timeTaken + " minutes."
+      });
+
     }, function () {
       console.log("HealthKit Step Count Query unsuccessful.");
     });
   }
 
-  function sendInformation(){
-    vm.getStepCount();
+  function sendInformation($index){
 
+    console.log($index);
+    console.log(vm.inputOptions[$index]);
+
+    vm.message = vm.inputOptions[$index];
+
+    vm.getStepCount();
     console.log(vm.message);
 
     // TODO: Add data to speech bubble.
     // TODO: Move this either to a factory or a service.
-    vm.chatMessages.push(vm.message);
-    $ionicScrollDelegate.scrollBottom(true);
+    vm.chatMessages.push({
+      username: 'client',
+      message: vm.message
+    });
 
     // TODO: Implement POST request.
     var url = "https://odmmjjialz.localtunnel.me/api/v1/tests/";
@@ -156,9 +187,12 @@ function ChatController(
       success(function(data, status, headers, config) {
         // this callback will be called asynchronously
         // when the response is available
-
         console.log(data.message);
-        vm.chatMessages.push(data.message);
+
+        vm.chatMessages.push({
+          userame: 'ai',
+          message: data.message
+        });
 
       }).
       error(function(data, status, headers, config) {
@@ -170,13 +204,51 @@ function ChatController(
   }
 }
 
+},{}],"/Users/davidzhu/PearlClient/www/app/components/chat/chat.d.js":[function(require,module,exports){
+module.exports = function(app) {
+  
+  app.directive('prlChatScroll', [
+    '$ionicScrollDelegate', 
+    PrlChatScroll
+  ]);
+
+  app.directive('prlChatInputSpace', [
+    PrlChatInputSpace
+  ]);
+
+}
+
+function PrlChatScroll($ionicScrollDelegate) {
+  return {
+    restrict: 'EA',
+    scope: {
+      val: '='
+    },
+    link: function(scope, element, attrs) {
+      scope.$watch('val', function(newValue, oldValue) {
+        if (newValue) {
+          $ionicScrollDelegate.scrollBottom(true);
+        }
+      }, true);
+    }
+  }
+}
+
+function PrlChatInputSpace() {
+  return {
+    restrict: 'E'
+  }
+}
+
 },{}],"/Users/davidzhu/PearlClient/www/app/components/chat/chat.m.js":[function(require,module,exports){
 appChat = angular.module('app.chat', []);
 
 require('./chat.c.js')(appChat);
+require('./chat.d.js')(appChat);
+
 module.exports = appChat;
 
-},{"./chat.c.js":"/Users/davidzhu/PearlClient/www/app/components/chat/chat.c.js"}],"/Users/davidzhu/PearlClient/www/app/core/core.c.js":[function(require,module,exports){
+},{"./chat.c.js":"/Users/davidzhu/PearlClient/www/app/components/chat/chat.c.js","./chat.d.js":"/Users/davidzhu/PearlClient/www/app/components/chat/chat.d.js"}],"/Users/davidzhu/PearlClient/www/app/core/core.c.js":[function(require,module,exports){
 module.exports = function(app) {
   app.run(CoreController);
 }

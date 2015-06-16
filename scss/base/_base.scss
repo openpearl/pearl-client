@@ -1,3 +1,20 @@
-body {
-  background: linear-gradient(red, blue); /* Standard syntax */
+$statusBarHeight: 20px;
+
+.pane {
+  background-color: black;
+  background: linear-gradient($light, $sky);
+}
+
+.nav-upper-padding {
+  width: 100%;
+  height: $statusBarHeight;
+  background: linear-gradient(black, lighten(black, 5%));
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  opacity: 0.7;
+  @extend %sh1;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
