@@ -10,6 +10,11 @@ function appRoutes($stateProvider, $urlRouterProvider) {
   // Each state's controller can be found in controllers.js
   $stateProvider
 
+  .state('login', {
+    url: "/login",
+    templateUrl: "app/components/loginSignUp/loginSignUp.v.html"
+  })
+
   // setup an abstract state for the slider directive
   .state('slider', {
     url: "/slider",
@@ -28,19 +33,8 @@ function appRoutes($stateProvider, $urlRouterProvider) {
         templateUrl: 'app/components/settings/settings.v.html'
       }
     }
-  })
-
-  // .state('slider.settings', {
-  //   url: '/settings',
-  //   views: {
-  //     'slider-settings': {
-  //       templateUrl: 'app/components/settings/settings.v.html'
-  //     }
-  //   }
-  // })
-
-  ;
+  });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/slider/chat');
+  $urlRouterProvider.otherwise('/login');
 }
