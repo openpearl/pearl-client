@@ -259,11 +259,12 @@ module.exports = appChat;
 },{"./chat.c.js":"/Users/davidzhu/PearlClient/www/app/components/chat/chat.c.js","./chat.d.js":"/Users/davidzhu/PearlClient/www/app/components/chat/chat.d.js"}],"/Users/davidzhu/PearlClient/www/app/components/loginSignUp/loginSignUp.c.js":[function(require,module,exports){
 module.exports = function(app) {
   app.controller('LoginSignUpController', [
+    "$state",
     LoginSignUpController
   ]);
 }
 
-function LoginSignUpController() {
+function LoginSignUpController($state) {
   var vm = this;
 
   vm.name = '';
@@ -297,6 +298,7 @@ function LoginSignUpController() {
     }
 
     // Complete POST request and redirect.
+    $state.go("slider.chat");
   }
 
   function submitSignUp() {

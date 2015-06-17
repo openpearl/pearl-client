@@ -1,10 +1,11 @@
 module.exports = function(app) {
   app.controller('LoginSignUpController', [
+    "$state",
     LoginSignUpController
   ]);
 }
 
-function LoginSignUpController() {
+function LoginSignUpController($state) {
   var vm = this;
 
   vm.name = '';
@@ -38,6 +39,7 @@ function LoginSignUpController() {
     }
 
     // Complete POST request and redirect.
+    $state.go("slider.chat");
   }
 
   function submitSignUp() {
