@@ -6,9 +6,19 @@ module.exports = function(app) {
 
 function LoginSignUpController() {
   var vm = this;
+
+  vm.name;
   vm.email;
   vm.password;
+  vm.confirmPassword;
+
+  vm.loginMode = true;
+  vm.toggleMode = toggleMode;
   vm.submitLogin = submitLogin;
+
+  function toggleMode() {
+    vm.loginMode = !vm.loginMode;
+  }
 
   function submitLogin() {
     console.log("Login button pressed.");

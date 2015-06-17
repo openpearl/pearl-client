@@ -265,9 +265,19 @@ module.exports = function(app) {
 
 function LoginSignUpController() {
   var vm = this;
+
+  vm.name;
   vm.email;
   vm.password;
+  vm.confirmPassword;
+
+  vm.loginMode = true;
+  vm.toggleMode = toggleMode;
   vm.submitLogin = submitLogin;
+
+  function toggleMode() {
+    vm.loginMode = !vm.loginMode;
+  }
 
   function submitLogin() {
     console.log("Login button pressed.");
@@ -276,37 +286,14 @@ function LoginSignUpController() {
   }
 }
 
-},{}],"/Users/davidzhu/PearlClient/www/app/components/loginSignUp/loginSignUp.d.js":[function(require,module,exports){
-module.exports = function(app) {
-  app.directive('prlLoginSignUpButton', [
-    PrlLoginSignUpButton
-  ]);
-
-}
-
-function PrlLoginSignUpButton() {
-  return {
-    restrict: 'E',
-    scope: {
-      val: '='
-    },
-    replace: true,
-    templateUrl: 'app/components/loginSignUp/loginSignUpButtons.t.html',
-    link: function(scope, element, attrs) {
-
-    }
-  }
-}
-
 },{}],"/Users/davidzhu/PearlClient/www/app/components/loginSignUp/loginSignUp.m.js":[function(require,module,exports){
 componentsLoginSignUp = angular.module('components.loginSignUp', []);
 
 require('./loginSignUp.c.js')(componentsLoginSignUp);
-require('./loginSignUp.d.js')(componentsLoginSignUp);
 
 module.exports = componentsLoginSignUp;
 
-},{"./loginSignUp.c.js":"/Users/davidzhu/PearlClient/www/app/components/loginSignUp/loginSignUp.c.js","./loginSignUp.d.js":"/Users/davidzhu/PearlClient/www/app/components/loginSignUp/loginSignUp.d.js"}],"/Users/davidzhu/PearlClient/www/app/components/settings/settings.c.js":[function(require,module,exports){
+},{"./loginSignUp.c.js":"/Users/davidzhu/PearlClient/www/app/components/loginSignUp/loginSignUp.c.js"}],"/Users/davidzhu/PearlClient/www/app/components/settings/settings.c.js":[function(require,module,exports){
 module.exports = function(app) {
   app.controller('SettingsController', [
     '$http',

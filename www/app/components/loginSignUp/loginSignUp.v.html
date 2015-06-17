@@ -1,13 +1,14 @@
 <div class="list" ng-controller="LoginSignUpController as loginCtrl">
   
-  <label class="item item-input item-stacked-label">
+  <label ng-hide="loginCtrl.loginMode" 
+    class="item item-input item-stacked-label">
     <span class="input-label">Name</span>
-    <input type="text" ng-model="loginCtrl.email" placeholder="john@email.com">
+    <input type="text" ng-model="loginCtrl.name" placeholder="Janna">
   </label>
 
   <label class="item item-input item-stacked-label">
     <span class="input-label">Email</span>
-    <input type="email" ng-model="loginCtrl.email" placeholder="john@email.com">
+    <input type="email" ng-model="loginCtrl.email" placeholder="janna@email.com">
   </label>
 
   <label class="item item-input item-stacked-label">
@@ -15,11 +16,29 @@
     <input type="password" ng-model="loginCtrl.password" placeholder="*****">
   </label>
 
-  <label class="item item-input item-stacked-label">
+  <label ng-hide="loginCtrl.loginMode" 
+    class="item item-input item-stacked-label">
     <span class="input-label">Confirm Password</span>
-    <input type="password" ng-model="loginCtrl.password" placeholder="*****">
+    <input type="password" ng-model="loginCtrl.confirmPassword" 
+      placeholder="*****">
   </label>
 
-  <prl-login-sign-up-button></prl-login-sign-up-button>
+  <button ng-show="loginCtrl.loginMode" 
+    class="button button-block button-positive" 
+    ng-click="loginCtrl.submitLogin();">
+    Login
+  </button>
+
+  <button ng-hide="loginCtrl.loginMode" 
+    class="button button-block button-balanced" 
+    ng-click="loginCtrl.submitLogin();">
+    Sign up
+  </button>
+
+  <button class="button button-block button-stable" 
+    ng-click="loginCtrl.toggleMode();">
+    <span ng-show="loginCtrl.loginMode">Need to sign up?</span>
+    <span ng-hide="loginCtrl.loginMode">Need to login?</span>
+  </button>
 
 </div>
