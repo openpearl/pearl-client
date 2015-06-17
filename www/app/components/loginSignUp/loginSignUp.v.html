@@ -1,3 +1,18 @@
-<div>
-  Hello Login world!
+<div class="list" ng-controller="LoginSignUpController as loginCtrl">
+  
+  <label class="item item-input item-stacked-label">
+    <span class="input-label">Email</span>
+    <input type="email" ng-model="loginCtrl.email" placeholder="john@email.com">
+  </label>
+
+  <label class="item item-input item-stacked-label">
+    <span class="input-label">Password</span>
+    <input type="password" ng-model="loginCtrl.password" placeholder="*****">
+  </label>
+
+  <button class="button button-block button-positive" 
+    ng-click="loginCtrl.submitLogin();">
+    Login
+  </button>
+
 </div>

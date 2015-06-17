@@ -45,6 +45,27 @@ body {
 .slider {
   height: 100%; }
 
+.list {
+  padding: 10px;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center; }
+  .list > * {
+    width: 100%;
+    padding: 0; }
+
+label.item {
+  border: 0px; }
+
 .chat-history {
   padding-top: 40px; }
 

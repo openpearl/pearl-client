@@ -12,7 +12,9 @@ function appRoutes($stateProvider, $urlRouterProvider) {
 
   .state('login', {
     url: "/login",
-    templateUrl: "app/components/loginSignUp/loginSignUp.v.html"
+    templateUrl: "app/components/loginSignUp/loginSignUp.v.html",
+    controller: 'LoginSignUpController',
+    controllerAs: 'loginCtrl'
   })
 
   // setup an abstract state for the slider directive
