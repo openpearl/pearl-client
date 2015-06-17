@@ -1,4 +1,4 @@
-appChat = angular.module('app.chat', []);
+appChat = angular.module('components.chat', []);
 
 require('./chat.c.js')(appChat);
 require('./chat.d.js')(appChat);

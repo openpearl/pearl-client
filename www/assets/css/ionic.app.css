@@ -23,6 +23,9 @@ $dark:                            #444 !default;
 .input-bubble {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); }
 
+body {
+  font-size: 16px; }
+
 .pane {
   background-color: black;
   background: linear-gradient(#EBF6F0, #C7E4EE); }
@@ -38,6 +41,30 @@ $dark:                            #444 !default;
   opacity: 0.7;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px; }
+
+.slider {
+  height: 100%; }
+
+.list {
+  padding: 10px;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center; }
+  .list > * {
+    width: 100%;
+    padding: 0; }
+
+label.item {
+  border: 0px; }
 
 .chat-history {
   padding-top: 40px; }
