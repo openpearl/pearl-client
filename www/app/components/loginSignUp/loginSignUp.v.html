@@ -1,6 +1,11 @@
 <div class="list" ng-controller="LoginSignUpController as loginCtrl">
   
   <label class="item item-input item-stacked-label">
+    <span class="input-label">Name</span>
+    <input type="text" ng-model="loginCtrl.email" placeholder="john@email.com">
+  </label>
+
+  <label class="item item-input item-stacked-label">
     <span class="input-label">Email</span>
     <input type="email" ng-model="loginCtrl.email" placeholder="john@email.com">
   </label>
@@ -10,9 +15,11 @@
     <input type="password" ng-model="loginCtrl.password" placeholder="*****">
   </label>
 
-  <button class="button button-block button-positive" 
-    ng-click="loginCtrl.submitLogin();">
-    Login
-  </button>
+  <label class="item item-input item-stacked-label">
+    <span class="input-label">Confirm Password</span>
+    <input type="password" ng-model="loginCtrl.password" placeholder="*****">
+  </label>
+
+  <prl-login-sign-up-button></prl-login-sign-up-button>
 
 </div>

@@ -1,4 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"/home/hdavidzhu/PearlClient/www/app/app.m.js":[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"/Users/davidzhu/PearlClient/www/app/app.m.js":[function(require,module,exports){
 var appCore = require('./core/core.m.js');
 var sharedSlider = require('./shared/slider/slider.m.js');
 
@@ -36,7 +36,7 @@ var app = angular.module('app', [
 
 require('./app.r.js')(app);
 
-},{"./app.r.js":"/home/hdavidzhu/PearlClient/www/app/app.r.js","./components/chat/chat.m.js":"/home/hdavidzhu/PearlClient/www/app/components/chat/chat.m.js","./components/loginSignUp/loginSignUp.m.js":"/home/hdavidzhu/PearlClient/www/app/components/loginSignUp/loginSignUp.m.js","./components/settings/settings.m.js":"/home/hdavidzhu/PearlClient/www/app/components/settings/settings.m.js","./core/core.m.js":"/home/hdavidzhu/PearlClient/www/app/core/core.m.js","./shared/slider/slider.m.js":"/home/hdavidzhu/PearlClient/www/app/shared/slider/slider.m.js"}],"/home/hdavidzhu/PearlClient/www/app/app.r.js":[function(require,module,exports){
+},{"./app.r.js":"/Users/davidzhu/PearlClient/www/app/app.r.js","./components/chat/chat.m.js":"/Users/davidzhu/PearlClient/www/app/components/chat/chat.m.js","./components/loginSignUp/loginSignUp.m.js":"/Users/davidzhu/PearlClient/www/app/components/loginSignUp/loginSignUp.m.js","./components/settings/settings.m.js":"/Users/davidzhu/PearlClient/www/app/components/settings/settings.m.js","./core/core.m.js":"/Users/davidzhu/PearlClient/www/app/core/core.m.js","./shared/slider/slider.m.js":"/Users/davidzhu/PearlClient/www/app/shared/slider/slider.m.js"}],"/Users/davidzhu/PearlClient/www/app/app.r.js":[function(require,module,exports){
 module.exports = function(app) {
   app.config(appRoutes); 
 }
@@ -80,7 +80,7 @@ function appRoutes($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/login');
 }
 
-},{}],"/home/hdavidzhu/PearlClient/www/app/components/chat/chat.c.js":[function(require,module,exports){
+},{}],"/Users/davidzhu/PearlClient/www/app/components/chat/chat.c.js":[function(require,module,exports){
 module.exports = function(app) {
   app.controller('ChatController', [
     '$http',
@@ -212,7 +212,7 @@ function ChatController(
   }
 }
 
-},{}],"/home/hdavidzhu/PearlClient/www/app/components/chat/chat.d.js":[function(require,module,exports){
+},{}],"/Users/davidzhu/PearlClient/www/app/components/chat/chat.d.js":[function(require,module,exports){
 module.exports = function(app) {
   
   app.directive('prlChatScroll', [
@@ -248,7 +248,7 @@ function PrlChatInputSpace() {
   }
 }
 
-},{}],"/home/hdavidzhu/PearlClient/www/app/components/chat/chat.m.js":[function(require,module,exports){
+},{}],"/Users/davidzhu/PearlClient/www/app/components/chat/chat.m.js":[function(require,module,exports){
 appChat = angular.module('components.chat', []);
 
 require('./chat.c.js')(appChat);
@@ -256,7 +256,7 @@ require('./chat.d.js')(appChat);
 
 module.exports = appChat;
 
-},{"./chat.c.js":"/home/hdavidzhu/PearlClient/www/app/components/chat/chat.c.js","./chat.d.js":"/home/hdavidzhu/PearlClient/www/app/components/chat/chat.d.js"}],"/home/hdavidzhu/PearlClient/www/app/components/loginSignUp/loginSignUp.c.js":[function(require,module,exports){
+},{"./chat.c.js":"/Users/davidzhu/PearlClient/www/app/components/chat/chat.c.js","./chat.d.js":"/Users/davidzhu/PearlClient/www/app/components/chat/chat.d.js"}],"/Users/davidzhu/PearlClient/www/app/components/loginSignUp/loginSignUp.c.js":[function(require,module,exports){
 module.exports = function(app) {
   app.controller('LoginSignUpController', [
     LoginSignUpController
@@ -276,14 +276,37 @@ function LoginSignUpController() {
   }
 }
 
-},{}],"/home/hdavidzhu/PearlClient/www/app/components/loginSignUp/loginSignUp.m.js":[function(require,module,exports){
+},{}],"/Users/davidzhu/PearlClient/www/app/components/loginSignUp/loginSignUp.d.js":[function(require,module,exports){
+module.exports = function(app) {
+  app.directive('prlLoginSignUpButton', [
+    PrlLoginSignUpButton
+  ]);
+
+}
+
+function PrlLoginSignUpButton() {
+  return {
+    restrict: 'E',
+    scope: {
+      val: '='
+    },
+    replace: true,
+    templateUrl: 'app/components/loginSignUp/loginSignUpButtons.t.html',
+    link: function(scope, element, attrs) {
+
+    }
+  }
+}
+
+},{}],"/Users/davidzhu/PearlClient/www/app/components/loginSignUp/loginSignUp.m.js":[function(require,module,exports){
 componentsLoginSignUp = angular.module('components.loginSignUp', []);
 
 require('./loginSignUp.c.js')(componentsLoginSignUp);
+require('./loginSignUp.d.js')(componentsLoginSignUp);
 
 module.exports = componentsLoginSignUp;
 
-},{"./loginSignUp.c.js":"/home/hdavidzhu/PearlClient/www/app/components/loginSignUp/loginSignUp.c.js"}],"/home/hdavidzhu/PearlClient/www/app/components/settings/settings.c.js":[function(require,module,exports){
+},{"./loginSignUp.c.js":"/Users/davidzhu/PearlClient/www/app/components/loginSignUp/loginSignUp.c.js","./loginSignUp.d.js":"/Users/davidzhu/PearlClient/www/app/components/loginSignUp/loginSignUp.d.js"}],"/Users/davidzhu/PearlClient/www/app/components/settings/settings.c.js":[function(require,module,exports){
 module.exports = function(app) {
   app.controller('SettingsController', [
     '$http',
@@ -298,14 +321,14 @@ function SettingsController() {
   var vm = this;
 }
 
-},{}],"/home/hdavidzhu/PearlClient/www/app/components/settings/settings.m.js":[function(require,module,exports){
+},{}],"/Users/davidzhu/PearlClient/www/app/components/settings/settings.m.js":[function(require,module,exports){
 appSettings = angular.module('components.settings', []);
 
 require('./settings.c.js')(appSettings);
 
 module.exports = appSettings;
 
-},{"./settings.c.js":"/home/hdavidzhu/PearlClient/www/app/components/settings/settings.c.js"}],"/home/hdavidzhu/PearlClient/www/app/core/core.c.js":[function(require,module,exports){
+},{"./settings.c.js":"/Users/davidzhu/PearlClient/www/app/components/settings/settings.c.js"}],"/Users/davidzhu/PearlClient/www/app/core/core.c.js":[function(require,module,exports){
 module.exports = function(app) {
   app.run(CoreController);
 }
@@ -313,7 +336,7 @@ module.exports = function(app) {
 function CoreController() {
 }
 
-},{}],"/home/hdavidzhu/PearlClient/www/app/core/core.m.js":[function(require,module,exports){
+},{}],"/Users/davidzhu/PearlClient/www/app/core/core.m.js":[function(require,module,exports){
 'use strict';
 
 // Comment this line when in actual device.
@@ -339,7 +362,7 @@ require('./core.c.js')(appCore);
 
 module.exports = appCore;
 
-},{"../../assets/js/browserSettings.js":"/home/hdavidzhu/PearlClient/www/assets/js/browserSettings.js","./core.c.js":"/home/hdavidzhu/PearlClient/www/app/core/core.c.js"}],"/home/hdavidzhu/PearlClient/www/app/shared/slider/slider.c.js":[function(require,module,exports){
+},{"../../assets/js/browserSettings.js":"/Users/davidzhu/PearlClient/www/assets/js/browserSettings.js","./core.c.js":"/Users/davidzhu/PearlClient/www/app/core/core.c.js"}],"/Users/davidzhu/PearlClient/www/app/shared/slider/slider.c.js":[function(require,module,exports){
 module.exports = function(app) {
   app.controller('SliderController', [
     '$state',
@@ -378,14 +401,14 @@ function SliderController($state) {
   }
 }
 
-},{}],"/home/hdavidzhu/PearlClient/www/app/shared/slider/slider.m.js":[function(require,module,exports){
+},{}],"/Users/davidzhu/PearlClient/www/app/shared/slider/slider.m.js":[function(require,module,exports){
 appSlider = angular.module('app.slider', []);
 
 require('./slider.c.js')(appSlider);
 
 module.exports = appSlider;
 
-},{"./slider.c.js":"/home/hdavidzhu/PearlClient/www/app/shared/slider/slider.c.js"}],"/home/hdavidzhu/PearlClient/www/assets/js/browserSettings.js":[function(require,module,exports){
+},{"./slider.c.js":"/Users/davidzhu/PearlClient/www/app/shared/slider/slider.c.js"}],"/Users/davidzhu/PearlClient/www/assets/js/browserSettings.js":[function(require,module,exports){
 window.plugins = {
   "healthkit": {
     available:function(abc){
@@ -394,4 +417,4 @@ window.plugins = {
   }
 };
 
-},{}]},{},["/home/hdavidzhu/PearlClient/www/app/app.m.js"]);
+},{}]},{},["/Users/davidzhu/PearlClient/www/app/app.m.js"]);
