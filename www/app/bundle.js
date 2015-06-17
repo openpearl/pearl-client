@@ -287,7 +287,7 @@ function LoginSignUpController($state) {
     console.log(vm.password);
 
     // FIXME: This part of the code is not DRY.
-    if (vm.email.length === 0) {
+    if (vm.email === undefined) {
       alert("Please enter your email.");
       return;
     }
