@@ -1,5 +1,12 @@
-<ion-view view-title="Pearl" ng-controller="ChatController as chatCtrl">
+<ion-view view-title="Pearl" 
+  ng-controller="ChatController as chatCtrl"
+  ng-init="chatCtrl.sendClientContext();">
   <ion-content class="chat-history">
+
+    <ion-refresher pulling-text="Pull to refresh" 
+      on-refresh="chatCtrl.doRefresh();">
+    </ion-refresher>
+
     <prl-chat-scroll 
       val="chatCtrl.chatMessages" 
       class="chat-bubble-wrapper" 
@@ -10,9 +17,10 @@
         ng-class="{'chat-bubble-left': chatMessage.username !== 'client'}">
         {{chatMessage.message}}
       </div>
-
     </prl-chat-scroll>
+
     <div id="spacer"></div>
+
   </ion-content>
 
   <prl-chat-input-space>

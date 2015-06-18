@@ -1,17 +1,21 @@
 module.exports = function(app) {
   app.controller('ChatController', [
+    '$scope',
     '$http',
     '$ionicPlatform',
     '$ionicScrollDelegate', 
+    // '$ionicView',
     '$cordovaHealthKit',
     ChatController
   ]);
 }
 
 function ChatController(
+    $scope,
     $http, 
     $ionicPlatform, 
     $ionicScrollDelegate, 
+    // $ionicView,
     $cordovaHealthKit
   ) {
 
@@ -21,7 +25,9 @@ function ChatController(
   vm.chatMessages = [];
   vm.inputOptions = ["Hello", "cats", "Another choice", "keep adding", "more"];
 
+  vm.doRefresh = doRefresh;
   vm.getStepCount = getStepCount;
+  vm.sendClientContext = sendClientContext;
   vm.sendInformation = sendInformation;
 
   // TODO: Test this when Healthkit entitlement becomes possible.
@@ -51,6 +57,22 @@ function ChatController(
 
       });
   });
+
+  // FIXME: Can this be 'vm'. If so, or if not, why?
+  $scope.$on('$ionicView.enter', function() {
+    console.log("I have entered the app.");
+
+    // TODO: This is where you can send the context of the walking steps.
+  });
+
+  function doRefresh() {
+    console.log("Refreshing!");
+
+    $scope.$broadcast('scroll.refreshComplete');
+    // $scope.apply(function() {
+
+    // });
+  }
 
   function getStepCount(){
     console.log("Getting step count.");
@@ -85,6 +107,10 @@ function ChatController(
     }, function () {
       console.log("HealthKit Step Count Query unsuccessful.");
     });
+  }
+
+  function sendClientContext() {
+    console.log("I am now going to send client context."); 
   }
 
   function sendInformation($index){
