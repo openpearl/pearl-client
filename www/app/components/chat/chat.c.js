@@ -31,9 +31,6 @@ function ChatController(
   // TODO: Change this to correspond to what the server returns.
   vm.inputOptions = [];
 
-  vm.doRefresh = doRefresh;
-  vm.sendClientContext = sendClientContext;
-
   vm.enterClientInput = enterClientInput;
   vm.requestNextComm = requestNextComm;
 
@@ -47,6 +44,9 @@ function ChatController(
     console.log("Platform is ready here.");
     $cordovaHealthKit.isAvailable().then(
       function(yes) {
+
+        vm.sendClientContext = sendClientContext;
+        vm.doRefresh = doRefresh;
         
         var readPermissions = [
           'HKQuantityTypeIdentifierDistanceWalkingRunning',
@@ -71,11 +71,12 @@ function ChatController(
   $scope.$on('$ionicView.enter', function() {
     console.log("I have entered the app.");
     // TODO: This is where you can send the context of the walking steps.
+    vm.doRefresh();
   });
 
   function doRefresh() {
     console.log("Refreshing the conversation!");
-    // vm.sendClientContext();
+    vm.sendClientContext();
     vm.chatMessages = [];
     vm.requestNextComm("root");
     $scope.$broadcast('scroll.refreshComplete');
@@ -113,11 +114,13 @@ function ChatController(
     vm.getSteps(startDate, endDate)
       .then(function(steps) {
         // TODO: Change this to the correct route.
-        var route = CURRENT_HOST + "/api/v1/documents/1";
-        var clientContext = {
-          // TODO: Change user_id.
-          userID: 1,
-          steps: steps
+        var route = CURRENT_HOST + "/api/v1/documents/2";
+        var clientContext = { 
+          "document": {
+            // TODO: Change user_id.
+            userID: 1,
+            steps: steps
+          }
         }
 
         $http.patch(route, clientContext).
