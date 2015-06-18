@@ -66,10 +66,6 @@ body {
 label.item {
   border: 0px; }
 
-.list {
-  height: 400px;
-  background-color: red; }
-
 .chat-history {
   padding-top: 40px; }
 

@@ -23,12 +23,16 @@ function ChatController(
 
   vm.message = "";
   vm.chatMessages = [];
+
+  // TODO: Change this to correspond to what the server returns.
   vm.inputOptions = ["Hello", "cats", "Another choice", "keep adding", "more"];
 
   vm.doRefresh = doRefresh;
   vm.getStepCount = getStepCount;
   vm.sendClientContext = sendClientContext;
-  vm.sendInformation = sendInformation;
+
+  vm.enterClientInput = enterClientInput;
+  vm.haveConversation = haveConversation;
 
   // TODO: Test this when Healthkit entitlement becomes possible.
   $ionicPlatform.ready(function() {
@@ -66,12 +70,9 @@ function ChatController(
   });
 
   function doRefresh() {
-    console.log("Refreshing!");
-
+    console.log("Refreshing the conversation!");
+    vm.sendClientContext();
     $scope.$broadcast('scroll.refreshComplete');
-    // $scope.apply(function() {
-
-    // });
   }
 
   function getStepCount(){
@@ -91,18 +92,44 @@ function ChatController(
       // 'sampleType': 'HKQuantityTypeIdentifierDistanceWalkingRunning'
       'sampleType': 'HKQuantityTypeIdentifierStepCount'
     }, function(steps) {
-      console.log("HealthKit Step Count Success (Changed): " + steps + " steps.");
+      console.log("HealthKit Step Count Success (Changed): " 
+        + steps + " steps.");
 
-      // Perform basic calculations to get time exercised.
-      var milesWalked = steps / 2000.0;
+      // TODO: Change this to the correct route.
+      var route = CURRENT_HOST + "/api/v1/tests/";
+      var clientContext = {
+        // TODO: Change user_id.
+        userId: "test",
+        stepCount: steps
+      }
 
-      // http://en.wikipedia.org/wiki/Preferred_walking_speed
-      var timeTaken = Math.round((milesWalked / 3.1) * 60);
+      $http.post(route, clientContext).
+        success(function(data, status, headers, config) {
+          // this callback will be called asynchronously
+          // when the response is available
+          console.log(data.message);
 
-      vm.chatMessages.push({
-        username: "ai",
-        message: "Duration of exercise today: " + timeTaken + " minutes."
-      });
+          // TODO: Populate messages with the next message.
+          // Call method to populate messages and commands.
+
+        }).
+        error(function(data, status, headers, config) {
+          // called asynchronously if an error occurs
+          // or server returns response with an error status.
+          alert("An error happened sending the message.");
+        });
+
+      // TODO: Move this logic into the server.
+      // // Perform basic calculations to get time exercised.
+      // var milesWalked = steps / 2000.0;
+
+      // // http://en.wikipedia.org/wiki/Preferred_walking_speed
+      // var timeTaken = Math.round((milesWalked / 3.1) * 60);
+
+      // vm.chatMessages.push({
+      //   speaker: "ai",
+      //   message: "Duration of exercise today: " + timeTaken + " minutes."
+      // });
 
     }, function () {
       console.log("HealthKit Step Count Query unsuccessful.");
@@ -113,37 +140,45 @@ function ChatController(
     console.log("I am now going to send client context."); 
   }
 
-  function sendInformation($index){
+  function enterClientInput($index) {
+    console.log("Entering the client input.");
 
     console.log($index);
     console.log(vm.inputOptions[$index]);
 
     vm.message = vm.inputOptions[$index];
-
-    vm.getStepCount();
     console.log(vm.message);
+  }
+
+  function haveConversation(){
 
     // TODO: Add data to speech bubble.
     // TODO: Move this either to a factory or a service.
     vm.chatMessages.push({
-      username: 'client',
+      speaker: 'client',
       message: vm.message
     });
 
     // TODO: Implement POST request.
-    var url = "https://odmmjjialz.localtunnel.me/api/v1/tests/";
-    var msg = vm.message;
+    var route = CURRENT_HOST + "/api/v1/tests/";
+    var commRequest = {
+      // TODO: Populate this information properly.
+      commId: "",
+      message: vm.message
+    }
 
-    $http.post(url, {message: msg}).
+    $http.post(route, commRequest).
       success(function(data, status, headers, config) {
         // this callback will be called asynchronously
         // when the response is available
         console.log(data.message);
 
         vm.chatMessages.push({
-          userame: 'ai',
+          speaker: 'ai',
           message: data.message
         });
+
+        // TODO: Continue logic here or create new helper method.
 
       }).
       error(function(data, status, headers, config) {
