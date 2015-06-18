@@ -1,6 +1,15 @@
 {
   "name": "pearl-client",
   "version": "1.0.0",
+  "description": "Personal health assistant client for the iOS",
+  "author": "David Zhu <hdavidzhu@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/openpearl/PearlClient"  
+  },
+  "bugs": {
+    "url": "https://github.com/openpearl/PearlClient/issues"
+  },
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-concat": "^2.2.0",
@@ -32,5 +41,6 @@
   ],
   "cordovaPlatforms": [
     "ios"
-  ]
+  ],
+  "license": "Apache 2.0"
 }
