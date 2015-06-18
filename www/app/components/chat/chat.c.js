@@ -1,6 +1,7 @@
 module.exports = function(app) {
   app.controller('ChatController', [
     '$scope',
+    '$q',
     '$http',
     '$ionicPlatform',
     '$ionicScrollDelegate', 
@@ -12,6 +13,7 @@ module.exports = function(app) {
 
 function ChatController(
     $scope,
+    $q,
     $http, 
     $ionicPlatform, 
     $ionicScrollDelegate, 
@@ -30,7 +32,6 @@ function ChatController(
   vm.inputOptions = [];
 
   vm.doRefresh = doRefresh;
-  vm.getStepCount = getStepCount;
   vm.sendClientContext = sendClientContext;
 
   vm.enterClientInput = enterClientInput;
@@ -38,6 +39,8 @@ function ChatController(
 
   vm.handleSuccessComm = handleSuccessComm;
   vm.handleErrorComm = handleErrorComm;
+
+  vm.getSteps = getSteps;
 
   // TODO: Test this when Healthkit entitlement becomes possible.
   $ionicPlatform.ready(function() {
@@ -78,69 +81,59 @@ function ChatController(
     $scope.$broadcast('scroll.refreshComplete');
   }
 
-  function getStepCount(){
+  function getSteps(startDate, endDate) {
     console.log("Getting step count.");
+
+    return $q(function (resolve, reject) {
+      window.plugins.healthkit.sumQuantityType({
+        'startDate': startDate,
+        'endDate': endDate,
+        'distanceUnit': 'mileUnit',
+        'sampleType': 'HKQuantityTypeIdentifierStepCount'
+      }, function(steps) {
+        console.log("HealthKit Step Count Success: " + steps + " steps.");
+        resolve(steps);
+      }, function () {
+        console.log("HealthKit Step Count Query unsuccessful.");
+        reject();
+      });
+    });
+  }
+
+  function sendClientContext() {
+    console.log("I am now going to send client context."); 
 
     var m = moment().startOf('day');  
     var startDate = m.toDate();  
     var endDate = moment(m).add(1, 'd').toDate(); 
     
     console.log(startDate);
-    console.log(endDate); 
+    console.log(endDate);
 
-    window.plugins.healthkit.sumQuantityType({
-      'startDate': startDate,
-      'endDate': endDate,
-      'distanceUnit': 'mileUnit',
-      // 'sampleType': 'HKQuantityTypeIdentifierDistanceWalkingRunning'
-      'sampleType': 'HKQuantityTypeIdentifierStepCount'
-    }, function(steps) {
-      console.log("HealthKit Step Count Success (Changed): " 
-        + steps + " steps.");
+    vm.getSteps(startDate, endDate)
+      .then(function(steps) {
+        // TODO: Change this to the correct route.
+        var route = CURRENT_HOST + "/api/v1/documents/1";
+        var clientContext = {
+          // TODO: Change user_id.
+          userID: 1,
+          steps: steps
+        }
 
-      // TODO: Change this to the correct route.
-      var route = CURRENT_HOST + "/api/v1/tests/";
-      var clientContext = {
-        // TODO: Change user_id.
-        userId: "test",
-        stepCount: steps
-      }
+        $http.patch(route, clientContext).
+          success(function(data, status, headers, config) {
+            console.log(data.message);
 
-      $http.post(route, clientContext).
-        success(function(data, status, headers, config) {
-          // this callback will be called asynchronously
-          // when the response is available
-          console.log(data.message);
+            // TODO: Populate messages with the next message.
+            // Call method to populate messages and commands.
 
-          // TODO: Populate messages with the next message.
-          // Call method to populate messages and commands.
-
-        }).
-        error(function(data, status, headers, config) {
-          // called asynchronously if an error occurs
-          // or server returns response with an error status.
-          alert("An error happened sending the message.");
-        });
-
-      // TODO: Move this logic into the server.
-      // // Perform basic calculations to get time exercised.
-      // var milesWalked = steps / 2000.0;
-
-      // // http://en.wikipedia.org/wiki/Preferred_walking_speed
-      // var timeTaken = Math.round((milesWalked / 3.1) * 60);
-
-      // vm.chatMessages.push({
-      //   speaker: "ai",
-      //   message: "Duration of exercise today: " + timeTaken + " minutes."
-      // });
-
-    }, function () {
-      console.log("HealthKit Step Count Query unsuccessful.");
-    });
-  }
-
-  function sendClientContext() {
-    console.log("I am now going to send client context."); 
+          }).
+          error(function(data, status, headers, config) {
+            alert("An error happened sending the message.");
+          });
+      }, function() {
+        console.log("Error in getSteps promise.");
+      }); 
   }
 
   function enterClientInput($index) {
