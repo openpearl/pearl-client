@@ -27,7 +27,7 @@
     <div class="input-bubble"
     ng-click="chatCtrl.enterClientInput($index)" 
     ng-repeat="inputOption in chatCtrl.inputOptions track by $index">
-      {{inputOption}}
+      {{inputOption.inputMessage}}
     </div>
   </prl-chat-input-space>
 

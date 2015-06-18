@@ -7,5 +7,11 @@
   "watchPatterns": [
     "www/**/*",
     "!www/assets/lib/**/*"
+  ],
+  "proxies": [
+    {
+      "path": "/api/v1",
+      "proxyUrl": "https://50c9a7f.ngrok.com/api/v1"
+    }
   ]
 }

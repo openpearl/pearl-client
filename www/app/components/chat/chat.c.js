@@ -25,14 +25,19 @@ function ChatController(
   vm.chatMessages = [];
 
   // TODO: Change this to correspond to what the server returns.
-  vm.inputOptions = ["Hello", "cats", "Another choice", "keep adding", "more"];
+  vm.inputOptions = [];
 
   vm.doRefresh = doRefresh;
   vm.getStepCount = getStepCount;
   vm.sendClientContext = sendClientContext;
 
   vm.enterClientInput = enterClientInput;
+  vm.startConversation = startConversation;
   vm.haveConversation = haveConversation;
+  vm.requestNextComm = requestNextComm;
+
+  vm.handleSuccessComm = handleSuccessComm;
+  vm.handleErrorComm = handleErrorComm;
 
   // TODO: Test this when Healthkit entitlement becomes possible.
   $ionicPlatform.ready(function() {
@@ -56,22 +61,19 @@ function ChatController(
           console.log("Requested permissions to read and write health information.");
          });
       },
-
-      function(no) {
-
-      });
+      function(no) {});
   });
 
   // FIXME: Can this be 'vm'. If so, or if not, why?
   $scope.$on('$ionicView.enter', function() {
     console.log("I have entered the app.");
-
     // TODO: This is where you can send the context of the walking steps.
   });
 
   function doRefresh() {
     console.log("Refreshing the conversation!");
-    vm.sendClientContext();
+    // vm.sendClientContext();
+    vm.startConversation();
     $scope.$broadcast('scroll.refreshComplete');
   }
 
@@ -150,6 +152,20 @@ function ChatController(
     console.log(vm.message);
   }
 
+  function startConversation() {
+    // var route = CURRENT_HOST + "./api/v1/communications"
+    // var route = "/api/v1/communications"
+    var route = "/api/v1/communications"
+    console.log(route);
+    var commRequest = {
+      commID: "root"
+    };
+
+    $http.post(route, commRequest)
+      .success(vm.handleSuccessComm)
+      .error(vm.handleErrorComm);
+  }
+
   function haveConversation(){
 
     // TODO: Add data to speech bubble.
@@ -187,5 +203,67 @@ function ChatController(
       });
 
     vm.message = "";
+  }
+
+  function requestNextComm(nextCommID) {
+    var route = "/api/v1/communications"
+    console.log(route);
+    var commRequest = {
+      commID: nextCommID
+    };
+
+    $http.post(route, commRequest).
+      success(vm.handleSuccessComm).
+      error(vm.handleErrorComm);
+  }
+
+  function handleSuccessComm(data, status, headers, config) {
+    // this callback will be called asynchronously
+    // when the response is available
+    console.log("Conversation started!");
+    console.log(data);
+
+    var currentCommID = data.commID;
+    var currentSpeaker = data.speaker;
+    var currentMessage = data.message;
+
+    var nextCommID = data.childrenCards[0].cardId;
+    var nextSpeaker = data.childrenCards[0].speaker;
+
+    console.log("Returned commID: " + nextCommID);
+    console.log("Returned speaker: " + nextSpeaker);
+
+    // Push the mssage of the card.
+    if (currentSpeaker === "ai") {
+      vm.chatMessages.push({
+        speaker: currentSpeaker,
+        message: currentMessage,
+      });
+    }
+
+    // Do another request if the next speaker is also an AI.
+    if (nextSpeaker === "ai") {
+      vm.requestNextComm(nextCommID);
+    }
+
+    // Populate choices if next speaker is a client.
+    if (nextSpeaker === "client") {
+      console.log("Next speaker is a client.");
+
+      vm.inputOptions = [];
+
+      // Push over the options.
+      for (i in data.childrenCards) {
+        vm.inputOptions.push({
+          inputMessage: data.childrenCards[i].message,
+          inputCommID: data.childrenCards[i].cardId
+        });
+      }
+    }
+  }
+
+  function handleErrorComm(data, status, headers, config) {
+    console.log(data);
+    alert("Conversation start unsuccessful.");
   }
 }
