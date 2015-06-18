@@ -21,7 +21,9 @@ function ChatController(
 
   var vm = this;
 
-  vm.message = "";
+  vm.currentInputMessage = "";
+  vm.currentInputID = "";
+
   vm.chatMessages = [];
 
   // TODO: Change this to correspond to what the server returns.
@@ -32,8 +34,6 @@ function ChatController(
   vm.sendClientContext = sendClientContext;
 
   vm.enterClientInput = enterClientInput;
-  vm.startConversation = startConversation;
-  vm.haveConversation = haveConversation;
   vm.requestNextComm = requestNextComm;
 
   vm.handleSuccessComm = handleSuccessComm;
@@ -73,7 +73,8 @@ function ChatController(
   function doRefresh() {
     console.log("Refreshing the conversation!");
     // vm.sendClientContext();
-    vm.startConversation();
+    vm.chatMessages = [];
+    vm.requestNextComm("root");
     $scope.$broadcast('scroll.refreshComplete');
   }
 
@@ -144,65 +145,27 @@ function ChatController(
 
   function enterClientInput($index) {
     console.log("Entering the client input.");
+    console.log("Input option index: " + $index);
+    console.log("Input option: " + vm.inputOptions[$index]);
 
-    console.log($index);
-    console.log(vm.inputOptions[$index]);
+    vm.currentInputMessage = vm.inputOptions[$index].inputMessage;
+    vm.currentInputID = vm.inputOptions[$index].inputCommID;
+    console.log(vm.currentInputMessage);
 
-    vm.message = vm.inputOptions[$index];
-    console.log(vm.message);
-  }
-
-  function startConversation() {
-    // var route = CURRENT_HOST + "./api/v1/communications"
-    // var route = "/api/v1/communications"
-    var route = "/api/v1/communications"
-    console.log(route);
-    var commRequest = {
-      commID: "root"
-    };
-
-    $http.post(route, commRequest)
-      .success(vm.handleSuccessComm)
-      .error(vm.handleErrorComm);
-  }
-
-  function haveConversation(){
-
-    // TODO: Add data to speech bubble.
-    // TODO: Move this either to a factory or a service.
+    // Now push client message into the history.
+    // TODO: This is not DRY. Package and make DRY.
     vm.chatMessages.push({
-      speaker: 'client',
-      message: vm.message
+      speaker: "client",
+      message: vm.currentInputMessage,
     });
 
-    // TODO: Implement POST request.
-    var route = CURRENT_HOST + "/api/v1/tests/";
-    var commRequest = {
-      // TODO: Populate this information properly.
-      commId: "",
-      message: vm.message
-    }
+    // Clear input options.
+    vm.currentInputMessage = "";
+    vm.inputOptions = [];
+    console.log("Input options are cleared?");
+    console.log(vm.inputOptions);
 
-    $http.post(route, commRequest).
-      success(function(data, status, headers, config) {
-        // this callback will be called asynchronously
-        // when the response is available
-        console.log(data.message);
-
-        vm.chatMessages.push({
-          speaker: 'ai',
-          message: data.message
-        });
-
-        // TODO: Continue logic here or create new helper method.
-
-      }).
-      error(function(data, status, headers, config) {
-        // called asynchronously if an error occurs
-        // or server returns response with an error status.
-      });
-
-    vm.message = "";
+    vm.requestNextComm(vm.currentInputID);
   }
 
   function requestNextComm(nextCommID) {
@@ -222,6 +185,12 @@ function ChatController(
     // when the response is available
     console.log("Conversation started!");
     console.log(data);
+
+    // When we reach the last message, terminate the conversation.
+    if (data === null) {
+      console.log("Data is null.");
+      return;
+    }
 
     var currentCommID = data.commID;
     var currentSpeaker = data.speaker;
