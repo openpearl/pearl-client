@@ -24,11 +24,11 @@ function LoginSignUpController($state) {
 
   function submitLogin() {
     console.log("Login button pressed.");
-    console.log(vm.email);
-    console.log(vm.password);
+    console.log("Email: " + vm.email);
+    console.log("Password: " + vm.password);
 
     // FIXME: This part of the code is not DRY.
-    if (vm.email.length === 0) {
+    if (vm.email === undefined) {
       alert("Please enter your email.");
       return;
     }
@@ -39,7 +39,26 @@ function LoginSignUpController($state) {
     }
 
     // Complete POST request and redirect.
-    $state.go("slider.chat");
+    var route = CURRENT_HOST + "/api/v1/login/";
+    var loginJson = {
+      email: vm.email,
+      password: vm.password
+    }
+
+    $http.post(route, loginJson).
+      success(function(data, status, headers, config) {
+        // this callback will be called asynchronously
+        // when the response is available
+        console.log("Logging in successful.");
+        console.log(data.message);
+
+        // Redirect to the chat page.
+        $state.go("slider.chat");
+      }).
+      error(function(data, status, headers, config) {
+        alert("Error logging in.");
+        console.log("Error logging  in.");
+      });
   }
 
   function submitSignUp() {
@@ -66,5 +85,26 @@ function LoginSignUpController($state) {
     }
 
     // Complete POST request and redirect.
+    var route = CURRENT_HOST + "/api/v1/login/";
+    var signUpJson = {
+      name: vm.name,
+      email: vm.email,
+      password: vm.password
+    }
+
+    $http.post(route, signUpJson).
+      success(function(data, status, headers, config) {
+        // this callback will be called asynchronously
+        // when the response is available
+        console.log("Signing up successful.");
+        console.log(data.message);
+
+        // TODO: Redirect state to the chat page.
+
+      }).
+      error(function(data, status, headers, config) {
+        alert("Error signing up.");
+        console.log("Error signing up.");
+      });
   }
 }
