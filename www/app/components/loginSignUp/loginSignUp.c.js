@@ -1,11 +1,12 @@
 module.exports = function(app) {
   app.controller('LoginSignUpController', [
+    "$http",
     "$state",
     LoginSignUpController
   ]);
 }
 
-function LoginSignUpController($state) {
+function LoginSignUpController($http, $state) {
   var vm = this;
 
   vm.name = '';
@@ -45,20 +46,22 @@ function LoginSignUpController($state) {
       password: vm.password
     }
 
-    $http.post(route, loginJson).
-      success(function(data, status, headers, config) {
-        // this callback will be called asynchronously
-        // when the response is available
-        console.log("Logging in successful.");
-        console.log(data.message);
+    // TODO: Replace with actual functionality.
+    $state.go("slider.chat");
+    // $http.post(route, loginJson).
+    //   success(function(data, status, headers, config) {
+    //     // this callback will be called asynchronously
+    //     // when the response is available
+    //     console.log("Logging in successful.");
+    //     console.log(data.message);
 
-        // Redirect to the chat page.
-        $state.go("slider.chat");
-      }).
-      error(function(data, status, headers, config) {
-        alert("Error logging in.");
-        console.log("Error logging  in.");
-      });
+    //     // Redirect to the chat page.
+    //     $state.go("slider.chat");
+    //   }).
+    //   error(function(data, status, headers, config) {
+    //     alert("Error logging in.");
+    //     console.log("Error logging  in.");
+    //   });
   }
 
   function submitSignUp() {
