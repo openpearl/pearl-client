@@ -10,4 +10,14 @@ module.exports = function(app) {
 
 function SettingsController() {
   var vm = this;
+
+  vm.enableFriends;
+  vm.testChange = testChange;
+
+
+  function testChange() {
+    console.log("Changed detected!");
+  }
+
+  console.log("Sup yo.");
 }

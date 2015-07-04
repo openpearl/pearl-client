@@ -1,15 +1,9 @@
 <ion-view view-title="Settings" 
   ng-controller="SettingsController as settingsCtrl">
-  <ion-content>
-    <ion-list>
-    <ion-toggle  ng-model="settings.enableFriends">
-        Test Settings
-        asdads
-        asdadsadad
-        asdasdadsasdasdad
-        asdasdadsasdasdadasda
-        asd
-    </ion-toggle>
-    </ion-list>
+  <ion-content scroll="true">
+      <ion-toggle>
+          Test Settings
+      </ion-toggle>
+      <div ngChange="settingsCtrl.TestChange"></div>
   </ion-content>
 </ion-view>

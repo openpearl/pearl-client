@@ -24,6 +24,13 @@ function appRoutes($stateProvider, $urlRouterProvider) {
     templateUrl: "app/shared/slider/slider.v.html"
   })
 
+  // setup an abstract state for the slider directive
+  // .state('initial', {
+  //   url: "/initial",
+  //   abstract: true,
+  //   templateUrl: "app/shared/slider/slider.v.html"
+  // })
+
   // Each tab has its own nav history stack:
   .state('slider.chat', {
     url: '/chat',
