@@ -27,21 +27,6 @@ body {
   height: 100%;
 }
 
-.list {
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  // FIXME: Horribly hard-coded styling for logging in.
-  & > * {
-    width: 100%;
-    padding: 0;
-  }
-
-}
-
 label.item {
   border: 0px;
 }

@@ -1,9 +1,22 @@
 <ion-view view-title="Settings" 
   ng-controller="SettingsController as settingsCtrl">
   <ion-content scroll="true">
-      <ion-toggle>
-          Test Settings
-      </ion-toggle>
-      <div ngChange="settingsCtrl.TestChange"></div>
+    <ion-toggle>
+        Test Settings
+    </ion-toggle>
+    <input id="testing" ng-model="settingsCtrl.TestChange"></input>
+    <button ng-click="settingsCtrl.testClick()" value="Test"></button>
+    <div>{{settingsCtrl.testMessage}}</div>
+
+    <!-- List here. -->
+    <ul class="list">
+      <li class="item item-checkbox">
+         <label class="checkbox">
+           <input type="checkbox">
+         </label>
+         Flux Capacitor
+      </li>
+    </ul>
+
   </ion-content>
 </ion-view>

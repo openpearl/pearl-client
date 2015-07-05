@@ -12,12 +12,15 @@ function SettingsController() {
   var vm = this;
 
   vm.enableFriends;
-  vm.testChange = testChange;
+  vm.testChange;
+  vm.testMessage = "Hello world!";
+  vm.testClick = testClick;
 
-
-  function testChange() {
-    console.log("Changed detected!");
+  function testClick() {
+    console.log("swagswag");
   }
 
-  console.log("Sup yo.");
+
+
+  console.log("Sup syo.");
 }
