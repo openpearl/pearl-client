@@ -1,5 +1,4 @@
-<ion-view view-title="Settings" 
-  ng-controller="SettingsController as vm">
+<ion-view view-title="Settings">
   <ion-content scroll="true">
 
     <!-- Searchbar through goals. -->
@@ -11,7 +10,7 @@
     <!-- Displays all goals. -->
     <ul class="list">
       <li class="item item-checkbox" 
-        ng-repeat="goal in vm.goals | filter: searchText">
+        ng-repeat="goal in ctrl.goals | filter: searchText">
          <label class="checkbox">
            <input type="checkbox">
          </label>
