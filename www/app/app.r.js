@@ -12,7 +12,7 @@ function appRoutes($stateProvider, $urlRouterProvider) {
 
   .state('login', {
     url: "/login",
-    templateUrl: "app/components/loginSignUp/loginSignUp.v.html",
+    templateUrl: "app/components/loginSignUp/loginSignUp.t.html",
     controller: 'LoginSignUpController',
     controllerAs: 'loginCtrl'
   })
@@ -21,7 +21,7 @@ function appRoutes($stateProvider, $urlRouterProvider) {
   .state('slider', {
     url: "/slider",
     abstract: true,
-    templateUrl: "app/shared/slider/slider.v.html"
+    templateUrl: "app/shared/slider/slider.t.html"
   })
 
   // setup an abstract state for the slider directive
@@ -36,10 +36,11 @@ function appRoutes($stateProvider, $urlRouterProvider) {
     url: '/chat',
     views: {
       'slider-chat': {
-        templateUrl: 'app/components/chat/chat.v.html'
+        // templateUrl: 'app/components/chat/chat.t.html'
+        template: '<prl-chat />'
       },
       'slider-settings': {
-        templateUrl: 'app/components/settings/settings.v.html'
+        templateUrl: 'app/components/settings/settings.t.html'
       }
     }
   });

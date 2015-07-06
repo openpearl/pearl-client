@@ -6,6 +6,7 @@ var componentsLoginSignUp
 var componentsChat = require('./components/chat/chat.m.js');
 var componentsSettings = require('./components/settings/settings.m.js');
 
+// Inject all modules at this one centralized place.
 var app = angular.module('app', [
 
   appCore.name,
@@ -24,14 +25,14 @@ var app = angular.module('app', [
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
+
+    // Choose your statusbar styling here.
     // $cordovaStatusbar.style(2);
     $cordovaStatusbar.hide();
-    // if (window.StatusBar) {
-    //   // org.apache.cordova.statusbar required
-    //   window.StatusBar.styleBlackTranslucent();
-    // }
   });
 
 });
 
+// Allow for modularly chaining together different components of this module.
+// Loads the routes.
 require('./app.r.js')(app);

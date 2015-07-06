@@ -7,6 +7,9 @@ module.exports = function(app) {
     '$ionicScrollDelegate', 
     // '$ionicView',
     '$cordovaHealthKit',
+
+    'ionicRequestPermissions',
+
     ChatController
   ]);
 }
