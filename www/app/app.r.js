@@ -12,7 +12,8 @@ function appRoutes($stateProvider, $urlRouterProvider) {
 
   .state('login', {
     url: "/login",
-    templateUrl: "app/components/loginSignUp/loginSignUp.t.html",
+    // templateUrl: "app/components/loginSignUp/loginSignUp.t.html",
+    template: "<prl-login-signup></prl-login-signup>",
     controller: 'LoginSignUpController',
     controllerAs: 'loginCtrl'
   })
