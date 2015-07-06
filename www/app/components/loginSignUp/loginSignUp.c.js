@@ -47,7 +47,9 @@ function LoginSignUpController($http, $state) {
     }
 
     // TODO: Replace with actual functionality.
-    $state.go("slider.chat");
+    // $state.go("slider.chat");
+    $state.go("slider");
+
     // $http.post(route, loginJson).
     //   success(function(data, status, headers, config) {
     //     // this callback will be called asynchronously

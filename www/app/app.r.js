@@ -20,9 +20,9 @@ function appRoutes($stateProvider, $urlRouterProvider) {
   // setup an abstract state for the slider directive
   .state('slider', {
     url: "/slider",
-    abstract: true,
+    // abstract: true,
     templateUrl: "app/shared/slider/slider.t.html"
-  })
+  });
 
   // setup an abstract state for the slider directive
   // .state('initial', {
@@ -32,18 +32,19 @@ function appRoutes($stateProvider, $urlRouterProvider) {
   // })
 
   // Each tab has its own nav history stack:
-  .state('slider.chat', {
-    url: '/chat',
-    views: {
-      'slider-chat': {
-        // templateUrl: 'app/components/chat/chat.t.html'
-        template: '<prl-chat />'
-      },
-      'slider-settings': {
-        templateUrl: 'app/components/settings/settings.t.html'
-      }
-    }
-  });
+  // .state('slider.chat', {
+  //   url: '/chat',
+  //   views: {
+  //     'slider-chat': {
+  //       templateUrl: 'app/components/chat/chat.t.html',
+  //       template: '<prl-chat></prl-chat>'
+  //       // template: '<h1>Hello world!</h1>'
+  //     },
+  //     'slider-settings': {
+  //       templateUrl: 'app/components/settings/settings.t.html'
+  //     }
+  //   }
+  // });
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');

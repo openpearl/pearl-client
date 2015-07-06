@@ -21,9 +21,9 @@ function PrlChat() {
     scope: {},
     templateUrl: 'app/components/chat/chat.t.html',
     replace: true,
+    bindToController: true,
     controller: 'ChatController',
     controllerAs: 'ctrl',
-    bindToController: true
   };
 }
 
