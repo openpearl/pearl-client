@@ -1,6 +1,13 @@
 <ion-view view-title="Settings">
   <ion-content scroll="true">
 
+    <button
+      class="button button-block button-assertive" 
+      ng-click="ctrl.clickLogout();">
+      Log out
+    </button>
+
+
     <!-- Searchbar through goals. -->
     <label class="item item-input">
       <input type="text" ng-model="searchText" 

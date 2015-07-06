@@ -1,10 +1,11 @@
 module.exports = function(app) {
   app.controller('SettingsController', [
+    '$state',
     SettingsController
   ]);
 }
 
-function SettingsController() {
+function SettingsController($state) {
   var vm = this;
 
   vm.searchText;
@@ -14,12 +15,11 @@ function SettingsController() {
     {name: "Sleep well"}
   ];
 
-  vm.testMessage = "Hello world!";
-  vm.testClick = testClick;
+  vm.clickLogout = clickLogout;
 
-  function testClick() {
-    console.log("swagswag");
+  function clickLogout() {
+
+    // TODO: Delete session.
+    $state.go('login');
   }
-
-  console.log("Sup syo.");
 }
