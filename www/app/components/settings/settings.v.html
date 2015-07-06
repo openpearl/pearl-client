@@ -1,20 +1,21 @@
 <ion-view view-title="Settings" 
-  ng-controller="SettingsController as settingsCtrl">
+  ng-controller="SettingsController as vm">
   <ion-content scroll="true">
-    <ion-toggle>
-        Test Settings
-    </ion-toggle>
-    <input id="testing" ng-model="settingsCtrl.TestChange"></input>
-    <button ng-click="settingsCtrl.testClick()" value="Test"></button>
-    <div>{{settingsCtrl.testMessage}}</div>
 
-    <!-- List here. -->
+    <!-- Searchbar through goals. -->
+    <label class="item item-input">
+      <input type="text" ng-model="searchText" 
+        placeholder="Search...">
+    </label>
+
+    <!-- Displays all goals. -->
     <ul class="list">
-      <li class="item item-checkbox">
+      <li class="item item-checkbox" 
+        ng-repeat="goal in vm.goals | filter: searchText">
          <label class="checkbox">
            <input type="checkbox">
          </label>
-         Flux Capacitor
+         {{goal.name}}
       </li>
     </ul>
 
