@@ -1,4 +1,5 @@
 var appCore = require('./core/core.m.js');
+var sharedUser = require('./shared/user/user.m.js');
 var sharedSlider = require('./shared/slider/slider.m.js');
 
 var componentsLoginSignUp 
@@ -10,6 +11,7 @@ var componentsSettings = require('./components/settings/settings.m.js');
 var app = angular.module('app', [
 
   appCore.name,
+  sharedUser.name,
   sharedSlider.name,
 
   componentsLoginSignUp.name,
@@ -22,7 +24,9 @@ var app = angular.module('app', [
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
-    if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
+    if (window.cordova 
+      && window.cordova.plugins 
+      && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
 

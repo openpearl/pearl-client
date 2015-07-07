@@ -10,11 +10,14 @@ module.exports = function(app) {
 function SettingsController($state, $ionicPlatform, $http) {
   var vm = this;
 
+  vm.userID = "placeholderUserID";
+
   vm.searchText;
   vm.clientGoals;
 
   vm.clickLogout = clickLogout;
   vm.getClientGoals = getClientGoals;
+
 
   function clickLogout() {
     // TODO: Delete session.
@@ -22,7 +25,7 @@ function SettingsController($state, $ionicPlatform, $http) {
   }
 
   function getClientGoals() {
-    var url = '/api/v1/users/userID/goals';
+    var url = '/api/v1/users/'+ vm.userID + '/goals';
     $http.get(url)
       .success(function(data) {
         vm.clientGoals = data;

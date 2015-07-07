@@ -29,10 +29,14 @@ describe('SettingsController', function() {
     httpLocalBackend = $httpBackend;
   }));
 
-  describe('.getClientGoals', function() {
-    it('makes a GET request to the server', function() {
+  it("has a userID", function() {
+    expect(SettingsController.userID).not.toBe(undefined);
+  });
 
-      var url = '/api/v1/users/userID/goals'
+  describe('.getClientGoals', function() {
+    it('GETs clientGoals from the server', function() {
+
+      var url = '/api/v1/users/' + SettingsController.userID + '/goals'
       var httpResponse = {
         "adslkjaadsa": {name: "Be more active", checked: true},
         "adfasdfasdf": {name: "Lose weight", checked: false},
@@ -47,15 +51,9 @@ describe('SettingsController', function() {
     });
   });
 
-  // it("")
-
-  // it("triggers updateGoalList on ionicPlatform resume", function() {
-  // });
-
-  // it("asks server for user's goals", 
-  //   function () {
-  //     // SettingsController.get
-  //     // expect(SettingsController.getGoals)
-  //     expect(true).toBe(true);
+  // describe('.setClientGoal', function() {
+  //   it('PUTs updated clientGoal to the server', function() {
+  //     var url = '/api/v1/'
+  //   });
   // });
 });

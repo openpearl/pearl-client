@@ -1,4 +1,4 @@
-appSlider = angular.module('app.slider', []);
+appSlider = angular.module('shared.slider', []);
 
 require('./slider.c.js')(appSlider);
 
