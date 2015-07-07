@@ -2,6 +2,7 @@ describe('SettingsController', function() {
 
   // Create a mock for the correct module?
   beforeEach(module('components.settings'));
+  beforeEach(module('shared.user'));
 
   var SettingsController;
   var stateMock;
@@ -51,9 +52,20 @@ describe('SettingsController', function() {
     });
   });
 
-  // describe('.setClientGoal', function() {
-  //   it('PUTs updated clientGoal to the server', function() {
-  //     var url = '/api/v1/'
-  //   });
-  // });
+  describe('.setClientGoal', function() {
+    it('PUTs updated clientGoal to the server', function() {
+
+      SettingsController.clientGoals = {
+        "asdasdasd": {name: "Be more active", checked: false}
+      }
+
+      var goalID = "asdasdasd"; 
+      var url = '/api/v1/users/' + SettingsController.userID 
+        + '/goals/' + goalID;
+      httpLocalBackend.expectPUT(url).respond(200);
+      var response = SettingsController.setClientGoal(goalID);
+
+      expect(response).toBe(true);
+    });
+  });
 });

@@ -3,21 +3,23 @@ module.exports = function(app) {
     '$state',
     '$ionicPlatform',
     '$http',
+
+    'UserModel',
     SettingsController
   ]);
 }
 
-function SettingsController($state, $ionicPlatform, $http) {
+function SettingsController($state, $ionicPlatform, $http, UserModel) {
   var vm = this;
 
-  vm.userID = "placeholderUserID";
+  vm.userID = UserModel.userID;
 
   vm.searchText;
   vm.clientGoals;
 
   vm.clickLogout = clickLogout;
   vm.getClientGoals = getClientGoals;
-
+  vm.setClientGoal = setClientGoal;
 
   function clickLogout() {
     // TODO: Delete session.
@@ -33,6 +35,17 @@ function SettingsController($state, $ionicPlatform, $http) {
       .error(function(error) {
         console.log("Goal fetching unsuccessful.");
         console.log(error);
+      });
+  }
+
+  function setClientGoal(goalID) {
+    var url = '/api/v1/users/' + vm.userID + '/goals' + goalID;
+    $http.put(url)
+      .success(function(data) {
+        return true;
+      });
+      .error(function(error) {
+        return error;
       });
   }
 }
