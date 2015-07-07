@@ -24,9 +24,10 @@
     "chai": "^3.0.0",
     "gulp-postcss": "^5.1.8",
     "gulp-util": "^2.2.14",
+    "jasmine-core": "^2.3.4",
     "karma": "^0.12.37",
-    "karma-chai": "^0.1.0",
-    "karma-mocha": "^0.2.0",
+    "karma-browserify": "^4.2.1",
+    "karma-jasmine": "^0.3.6",
     "karma-phantomjs-launcher": "^0.2.0",
     "mocha": "^2.2.5",
     "phantomjs": "^1.9.17",
@@ -49,5 +50,5 @@
   "cordovaPlatforms": [
     "ios"
   ],
-  "license": "Apache 2.0"
+  "license": "Apache-2.0"
 }
