@@ -1,16 +1,15 @@
 <ion-view view-title="Pearl" 
-  ng-controller="ChatController as chatCtrl"
-  ng-init="chatCtrl.sendClientContext();">
+  ng-init="ctrl.sendClientContext();">
   <ion-content class="chat-history">
 
     <ion-refresher pulling-text="Pull to refresh" 
-      on-refresh="chatCtrl.doRefresh();">
+      on-refresh="ctrl.doRefresh();">
     </ion-refresher>
 
     <prl-chat-scroll 
-      val="chatCtrl.chatMessages" 
+      val="ctrl.chatMessages" 
       class="chat-bubble-wrapper" 
-      ng-repeat="chatMessage in chatCtrl.chatMessages track by $index">
+      ng-repeat="chatMessage in ctrl.chatMessages track by $index">
 
       <!-- TODO: This should not be hardcoded in the future. -->
       <div class="chat-bubble" 
@@ -25,8 +24,8 @@
 
   <prl-chat-input-space>
     <div class="input-bubble"
-    ng-click="chatCtrl.enterClientInput($index)" 
-    ng-repeat="inputOption in chatCtrl.inputOptions track by $index">
+    ng-click="ctrl.enterClientInput($index)" 
+    ng-repeat="inputOption in ctrl.inputOptions track by $index">
       {{inputOption.inputMessage}}
     </div>
   </prl-chat-input-space>
@@ -34,10 +33,10 @@
 <!--   <ion-footer-bar>
     <div class="item-input-inset pl-full-width">
       <label class="item-input-wrapper ">
-        <input type="text" ng-model="chatCtrl.message" placeholder="Message">
+        <input type="text" ng-model="ctrl.message" placeholder="Message">
       </label>
 
-      <button ng-click="chatCtrl.sendInformation()" class="button button-small button-positive">
+      <button ng-click="ctrl.sendInformation()" class="button button-small button-positive">
         <i class="icon ion-paper-airplane"></i>
       </button>
     </div>

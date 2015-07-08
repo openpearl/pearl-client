@@ -1,76 +1,55 @@
 module.exports = function(app) {
   app.controller('ChatController', [
     '$scope',
-    '$q',
     '$http',
-    '$ionicPlatform',
     '$ionicScrollDelegate', 
-    // '$ionicView',
-    '$cordovaHealthKit',
+
+    'ionicRequestPermissions',
+    'getSteps',
+    'sendClientContext',
+    'requestNextComm',
+
     ChatController
   ]);
 }
 
 function ChatController(
     $scope,
-    $q,
     $http, 
-    $ionicPlatform, 
-    $ionicScrollDelegate, 
-    // $ionicView,
-    $cordovaHealthKit
+    $ionicScrollDelegate,
+
+    // Custom services.
+    ionicRequestPermissions,
+    getSteps,
+    sendClientContext,
+    requestNextComm
   ) {
 
   var vm = this;
 
   vm.currentInputMessage = "";
-  vm.currentInputID = "";
-
-  vm.chatMessages = [];
-
-  // TODO: Change this to correspond to what the server returns.
-  vm.inputOptions = [];
+  vm.currentInputID = ""; // Holder for ID to reference later.
+  vm.chatMessages = []; // Messages displayed in the history.
+  vm.inputOptions = []; // User input options.
 
   vm.enterClientInput = enterClientInput;
   vm.requestNextComm = requestNextComm;
+  vm.addNextComm = addNextComm;
 
-  vm.handleSuccessComm = handleSuccessComm;
-  vm.handleErrorComm = handleErrorComm;
-
-  vm.getSteps = getSteps;
-
-  // TODO: Test this when Healthkit entitlement becomes possible.
-  $ionicPlatform.ready(function() {
-    console.log("Platform is ready here.");
-    $cordovaHealthKit.isAvailable().then(
-      function(yes) {
-
-        vm.sendClientContext = sendClientContext;
-        vm.doRefresh = doRefresh;
-        
-        var readPermissions = [
-          'HKQuantityTypeIdentifierDistanceWalkingRunning',
-          'HKQuantityTypeIdentifierDistanceCycling',
-          'HKQuantityTypeIdentifierStepCount',
-        ];
-
-        var writePermissions = [];
-        console.log(readPermissions);      
-        
-        $cordovaHealthKit.requestAuthorization(
-          readPermissions,
-          writePermissions
-        ).then(function(success){
-          console.log("Requested permissions to read and write health information.");
-         });
-      },
-      function(no) {});
+  // Request permissions and then refresh the page.
+  ionicRequestPermissions(function() {
+    vm.sendClientContext = sendClientContext;
+    vm.doRefresh = doRefresh;
   });
+
+  vm.getSteps = getSteps; // TODO: Why would I want to set this to the vm?
 
   // FIXME: Can this be 'vm'. If so, or if not, why?
   $scope.$on('$ionicView.enter', function() {
     console.log("I have entered the app.");
+
     // TODO: This is where you can send the context of the walking steps.
+    // Check to see if logged in first.
     vm.doRefresh();
   });
 
@@ -78,65 +57,8 @@ function ChatController(
     console.log("Refreshing the conversation!");
     vm.sendClientContext();
     vm.chatMessages = [];
-    vm.requestNextComm("root");
+    vm.requestNextComm("root", vm.addNextComm);
     $scope.$broadcast('scroll.refreshComplete');
-  }
-
-  function getSteps(startDate, endDate) {
-    console.log("Getting step count.");
-
-    return $q(function (resolve, reject) {
-      window.plugins.healthkit.sumQuantityType({
-        'startDate': startDate,
-        'endDate': endDate,
-        'distanceUnit': 'mileUnit',
-        'sampleType': 'HKQuantityTypeIdentifierStepCount'
-      }, function(steps) {
-        console.log("HealthKit Step Count Success: " + steps + " steps.");
-        resolve(steps);
-      }, function () {
-        console.log("HealthKit Step Count Query unsuccessful.");
-        reject();
-      });
-    });
-  }
-
-  function sendClientContext() {
-    console.log("I am now going to send client context."); 
-
-    var m = moment().startOf('day');  
-    var startDate = m.toDate();  
-    var endDate = moment(m).add(1, 'd').toDate(); 
-    
-    console.log(startDate);
-    console.log(endDate);
-
-    vm.getSteps(startDate, endDate)
-      .then(function(steps) {
-        // TODO: Change this to the correct route.
-        var route = CURRENT_HOST + "/api/v1/documents/2";
-        var clientContext = { 
-          "document": {
-            // TODO: Change user_id.
-            userID: 1,
-            steps: steps
-          }
-        }
-
-        $http.patch(route, clientContext).
-          success(function(data, status, headers, config) {
-            console.log(data.message);
-
-            // TODO: Populate messages with the next message.
-            // Call method to populate messages and commands.
-
-          }).
-          error(function(data, status, headers, config) {
-            alert("An error happened sending the message.");
-          });
-      }, function() {
-        console.log("Error in getSteps promise.");
-      }); 
   }
 
   function enterClientInput($index) {
@@ -161,39 +83,17 @@ function ChatController(
     console.log("Input options are cleared?");
     console.log(vm.inputOptions);
 
-    vm.requestNextComm(vm.currentInputID);
+    vm.requestNextComm(vm.currentInputID, vm.addNextComm);
   }
 
-  function requestNextComm(nextCommID) {
-    var route = "/api/v1/communications"
-    console.log(route);
-    var commRequest = {
-      commID: nextCommID
-    };
+  function addNextComm(responseData) {
 
-    $http.post(route, commRequest).
-      success(vm.handleSuccessComm).
-      error(vm.handleErrorComm);
-  }
+    var currentCommID = responseData.commID;
+    var currentSpeaker = responseData.speaker;
+    var currentMessage = responseData.message;
 
-  function handleSuccessComm(data, status, headers, config) {
-    // this callback will be called asynchronously
-    // when the response is available
-    console.log("Conversation started!");
-    console.log(data);
-
-    // When we reach the last message, terminate the conversation.
-    if (data === null) {
-      console.log("Data is null.");
-      return;
-    }
-
-    var currentCommID = data.commID;
-    var currentSpeaker = data.speaker;
-    var currentMessage = data.message;
-
-    var nextCommID = data.childrenCards[0].cardId;
-    var nextSpeaker = data.childrenCards[0].speaker;
+    var nextCommID = responseData.childrenCards[0].cardId;
+    var nextSpeaker = responseData.childrenCards[0].speaker;
 
     console.log("Returned commID: " + nextCommID);
     console.log("Returned speaker: " + nextSpeaker);
@@ -218,17 +118,12 @@ function ChatController(
       vm.inputOptions = [];
 
       // Push over the options.
-      for (i in data.childrenCards) {
+      for (i in responseData.childrenCards) {
         vm.inputOptions.push({
-          inputMessage: data.childrenCards[i].message,
-          inputCommID: data.childrenCards[i].cardId
+          inputMessage: responseData.childrenCards[i].message,
+          inputCommID: responseData.childrenCards[i].cardId
         });
       }
     }
-  }
-
-  function handleErrorComm(data, status, headers, config) {
-    console.log(data);
-    alert("Conversation start unsuccessful.");
   }
 }

@@ -12,32 +12,19 @@ function appRoutes($stateProvider, $urlRouterProvider) {
 
   .state('login', {
     url: "/login",
-    templateUrl: "app/components/loginSignUp/loginSignUp.v.html",
-    controller: 'LoginSignUpController',
-    controllerAs: 'loginCtrl'
+    // templateUrl: "app/components/loginSignUp/loginSignUp.t.html",
+    template: "<prl-login-signup></prl-login-signup>"
+    // controller: 'LoginSignUpController',
+    // controllerAs: 'loginCtrl'
   })
 
   // setup an abstract state for the slider directive
   .state('slider', {
     url: "/slider",
-    abstract: true,
-    templateUrl: "app/shared/slider/slider.v.html"
-  })
-
-  // Each tab has its own nav history stack:
-  .state('slider.chat', {
-    url: '/chat',
-    views: {
-      'slider-chat': {
-        templateUrl: 'app/components/chat/chat.v.html'
-      },
-      'slider-settings': {
-        templateUrl: 'app/components/settings/settings.v.html'
-      }
-    }
+    // abstract: true,
+    templateUrl: "app/shared/slider/slider.t.html"
   });
 
-  // if none of the above states are matched, use this as the fallback
+  // If none of the above states are matched, use this as the fallback.
   $urlRouterProvider.otherwise('/login');
-  // $urlRouterProvider.otherwise('/slider/chat');
 }

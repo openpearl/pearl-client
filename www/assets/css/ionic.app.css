@@ -45,24 +45,6 @@ body {
 .slider {
   height: 100%; }
 
-.list {
-  padding: 10px;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-justify-content: center;
-      -ms-flex-pack: center;
-          justify-content: center; }
-  .list > * {
-    width: 100%;
-    padding: 0; }
-
 label.item {
   border: 0px; }
 
@@ -168,3 +150,8 @@ prl-chat-input-space {
     padding: 0; }
     .pl-full-width > label > input {
       width: 100%; }
+
+#testing {
+  height: 200px;
+  width: 100%;
+  background-color: red; }

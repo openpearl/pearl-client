@@ -1,0 +1,44 @@
+<div class="list">
+  
+  <label ng-hide="ctrl.loginMode" 
+    class="item item-input item-stacked-label">
+    <span class="input-label">Name</span>
+    <input type="text" ng-model="ctrl.name" placeholder="Janna">
+  </label>
+
+  <label class="item item-input item-stacked-label">
+    <span class="input-label">Email</span>
+    <input type="email" ng-model="ctrl.email" placeholder="janna@email.com">
+  </label>
+
+  <label class="item item-input item-stacked-label">
+    <span class="input-label">Password</span>
+    <input type="password" ng-model="ctrl.password" placeholder="*****">
+  </label>
+
+  <label ng-hide="ctrl.loginMode" 
+    class="item item-input item-stacked-label">
+    <span class="input-label">Confirm Password</span>
+    <input type="password" ng-model="ctrl.confirmPassword" 
+      placeholder="*****">
+  </label>
+
+  <button ng-show="ctrl.loginMode" 
+    class="button button-block button-positive" 
+    ng-click="ctrl.clickLogin();">
+    Login
+  </button>
+
+  <button ng-hide="ctrl.loginMode" 
+    class="button button-block button-balanced" 
+    ng-click="ctrl.clickSignup();">
+    Sign up
+  </button>
+
+  <button class="button button-block button-stable" 
+    ng-click="ctrl.toggleMode();">
+    <span ng-show="ctrl.loginMode">Need to sign up?</span>
+    <span ng-hide="ctrl.loginMode">Need to login?</span>
+  </button>
+
+</div>

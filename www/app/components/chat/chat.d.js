@@ -1,5 +1,9 @@
 module.exports = function(app) {
   
+  app.directive('prlChat', [
+    PrlChat
+  ]);
+
   app.directive('prlChatScroll', [
     '$ionicScrollDelegate', 
     PrlChatScroll
@@ -9,6 +13,18 @@ module.exports = function(app) {
     PrlChatInputSpace
   ]);
 
+}
+
+function PrlChat() {
+  return {
+    restrict: 'E',
+    scope: {},
+    templateUrl: 'app/components/chat/chat.t.html',
+    replace: true,
+    bindToController: true,
+    controller: 'ChatController',
+    controllerAs: 'ctrl',
+  };
 }
 
 function PrlChatScroll($ionicScrollDelegate) {
