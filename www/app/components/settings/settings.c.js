@@ -39,11 +39,12 @@ function SettingsController($state, $ionicPlatform, $http, UserModel) {
   }
 
   function setClientGoal(goalID) {
-    var url = '/api/v1/users/' + vm.userID + '/goals' + goalID;
-    $http.put(url)
+    var url = '/api/v1/users/' + vm.userID + '/goals/' + goalID;
+
+    $http.put(url, vm.clientGoals[goalID])
       .success(function(data) {
         return true;
-      });
+      })
       .error(function(error) {
         return error;
       });

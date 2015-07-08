@@ -63,9 +63,16 @@ describe('SettingsController', function() {
       var url = '/api/v1/users/' + SettingsController.userID 
         + '/goals/' + goalID;
       httpLocalBackend.expectPUT(url).respond(200);
-      var response = SettingsController.setClientGoal(goalID);
+      SettingsController.setClientGoal(goalID);
 
-      expect(response).toBe(true);
+      // TODO: Still not sure what this does.
+      // Has to do with async unit testing for requests.
+      httpLocalBackend.flush();
     });
+  });
+
+  afterEach(function() {
+    httpLocalBackend.verifyNoOutstandingExpectation();
+    httpLocalBackend.verifyNoOutstandingRequest();
   });
 });
