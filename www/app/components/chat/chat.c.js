@@ -4,10 +4,13 @@ module.exports = function(app) {
     '$http',
     '$ionicScrollDelegate', 
 
+    'ApiEndpoint',
+
     'ionicRequestPermissions',
     'getSteps',
     'sendClientContext',
     'requestNextComm',
+
 
     ChatController
   ]);
@@ -17,6 +20,8 @@ function ChatController(
     $scope,
     $http, 
     $ionicScrollDelegate,
+
+    ApiEndpoint,
 
     // Custom services.
     ionicRequestPermissions,
@@ -67,13 +72,12 @@ function ChatController(
   }
 
   function getRequiredContext(callback) {
-    var url = "/api/v1/pearl/context";
+    var url = ApiEndpoint.url + "/pearl/context";
     $http.get(url)
       .success(function(data, status, headers, config) {
         console.log("Successfully received contexts.");
         vm.requiredContext = data;
         console.log(vm.requiredContext);
-
         callback();
       })
       .error();

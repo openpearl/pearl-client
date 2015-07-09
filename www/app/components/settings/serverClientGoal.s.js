@@ -3,18 +3,19 @@ module.exports = function(app) {
   app.service('ServerClientGoalService', [
     '$http',
     'UserModel',
+    'ApiEndpoint',
     ServerClientGoalService
   ]);
 
 }
 
-function ServerClientGoalService($http, UserModel) {
+function ServerClientGoalService($http, UserModel, ApiEndpoint) {
 
   this.userID = UserModel.userID;
   this.clientGoals = UserModel.clientGoals;
 
   this.getClientGoals = function getClientGoals() {
-    var url = '/api/v1/goals';
+    var url = ApiEndpoint.url + '/goals';
     $http.get(url)
       .success(function(data) {
         // Voodoo magic right here.
@@ -28,7 +29,8 @@ function ServerClientGoalService($http, UserModel) {
   }
 
   this.setClientGoal = function setClientGoal(goalID) {
-    var url = '/api/v1/users/' + this.userID + '/goals/' + goalID;
+    var url = ApiEndpoint.url + '/users/' + this.userID 
+      + '/goals/' + goalID;
 
     $http.put(url, UserModel.clientGoals[goalID])
       .success(function(data) {
@@ -39,7 +41,7 @@ function ServerClientGoalService($http, UserModel) {
   }
 
   this.toggleClientGoal = function toggleClientGoal(goalID, checked) {
-    var url = '/api/v1/goals/update';
+    var url = ApiEndpoint.url + '/goals/update';
     var data = {};
     data[goalID] = checked;
     console.log("toggling.");

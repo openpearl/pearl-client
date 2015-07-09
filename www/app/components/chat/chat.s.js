@@ -14,6 +14,7 @@ module.exports = function(app) {
   app.factory('sendClientContext', [
     '$http',
     'getSteps',
+    'ApiEndpoint',
     sendClientContext
   ]);
 
@@ -79,7 +80,7 @@ function getSteps($q) {
   }
 }
 
-function sendClientContext($http, getSteps) {
+function sendClientContext($http, getSteps, ApiEndpoint) {
   return function() {
     console.log("I am now going to send client context."); 
 
@@ -94,30 +95,46 @@ function sendClientContext($http, getSteps) {
     getSteps(startDate, endDate)
       .then(function(steps) {
         // TODO: Change this to the correct route.
-        var route = CURRENT_HOST + "/api/v1/documents/";
-        // var clientContext = { 
-        //   "steps": [{
-        //     "steps": steps,
-        //     "date": startDate
-        //   }]
-        // }
-
+        var route = ApiEndpoint.url + "/documents/";
         var clientContext = {"steps": steps};
 
         $http.patch(route, clientContext).
           success(function(data, status, headers, config) {
             console.log(data.message);
-
             // TODO: Populate messages with the next message.
             // Call method to populate messages and commands.
+          
+            // FIXME: This is temporary. This is really really bad code.
+            var placeholderData = {
+              "keys": ["steps"]
+            }
+          
+            $http.post(route, placeholderData).
+              success(function(data, status, headers, config) {
+                  console.log(data);
 
+                  // TODO: Populate messages with the next message.
+                  // Call method to populate messages and commands.
+                  var route = ApiEndpoint.url + "/pearl/context";
+                  $http.post(route, data["data"])
+                    .success(function(data, status, headers, config) {
+                      console.log("Success posting to /pearl/context.");
+                      console.log(data);
+                    })
+                    .error(function(data, status, headers, config) {
+                      console.log("Error posting to /pearl/context.");
+                    });
+                }).
+                error(function(data, status, headers, config) {
+                  alert("An error happened sending the message.");
+                });
+            }, function() {
+              console.log("Error in getSteps promise.");
+            }); 
           }).
           error(function(data, status, headers, config) {
             alert("An error happened sending the message.");
           });
-      }, function() {
-        console.log("Error in getSteps promise.");
-      }); 
   }
 }
 

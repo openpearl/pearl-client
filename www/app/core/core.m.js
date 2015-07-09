@@ -23,6 +23,7 @@ var appCore = angular.module('app.core', [
 ]);
 
 require('./core.c.js')(appCore);
+require('./apiEndpoint.const.js')(appCore);
 require('./auth.config.js')(appCore);
 
 module.exports = appCore;
