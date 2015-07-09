@@ -62,13 +62,14 @@ function getSteps($q) {
   return function (startDate, endDate) {
     console.log("Getting step count.");
     return $q(function (resolve, reject) {
-      window.plugins.healthkit.sumQuantityType({
+      window.plugins.healthkit.querySampleType({
+      // window.plugins.healthkit.sumQuantityType({
         'startDate': startDate,
         'endDate': endDate,
-        'distanceUnit': 'mileUnit',
         'sampleType': 'HKQuantityTypeIdentifierStepCount'
       }, function(steps) {
-        console.log("HealthKit Step Count Success: " + steps + " steps.");
+        console.log("HealthKit Step Count Success.");
+        // console.log("HealthKit Step Count Success: " + steps + " steps.");
         resolve(steps);
       }, function () {
         console.log("HealthKit Step Count Query unsuccessful.");
@@ -94,12 +95,14 @@ function sendClientContext($http, getSteps) {
       .then(function(steps) {
         // TODO: Change this to the correct route.
         var route = CURRENT_HOST + "/api/v1/documents/";
-        var clientContext = { 
-          "steps": [{
-            "steps": steps,
-            "date": startDate
-          }]
-        }
+        // var clientContext = { 
+        //   "steps": [{
+        //     "steps": steps,
+        //     "date": startDate
+        //   }]
+        // }
+
+        var clientContext = {"steps": steps};
 
         $http.patch(route, clientContext).
           success(function(data, status, headers, config) {
