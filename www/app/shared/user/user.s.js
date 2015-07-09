@@ -1,11 +1,11 @@
 module.exports = function(app) {
-  app.factory('UserModel', [
+  app.factory('UserServ', [
     '$http',
-    UserModel
+    UserServ
   ]);
 }
 
-function UserModel($http) {
+function UserServ($http) {
   var user = {
 
     userID: "placeholderUserID",
@@ -25,31 +25,6 @@ function UserModel($http) {
     }
 
   };
-
-  // var userID = 'placeholderUserID';
-  // var clientGoals = {};
-
-  // this.getUserID = function() {
-  //   return userID;
-  // }
-
-  // this.setUserID = function(newUserID) {
-  //   userID = newUserID;
-  // }
-
-  // this.getClientGoals = function() {
-  //   return clientGoals;
-  // }
-
-  // this.setClientGoal = function(clientGoalsObj) {
-  //   for (i in clientGoalsObj) {
-  //     clientGoals[i] = clientGoalsObj[i]; 
-  //   }
-  // }
-
-  // this.deleteClientGoal = function(goalID) {
-  //   delete clientGoals[goalID];
-  // }
 
   return user;
 }

@@ -9,6 +9,9 @@
     "ngCordova": "~0.1.17-alpha",
     "underscore": "~1.8.3",
     "moment": "~2.10.3",
-    "ionic": "~1.0.0"
+    "ionic": "~1.0.0",
+    "ng-token-auth": "~0.0.25",
+    "angular-cookie": "~4.0.8",
+    "angular-toArrayFilter": "~1.0.1"
   }
 }

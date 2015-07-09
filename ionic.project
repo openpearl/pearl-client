@@ -10,8 +10,8 @@
   ],
   "proxies": [
     {
-      "path": "/api/v1",
-      "proxyUrl": "https://34a417f0.ngrok.com"
+      "path": "/api",
+      "proxyUrl": "https://1b68c6c2.ngrok.com"
     }
   ]
 }

@@ -27,8 +27,7 @@ body {
   font-size: 16px; }
 
 .pane {
-  background-color: black;
-  background: linear-gradient(#EBF6F0, #C7E4EE); }
+  background-color: #FAFAFA; }
 
 .nav-upper-padding {
   width: 100%;
@@ -47,6 +46,36 @@ body {
 
 label.item {
   border: 0px; }
+
+.padding-container {
+  padding: 0 10px; }
+
+.item-input {
+  padding: 0 10px; }
+
+.vertical-center {
+  height: 100%;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center; }
+
+#logo {
+  text-align: center;
+  font-weight: 100;
+  font-size: 48pt;
+  color: rgba(0, 0, 0, 0.7); }
+
+#login-page {
+  background: linear-gradient(#EBF6F0, #C7E4EE); }
+
+#chat-page {
+  background: linear-gradient(#EBF6F0, #C7E4EE); }
 
 .chat-history {
   padding-top: 40px; }
@@ -155,3 +184,6 @@ prl-chat-input-space {
   height: 200px;
   width: 100%;
   background-color: red; }
+
+#settings-page {
+  background-color: #FAFAFA; }

@@ -14,6 +14,7 @@ module.exports = function(app) {
   app.factory('sendClientContext', [
     '$http',
     'getSteps',
+    'ApiEndpoint',
     sendClientContext
   ]);
 
@@ -62,13 +63,14 @@ function getSteps($q) {
   return function (startDate, endDate) {
     console.log("Getting step count.");
     return $q(function (resolve, reject) {
-      window.plugins.healthkit.sumQuantityType({
+      window.plugins.healthkit.querySampleType({
+      // window.plugins.healthkit.sumQuantityType({
         'startDate': startDate,
         'endDate': endDate,
-        'distanceUnit': 'mileUnit',
         'sampleType': 'HKQuantityTypeIdentifierStepCount'
       }, function(steps) {
-        console.log("HealthKit Step Count Success: " + steps + " steps.");
+        console.log("HealthKit Step Count Success.");
+        // console.log("HealthKit Step Count Success: " + steps + " steps.");
         resolve(steps);
       }, function () {
         console.log("HealthKit Step Count Query unsuccessful.");
@@ -78,7 +80,7 @@ function getSteps($q) {
   }
 }
 
-function sendClientContext($http, getSteps) {
+function sendClientContext($http, getSteps, ApiEndpoint) {
   return function() {
     console.log("I am now going to send client context."); 
 
@@ -86,35 +88,53 @@ function sendClientContext($http, getSteps) {
     var startDate = m.toDate();  
     var endDate = moment(m).add(1, 'd').toDate(); 
     
-    console.log(startDate);
-    console.log(endDate);
+    // console.log(m);
+    // console.log(startDate);
+    // console.log(endDate);
 
     getSteps(startDate, endDate)
       .then(function(steps) {
         // TODO: Change this to the correct route.
-        var route = CURRENT_HOST + "/api/v1/documents/2";
-        var clientContext = { 
-          "document": {
-            // TODO: Change user_id.
-            userID: 1,
-            steps: steps
-          }
-        }
+        var route = ApiEndpoint.url + "/documents/";
+        var clientContext = {"steps": steps};
 
         $http.patch(route, clientContext).
           success(function(data, status, headers, config) {
             console.log(data.message);
-
             // TODO: Populate messages with the next message.
             // Call method to populate messages and commands.
+          
+            // FIXME: This is temporary. This is really really bad code.
+            var placeholderData = {
+              "keys": ["steps"]
+            }
+          
+            $http.post(route, placeholderData).
+              success(function(data, status, headers, config) {
+                  console.log(data);
 
+                  // TODO: Populate messages with the next message.
+                  // Call method to populate messages and commands.
+                  var route = ApiEndpoint.url + "/pearl/context";
+                  $http.post(route, data["data"])
+                    .success(function(data, status, headers, config) {
+                      console.log("Success posting to /pearl/context.");
+                      console.log(data);
+                    })
+                    .error(function(data, status, headers, config) {
+                      console.log("Error posting to /pearl/context.");
+                    });
+                }).
+                error(function(data, status, headers, config) {
+                  alert("An error happened sending the message.");
+                });
+            }, function() {
+              console.log("Error in getSteps promise.");
+            }); 
           }).
           error(function(data, status, headers, config) {
             alert("An error happened sending the message.");
           });
-      }, function() {
-        console.log("Error in getSteps promise.");
-      }); 
   }
 }
 

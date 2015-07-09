@@ -4,16 +4,12 @@ module.exports = function(app) {
 
 function appRoutes($stateProvider, $urlRouterProvider) {
 
-  // Ionic uses AngularUI Router which uses the concept of states
-  // Learn more here: https://github.com/angular-ui/ui-router
-  // Set up the various states which the app can be in.
-  // Each state's controller can be found in controllers.js
   $stateProvider
 
   .state('login', {
     url: "/login",
+    template: "<prl-login-register></prl-login-register>"
     // templateUrl: "app/components/loginSignUp/loginSignUp.t.html",
-    template: "<prl-login-signup></prl-login-signup>"
     // controller: 'LoginSignUpController',
     // controllerAs: 'loginCtrl'
   })
@@ -22,7 +18,7 @@ function appRoutes($stateProvider, $urlRouterProvider) {
   .state('slider', {
     url: "/slider",
     // abstract: true,
-    templateUrl: "app/shared/slider/slider.t.html"
+    templateUrl: "app/components/slider/slider.t.html"
   });
 
   // If none of the above states are matched, use this as the fallback.

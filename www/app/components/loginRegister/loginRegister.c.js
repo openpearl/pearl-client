@@ -1,14 +1,15 @@
 module.exports = function(app) {
-  app.controller('LoginSignUpController', [
+  app.controller('LoginRegisterCtrl', [
+    "$rootScope",
     "$state",
     "submitLogin",
     "submitSignup",
 
-    LoginSignUpController
+    LoginRegisterCtrl
   ]);
 }
 
-function LoginSignUpController($state, submitLogin, submitSignup) {
+function LoginRegisterCtrl($rootScope, $state, submitLogin, submitSignup) {
   var vm = this;
 
   vm.name = '';
@@ -22,6 +23,12 @@ function LoginSignUpController($state, submitLogin, submitSignup) {
   vm.clickSignup = clickSignup;
 
   vm.goToChat = goToChat;
+
+
+  $rootScope.$on('auth:login-success', function(ev, user) {
+    // alert("Welcome ", user.email);
+    $state.go('slider');
+  });
 
   function toggleMode() {
     vm.loginMode = !vm.loginMode;

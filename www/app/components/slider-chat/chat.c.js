@@ -4,10 +4,13 @@ module.exports = function(app) {
     '$http',
     '$ionicScrollDelegate', 
 
+    'ApiEndpoint',
+
     'ionicRequestPermissions',
     'getSteps',
     'sendClientContext',
     'requestNextComm',
+
 
     ChatController
   ]);
@@ -17,6 +20,8 @@ function ChatController(
     $scope,
     $http, 
     $ionicScrollDelegate,
+
+    ApiEndpoint,
 
     // Custom services.
     ionicRequestPermissions,
@@ -35,6 +40,9 @@ function ChatController(
   vm.enterClientInput = enterClientInput;
   vm.requestNextComm = requestNextComm;
   vm.addNextComm = addNextComm;
+
+  vm.getRequiredContext = getRequiredContext;
+  vm.requiredContext = {};
 
   // Request permissions and then refresh the page.
   ionicRequestPermissions(function() {
@@ -55,10 +63,24 @@ function ChatController(
 
   function doRefresh() {
     console.log("Refreshing the conversation!");
-    vm.sendClientContext();
-    vm.chatMessages = [];
-    vm.requestNextComm("root", vm.addNextComm);
+
+    vm.getRequiredContext(vm.sendClientContext);
+
+    // vm.chatMessages = [];
+    // vm.requestNextComm("root", vm.addNextComm);
     $scope.$broadcast('scroll.refreshComplete');
+  }
+
+  function getRequiredContext(callback) {
+    var url = ApiEndpoint.url + "/pearl/context";
+    $http.get(url)
+      .success(function(data, status, headers, config) {
+        console.log("Successfully received contexts.");
+        vm.requiredContext = data;
+        console.log(vm.requiredContext);
+        callback();
+      })
+      .error();
   }
 
   function enterClientInput($index) {
