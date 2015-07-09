@@ -27,8 +27,7 @@ body {
   font-size: 16px; }
 
 .pane {
-  background-color: black;
-  background: linear-gradient(#EBF6F0, #C7E4EE); }
+  background-color: #FAFAFA; }
 
 .nav-upper-padding {
   width: 100%;
@@ -47,6 +46,9 @@ body {
 
 label.item {
   border: 0px; }
+
+#chat-page {
+  background: linear-gradient(#EBF6F0, #C7E4EE); }
 
 .chat-history {
   padding-top: 40px; }
@@ -155,3 +157,9 @@ prl-chat-input-space {
   height: 200px;
   width: 100%;
   background-color: red; }
+
+#settings-page {
+  background-color: #FAFAFA; }
+
+#settings-buttons {
+  padding: 0 10px; }

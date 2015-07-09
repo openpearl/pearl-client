@@ -2,5 +2,12 @@
   height: 200px;
   width: 100%;
   background-color: red;
+}
 
+#settings-page {
+  background-color: $light_background;
+}
+
+#settings-buttons {
+  padding: 0 10px;
 }

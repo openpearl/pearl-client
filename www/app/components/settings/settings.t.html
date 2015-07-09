@@ -1,36 +1,43 @@
 <ion-view view-title="Settings">
-  <ion-content scroll="true">
+  <ion-content scroll="true" id="settings-page">
 
-    <button
-      class="button button-block button-assertive" 
-      ng-click="ctrl.clickLogout();">
-      Log out
-    </button>
+    <div id="settings-buttons">
+      <button
+        class="button button-block button-assertive" 
+        ng-click="ctrl.clickLogout();">
+        <i class="icon ion-log-out"></i>
+        Log out
+      </button>
 
-    <button
-      class="button button-block button-positive" 
-      ng-click="ctrl.refresh();">
-      Refresh
-    </button>
+      <button
+        class="button button-block button-balanced" 
+        ng-click="ctrl.refresh();">
+        <i class="icon ion-refresh"></i>
+        Refresh
+      </button>
+    </div>
 
-    <!-- Searchbar through goals. -->
-    <label class="item item-input">
-      <input type="text" ng-model="searchText" 
-        placeholder="Search...">
-    </label>
+    <div class="card">
+      <!-- Searchbar through goals. -->
+      <label class="item item-input">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input type="text" ng-model="searchText" 
+          placeholder="Search...">
+      </label>
 
-    <!-- Displays all goals. -->
-    <ul class="list">
-      <li class="item item-checkbox" 
-        ng-repeat="goal in ctrl.clientGoals | toArray | filter: searchText">
-         <label class="checkbox">
-           <input type="checkbox" 
-            ng-checked="goal.checked" 
-            ng-click="ctrl.clickGoal(goal.$key)">
-         </label>
-         {{goal.name}}
-      </li>
-    </ul>
+      <!-- Displays all goals. -->
+      <ul class="list">
+        <li class="item item-checkbox" 
+          ng-repeat="goal in ctrl.clientGoals | toArray | filter: searchText">
+           <label class="checkbox">
+             <input type="checkbox" 
+              ng-checked="goal.checked" 
+              ng-click="ctrl.clickGoal(goal.$key)">
+           </label>
+           {{goal.name}}
+        </li>
+      </ul>
+    </div>
 
   </ion-content>
 </ion-view>

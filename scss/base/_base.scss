@@ -5,8 +5,7 @@ body {
 }
 
 .pane {
-  background-color: black;
-  background: linear-gradient($light, $sky);
+  background-color: $light_background;
 }
 
 .nav-upper-padding {
