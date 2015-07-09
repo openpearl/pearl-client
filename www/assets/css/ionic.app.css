@@ -47,6 +47,27 @@ body {
 label.item {
   border: 0px; }
 
+.padding-container {
+  padding: 0 10px; }
+
+.item-input {
+  padding: 0 10px; }
+
+.vertical-center {
+  height: 100%;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center; }
+
+#login-page {
+  background: linear-gradient(#EBF6F0, #C7E4EE); }
+
 #chat-page {
   background: linear-gradient(#EBF6F0, #C7E4EE); }
 
@@ -160,6 +181,3 @@ prl-chat-input-space {
 
 #settings-page {
   background-color: #FAFAFA; }
-
-#settings-buttons {
-  padding: 0 10px; }

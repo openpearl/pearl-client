@@ -29,3 +29,18 @@ body {
 label.item {
   border: 0px;
 }
+
+.padding-container {
+  padding: 0 10px;
+}
+
+.item-input {
+  padding: 0 10px;
+}
+
+.vertical-center {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
