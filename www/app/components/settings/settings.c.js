@@ -3,11 +3,14 @@ module.exports = function(app) {
     '$state',
     '$ionicPlatform',
     'UserModel',
+    'ServerClientGoalService',
     SettingsController
   ]);
 }
 
-function SettingsController($state, $ionicPlatform, UserModel) {
+function SettingsController($state, $ionicPlatform, UserModel, 
+  ServerClientGoalService) {
+
   var vm = this;
 
   vm.userID = UserModel.userID;
@@ -15,9 +18,32 @@ function SettingsController($state, $ionicPlatform, UserModel) {
 
   vm.searchText;
   vm.clickLogout = clickLogout;
+  vm.refresh = refresh;
+  vm.clickGoal = clickGoal;
+
+  vm.getClientGoals = ServerClientGoalService.getClientGoals;
+
+  $ionicPlatform.on('resume', function() {
+    console.log("Resuming.");
+    vm.getClientGoals();
+  });
 
   function clickLogout() {
     // TODO: Delete session.
     $state.go('login');
+  }
+
+  function refresh() {
+    vm.getClientGoals();    
+  }
+
+  function clickGoal(goalID) {
+    console.log("Goal clicked.");
+    console.log(goalID);
+
+    // Toggle the checked state of the goal.
+    var goalCheck = !vm.clientGoals[goalID].checked;
+
+    ServerClientGoalService.toggleClientGoal(goalID, goalCheck);
   }
 }

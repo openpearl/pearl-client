@@ -15,5 +15,9 @@ function PrlSettings() {
     bindToController: true,
     controller: 'SettingsController',
     controllerAs: 'ctrl',
+
+    link: function(scope, element, attrs) {
+      
+    }
   };
 }

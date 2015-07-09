@@ -8,6 +8,9 @@ var appCore = angular.module('app.core', [
   // Angular modules.
 	'ionic',
   'ngCordova',
+
+  'ng-token-auth',
+  'angular-toArrayFilter'
 	
   // Our reusable cross app code modules.
 	// 'blocks.exception', 
@@ -20,5 +23,6 @@ var appCore = angular.module('app.core', [
 ]);
 
 require('./core.c.js')(appCore);
+require('./auth.config.js')(appCore);
 
 module.exports = appCore;

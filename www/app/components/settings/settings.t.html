@@ -7,6 +7,11 @@
       Log out
     </button>
 
+    <button
+      class="button button-block button-positive" 
+      ng-click="ctrl.refresh();">
+      Refresh
+    </button>
 
     <!-- Searchbar through goals. -->
     <label class="item item-input">
@@ -17,9 +22,11 @@
     <!-- Displays all goals. -->
     <ul class="list">
       <li class="item item-checkbox" 
-        ng-repeat="goal in ctrl.goals | filter: searchText">
+        ng-repeat="goal in ctrl.clientGoals | toArray | filter: searchText">
          <label class="checkbox">
-           <input type="checkbox">
+           <input type="checkbox" 
+            ng-checked="goal.checked" 
+            ng-click="ctrl.clickGoal(goal.$key)">
          </label>
          {{goal.name}}
       </li>

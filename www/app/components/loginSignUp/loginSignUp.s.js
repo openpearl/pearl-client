@@ -1,6 +1,7 @@
 module.exports = function(app) {
   app.factory('submitLogin', [
     '$http',
+    '$auth',
     submitLogin
   ]);
 
@@ -10,25 +11,7 @@ module.exports = function(app) {
   ]);
 }
 
-function submitLogin($http) {
-
-  function postInfo(route, jsonObj, callback) {
-
-    console.log("Posting info.");
-
-    $http.post(route, jsonObj).
-      success(function(data, status, headers, config) {
-        // this callback will be called asynchronously
-        // when the response is available
-        console.log("Logging in successful.");
-        console.log(data.message);
-        callback();
-      }).
-      error(function(data, status, headers, config) {
-        console.error("Error sending login-signup.");
-        console.log(jsonObj);
-      });
-  }
+function submitLogin($http, $auth) {
 
   return function(email, password, callback) {
 
@@ -56,7 +39,18 @@ function submitLogin($http) {
       password: password
     }
 
-    postInfo(route, loginJson, callback);
+    // postInfo(route, loginJson, callback);
+
+    $auth.submitLogin(loginJson)
+      .then(function(resp) {
+        console.log("Logged in.");
+        console.log(resp);
+        // callback();
+      })
+      .catch(function(resp) {
+        console.log("Failed logging in.");
+        console.log(resp);
+      });
   } 
 }
 
@@ -72,7 +66,6 @@ function submitSignup($http) {
         // when the response is available
         console.log("Logging in successful.");
         console.log(data.message);
-        callback();
       }).
       error(function(data, status, headers, config) {
         console.error("Error sending login-signup.");
