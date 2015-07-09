@@ -1,11 +1,11 @@
 module.exports = function(app) {
-  app.factory('UserModel', [
+  app.factory('UserServ', [
     '$http',
-    UserModel
+    UserServ
   ]);
 }
 
-function UserModel($http) {
+function UserServ($http) {
   var user = {
 
     userID: "placeholderUserID",

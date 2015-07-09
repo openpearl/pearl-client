@@ -8,7 +8,7 @@ function appRoutes($stateProvider, $urlRouterProvider) {
 
   .state('login', {
     url: "/login",
-    template: "<prl-login-signup></prl-login-signup>"
+    template: "<prl-login-register></prl-login-register>"
     // templateUrl: "app/components/loginSignUp/loginSignUp.t.html",
     // controller: 'LoginSignUpController',
     // controllerAs: 'loginCtrl'
@@ -18,7 +18,7 @@ function appRoutes($stateProvider, $urlRouterProvider) {
   .state('slider', {
     url: "/slider",
     // abstract: true,
-    templateUrl: "app/shared/slider/slider.t.html"
+    templateUrl: "app/components/slider/slider.t.html"
   });
 
   // If none of the above states are matched, use this as the fallback.

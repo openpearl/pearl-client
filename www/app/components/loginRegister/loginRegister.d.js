@@ -1,16 +1,16 @@
 module.exports = function(app) {
   
-  app.directive('prlLoginSignup', [
-    prlLoginSignup
+  app.directive('prlLoginRegister', [
+    prlLoginRegister
   ]);
 
 }
 
-function prlLoginSignup() {
+function prlLoginRegister() {
   return {
     restrict: 'EA',
     scope: {},
-    templateUrl: 'app/components/loginSignUp/loginSignUp.t.html',
+    templateUrl: 'app/components/loginRegister/loginRegister.t.html',
     replace: true,
     bindToController: true,
     controller: 'LoginSignUpController',

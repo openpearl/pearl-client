@@ -1,5 +1,5 @@
 // Comment this line when in actual device.
-require('../../assets/js/browserSettings.js');
+// require('../../assets/js/browserSettings.js');
 
 var appCore = angular.module('app.core', [
 	'ionic',

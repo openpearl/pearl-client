@@ -1,15 +1,15 @@
 module.exports = function(app) {
-  app.controller('LoginSignUpController', [
+  app.controller('LoginRegisterCtrl', [
     "$rootScope",
     "$state",
     "submitLogin",
     "submitSignup",
 
-    LoginSignUpController
+    LoginRegisterCtrl
   ]);
 }
 
-function LoginSignUpController($rootScope, $state, submitLogin, submitSignup) {
+function LoginRegisterCtrl($rootScope, $state, submitLogin, submitSignup) {
   var vm = this;
 
   vm.name = '';

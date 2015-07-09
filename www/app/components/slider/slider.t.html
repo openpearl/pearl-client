@@ -1,19 +1,16 @@
-<!-- ng-controller="SliderController as sliderCtrl" -->
-<ion-view ng-controller="SliderController as sliderCtrl">
+<ion-view ng-controller="SliderCtrl as ctrl">
   <ion-slide-box
     show-pager="false" 
-    on-slide-changed="sliderCtrl.slideHasChanged($index)"
-    active-slide="sliderCtrl.currentSlide">
+    on-slide-changed="ctrl.slideHasChanged($index)"
+    active-slide="ctrl.currentSlide">
 
     <!-- Dashboard Pane -->
     <ion-slide title="Pearl">
-      <!-- <ion-nav-view name="slider-chat"></ion-nav-view> -->
       <prl-chat></prl-chat>
     </ion-slide>
 
     <!-- Account Pane -->
     <ion-slide title="Settings">
-      <!-- <ion-nav-view name="slider-settings"></ion-nav-view> -->
       <prl-settings></prl-settings>
     </ion-slide>
 
