@@ -6,7 +6,7 @@ var UserM = require('./shared/user/user.m.js');
 
 // Components.
 var SliderM = require('./components/slider/slider.m.js');
-var LoginRegisterM = require('./components/loginRegister/loginSignUp.m.js');
+var LoginRegisterM = require('./components/loginRegister/loginRegister.m.js');
 var ChatM = require('./components/slider-chat/chat.m.js');
 var SettingsM = require('./components/slider-settings/settings.m.js');
 

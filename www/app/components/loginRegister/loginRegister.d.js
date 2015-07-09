@@ -13,7 +13,7 @@ function prlLoginRegister() {
     templateUrl: 'app/components/loginRegister/loginRegister.t.html',
     replace: true,
     bindToController: true,
-    controller: 'LoginSignUpController',
+    controller: 'LoginRegisterCtrl',
     controllerAs: 'ctrl',
   };
 }

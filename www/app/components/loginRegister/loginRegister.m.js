@@ -1,7 +1,7 @@
-componentsLoginRegister = angular.module('components.loginRegister', []);
+var LoginRegisterM = angular.module('components.loginRegister', []);
 
-require('./loginRegister.s.js')(componentsLoginRegister);
-require('./loginRegister.c.js')(componentsLoginRegister);
-require('./loginRegister.d.js')(componentsLoginRegister);
+require('./loginRegister.s.js')(LoginRegisterM);
+require('./loginRegister.c.js')(LoginRegisterM);
+require('./loginRegister.d.js')(LoginRegisterM);
 
-module.exports = componentsLoginRegister;
+module.exports = LoginRegisterM;

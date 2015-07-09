@@ -1,4 +1,4 @@
-var sharedUser = angular.module('shared.user', []);
-require('./user.s.js')(sharedUser);
+var UserM = angular.module('shared.user', []);
+require('./user.s.js')(UserM);
 
-module.exports = sharedUser;
+module.exports = UserM;
