@@ -65,6 +65,12 @@ label.item {
       -ms-flex-pack: center;
           justify-content: center; }
 
+#logo {
+  text-align: center;
+  font-weight: 100;
+  font-size: 48pt;
+  color: rgba(0, 0, 0, 0.7); }
+
 #login-page {
   background: linear-gradient(#EBF6F0, #C7E4EE); }
 
