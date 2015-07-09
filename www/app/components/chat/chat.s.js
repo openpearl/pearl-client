@@ -86,19 +86,19 @@ function sendClientContext($http, getSteps) {
     var startDate = m.toDate();  
     var endDate = moment(m).add(1, 'd').toDate(); 
     
-    console.log(startDate);
-    console.log(endDate);
+    // console.log(m);
+    // console.log(startDate);
+    // console.log(endDate);
 
     getSteps(startDate, endDate)
       .then(function(steps) {
         // TODO: Change this to the correct route.
-        var route = CURRENT_HOST + "/api/v1/documents/2";
+        var route = CURRENT_HOST + "/api/v1/documents/";
         var clientContext = { 
-          "document": {
-            // TODO: Change user_id.
-            userID: 1,
-            steps: steps
-          }
+          "steps": [{
+            "steps": steps,
+            "date": startDate
+          }]
         }
 
         $http.patch(route, clientContext).
