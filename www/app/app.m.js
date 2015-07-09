@@ -22,8 +22,8 @@ var app = angular.module('app', [
 
 .run(function($ionicPlatform, $cordovaStatusbar) {
   $ionicPlatform.ready(function() {
-    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs)
+    // Hide the accessory bar by default (remove this to show the accessory 
+    // bar above the keyboard for form inputs)
     if (window.cordova 
       && window.cordova.plugins 
       && window.cordova.plugins.Keyboard) {
@@ -37,6 +37,4 @@ var app = angular.module('app', [
 
 });
 
-// Allow for modularly chaining together different components of this module.
-// Loads the routes.
-require('./app.r.js')(app);
+require('./app.r.js')(app); // Loads the routes.

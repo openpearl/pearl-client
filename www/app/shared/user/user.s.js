@@ -26,30 +26,5 @@ function UserModel($http) {
 
   };
 
-  // var userID = 'placeholderUserID';
-  // var clientGoals = {};
-
-  // this.getUserID = function() {
-  //   return userID;
-  // }
-
-  // this.setUserID = function(newUserID) {
-  //   userID = newUserID;
-  // }
-
-  // this.getClientGoals = function() {
-  //   return clientGoals;
-  // }
-
-  // this.setClientGoal = function(clientGoalsObj) {
-  //   for (i in clientGoalsObj) {
-  //     clientGoals[i] = clientGoalsObj[i]; 
-  //   }
-  // }
-
-  // this.deleteClientGoal = function(goalID) {
-  //   delete clientGoals[goalID];
-  // }
-
   return user;
 }
