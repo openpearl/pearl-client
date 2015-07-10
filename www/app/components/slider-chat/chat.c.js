@@ -18,15 +18,10 @@ function ChatCtrl($scope, UserContextServ, ChatServ) {
   vm.currentInputMessage = "";
 
   vm.enterUserInput = enterUserInput;
-  vm.requestNextCard = requestNextCard;
   vm.addNextCard = addNextCard;
-
-  vm.getRequiredContext = getRequiredContext;
-  vm.requiredContext = {};
 
   // Request permissions and then refresh the page.
   UserContextServ.localRequestPermissions(function() {
-    vm.sendUserContext = sendUserContext;
     vm.doRefresh = doRefresh;
   });
 
@@ -39,26 +34,16 @@ function ChatCtrl($scope, UserContextServ, ChatServ) {
     vm.doRefresh();
   });
 
+  // METHODS ********************
+
   function doRefresh() {
     console.log("Refreshing the conversation!");
+    UserContextServ.httpGetRequiredContext();
 
-    vm.getRequiredContext(vm.sendUserContext);
-
-    // vm.chatMessages = [];
-    // vm.requestNextCard("root", vm.addNextCard);
+    // TODO: Refactor this to be somewhere else.
+    vm.chatMessages = [];
+    ChatServ.httpRequestNextCard("root", vm.addNextCard);
     $scope.$broadcast('scroll.refreshComplete');
-  }
-
-  function getRequiredContext(callback) {
-    var url = ApiEndpoint.url + "/pearl/context";
-    $http.get(url)
-      .success(function(data, status, headers, config) {
-        console.log("Successfully received contexts.");
-        vm.requiredContext = data;
-        console.log(vm.requiredContext);
-        callback();
-      })
-      .error();
   }
 
   function enterUserInput($index) {
@@ -80,10 +65,10 @@ function ChatCtrl($scope, UserContextServ, ChatServ) {
     // Clear input options.
     vm.currentInputMessage = "";
     vm.inputOptions = [];
-    console.log("Input options are cleared?");
+    console.log("inputOptions are cleared.");
     console.log(vm.inputOptions);
 
-    vm.requestNextCard(vm.currentInputID, vm.addNextCard);
+    ChatServ.httpRequestNextCard(vm.currentInputID, vm.addNextCard);
   }
 
   function addNextCard(responseData) {
@@ -108,13 +93,12 @@ function ChatCtrl($scope, UserContextServ, ChatServ) {
 
     // Do another request if the next speaker is also an AI.
     if (nextSpeaker === "ai") {
-      vm.requestNextCard(nextCardID);
+      ChatServ.httpRequestNextCard(nextCardID);
     }
 
     // Populate choices if next speaker is a client.
     if (nextSpeaker === "client") {
       console.log("Next speaker is a client.");
-
       vm.inputOptions = [];
 
       // Push over the options.

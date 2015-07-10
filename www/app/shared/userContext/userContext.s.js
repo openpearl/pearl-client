@@ -52,25 +52,20 @@ function UserContextServ($q, $http, $ionicPlatform, $cordovaHealthKit) {
     });
   }
 
-  function localFetchUserContext() {
-
-
-    function getRequiredContext(callback) {
-      var url = ApiEndpoint.url + "/pearl/context";
-      $http.get(url)
-        .success(function(data, status, headers, config) {
-          console.log("Successfully received contexts.");
-          vm.requiredContext = data;
-          console.log(vm.requiredContext);
-          callback();
-        })
-        .error();
-    }
+  function localFetchUserContext(callback) {
 
   }
 
-  function httpGetRequiredContext() {
-
+  function httpGetRequiredContext(callback) {
+    var url = ApiEndpoint.url + "/pearl/context";
+    $http.get(url)
+      .success(function(data, status, headers, config) {
+        console.log("localFetchUserContext success.");
+        callback(data);
+      })
+      .error(function(data, status, headers, config) {
+        console.log("localFetchUserContext error.");
+      });
   }
 
   function httpSendUserContext() {
