@@ -37,12 +37,14 @@ function ChatCtrl($scope, UserContextServ, ChatServ) {
 
   function doRefresh() {
     console.log("Refreshing the conversation!");
-    UserContextServ.httpGetRequiredContext();
+    UserContextServ.httpGetRequiredContext(
+      UserContextServ.httpSendUserContext
+    );
     // TODO: What do I want after getting the required context?
 
     // TODO: Refactor this to be somewhere else.
-    vm.chatMessages = [];
-    ChatServ.httpRequestNextCard("root", vm.addNextCard);
+    // vm.chatMessages = [];
+    // ChatServ.httpRequestNextCard("root", vm.addNextCard);
     $scope.$broadcast('scroll.refreshComplete');
   }
 

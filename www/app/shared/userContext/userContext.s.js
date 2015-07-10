@@ -4,11 +4,12 @@ module.exports = function(app) {
     '$http',
     '$ionicPlatform',
     '$cordovaHealthKit',
+    'ApiEndpoint',
     UserContextServ
   ]);
 }
 
-function UserContextServ($q, $http, $ionicPlatform, $cordovaHealthKit) {
+function UserContextServ($q, $http, $ionicPlatform, $cordovaHealthKit, ApiEndpoint) {
   var userContextServ = {
     // Store.
     userContext: {},
@@ -81,10 +82,13 @@ function UserContextServ($q, $http, $ionicPlatform, $cordovaHealthKit) {
       .then(function(steps) {
 
         // TODO: Make this more general and flexible.
-        var route = ApiEndpoint.url + "/documents/";
+        var url = ApiEndpoint.url + "/documents/";
         var userContext = {"steps": steps};
 
-        $http.patch(route, userContext).success(httpPostTemporaryContext)
+        console.log("httpSendUserContext => userContext");
+        console.log(userContext);
+
+        $http.patch(url, userContext).success(httpPostTemporaryContext)
           .error(function(data, status, headers, config) {
             console.log("Unable to httpSendUserContext.");
             console.log(data);  
@@ -117,25 +121,26 @@ function UserContextServ($q, $http, $ionicPlatform, $cordovaHealthKit) {
     });
   }
 
-  // TODO: This route needs to be refactored out in the future.
+  // TODO: This url needs to be refactored out in the future.
   // TODO: Document this method better.
   function httpPostTemporaryContext(data, status, headers, config) {
     console.log("In httpPostTemporaryContext.");
     console.log(data);
 
     // FIXME: This is fake and temporary data.
+    var url = ApiEndpoint.url + '/pearl/context/'
     var placeholderData = {
       "keys": ["steps"]
     }
 
-    $http.post(route, placeholderData).success(httpTempPostContextToPearl)
+    $http.post(url, placeholderData).success(httpTempPostContextToPearl)
       .error(function(data, status, headers, config) {
         console.log("Unable to httpPostTemporaryContext.");
         console.log(data);  
       });
   }
 
-  // TODO: This route needs to be refactored out in the future.
+  // TODO: This url needs to be refactored out in the future.
   // TODO: Document this method better.
   function httpTempPostContextToPearl(data, status, headers, config) {
     console.log("In httpTempPostContextToPearl.");
@@ -143,8 +148,8 @@ function UserContextServ($q, $http, $ionicPlatform, $cordovaHealthKit) {
 
     // TODO: Populate messages with the next message.
     // Call method to populate messages and commands.
-    var route = ApiEndpoint.url + "/pearl/context";
-    $http.post(route, data["data"])
+    var url = ApiEndpoint.url + "/pearl/context";
+    $http.post(url, data["data"])
       .success(function(data, status, headers, config) {
         console.log("Success posting to /pearl/context.");
         console.log(data);

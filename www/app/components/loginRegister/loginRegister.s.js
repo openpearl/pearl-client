@@ -32,7 +32,7 @@ function LoginRegisterServ($http, $auth, ApiEndpoint) {
     }
 
     // Complete POST request and redirect.
-    var route = ApiEndpoint.url + "/auth/sign_in/";
+    var url = ApiEndpoint.url + "/auth/sign_in/";
     var loginJson = {
       email: email,
       password: password
@@ -72,7 +72,7 @@ function LoginRegisterServ($http, $auth, ApiEndpoint) {
     }
 
     // Complete POST request and redirect.
-    var route = ApiEndpoint.url + "/auth/";
+    var url = ApiEndpoint.url + "/auth/";
     var registerJson = {
       name: name,
       email: email,
@@ -81,7 +81,7 @@ function LoginRegisterServ($http, $auth, ApiEndpoint) {
       confirm_success_url: "http://www.openpearl.org/"
     }
 
-    $http.post(route, registerJson).
+    $http.post(url, registerJson).
       success(function(data, status, headers, config) {
         // this callback will be called asynchronously
         // when the response is available
