@@ -11,9 +11,7 @@ module.exports = function(app) {
 function SettingsCtrl($state, $ionicPlatform, UserServ, GoalsServ) {
 
   var vm = this;
-
-  vm.userID = UserServ.userID;
-  vm.userGoals = GoalsServ.userGoals;
+  vm.GoalsServ = GoalsServ;
 
   vm.refresh = refresh;
 
@@ -21,15 +19,15 @@ function SettingsCtrl($state, $ionicPlatform, UserServ, GoalsServ) {
   vm.clickLogout = clickLogout;
   vm.clickGoal = clickGoal;
 
-  vm.getUserGoals = GoalsServ.getUserGoals;
+  // vm.httpGetGoals = GoalsServ.httpGetGoals;
 
   $ionicPlatform.on('resume', function() {
     console.log("Resuming.");
-    vm.getUserGoals();
+    GoalsServ.httpGetGoals();
   });
 
   function refresh() {
-    vm.getUserGoals();    
+    GoalsServ.httpGetGoals();
   }
 
   function clickLogout() {
@@ -42,7 +40,7 @@ function SettingsCtrl($state, $ionicPlatform, UserServ, GoalsServ) {
     console.log(goalID);
 
     // Toggle the checked state of the goal.
-    var goalCheck = !vm.userGoals[goalID].checked;
+    var goalCheck = !GoalsServ.goals[goalID].checked;
     GoalsServ.httpToggleGoal(goalID, goalCheck);
   }
 }

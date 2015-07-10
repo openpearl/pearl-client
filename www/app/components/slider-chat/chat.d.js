@@ -19,10 +19,10 @@ function PrlChat() {
   return {
     restrict: 'E',
     scope: {},
-    templateUrl: 'app/components/chat/chat.t.html',
+    templateUrl: 'app/components/slider-chat/chat.t.html',
     replace: true,
     bindToController: true,
-    controller: 'ChatController',
+    controller: 'ChatCtrl',
     controllerAs: 'ctrl',
   };
 }

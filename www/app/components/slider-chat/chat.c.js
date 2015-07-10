@@ -25,7 +25,6 @@ function ChatCtrl($scope, UserContextServ, ChatServ) {
     vm.doRefresh = doRefresh;
   });
 
-  // FIXME: Can this be 'vm'. If so, or if not, why?
   $scope.$on('$ionicView.enter', function() {
     console.log("I have entered the app.");
 
@@ -39,6 +38,7 @@ function ChatCtrl($scope, UserContextServ, ChatServ) {
   function doRefresh() {
     console.log("Refreshing the conversation!");
     UserContextServ.httpGetRequiredContext();
+    // TODO: What do I want after getting the required context?
 
     // TODO: Refactor this to be somewhere else.
     vm.chatMessages = [];

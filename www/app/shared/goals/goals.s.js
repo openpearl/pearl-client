@@ -2,17 +2,27 @@ module.exports = function(app) {
   app.factory('GoalsServ', [
     '$http',
     'UserServ',
+    'ApiEndpoint',
     GoalsServ
   ]);
 }
 
-function GoalsServ($http, UserServ) {
+function GoalsServ($http, UserServ, ApiEndpoint) {
 
   var goalsServ = {
     goals: {},
+
+    // localGetGoals: localGetGoals,
+
     httpGetGoals: httpGetGoals,
     httpToggleGoal: httpToggleGoal
   };
+
+  // function localGetGoals() {
+  //   console.log("localGetGoals");
+  //   console.log(goalsServ.goals);
+  //   return goalsServ.goals;
+  // }
 
   function httpGetGoals() {
     var url = ApiEndpoint.url + '/goals';
@@ -21,7 +31,7 @@ function GoalsServ($http, UserServ) {
         goalsServ.goals = data;
         console.log("httpGetGoals successful.");
         console.log(goalsServ.goals);
-      })
+      })  
       .error(function(error) {
         console.log("httpGetGoals unsuccessful.");
         console.log(error);
