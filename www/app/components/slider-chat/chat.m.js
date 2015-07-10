@@ -1,7 +1,7 @@
-appChat = angular.module('components.chat', []);
+var ChatM = angular.module('components.chat', []);
 
-require('./chat.d.js')(appChat);
-require('./chat.s.js')(appChat);
-require('./chat.c.js')(appChat);
+require('./chat.d.js')(ChatM);
+require('./chat.s.js')(ChatM);
+require('./chat.c.js')(ChatM);
 
-module.exports = appChat;
+module.exports = ChatM;

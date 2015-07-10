@@ -1,5 +1,5 @@
 <ion-view view-title="Pearl" 
-  ng-init="ctrl.sendClientContext();">
+  ng-init="ctrl.sendUserContext();">
   <ion-content class="chat-history" id="chat-page">
 
     <ion-refresher pulling-text="Pull to refresh" 
@@ -24,12 +24,15 @@
 
   <prl-chat-input-space>
     <div class="input-bubble"
-    ng-click="ctrl.enterClientInput($index)" 
+    ng-click="ctrl.enterUserInput($index)" 
     ng-repeat="inputOption in ctrl.inputOptions track by $index">
       {{inputOption.inputMessage}}
     </div>
   </prl-chat-input-space>
+</ion-view>
 
+
+<!-- For later when we want to add typed text. -->
 <!--   <ion-footer-bar>
     <div class="item-input-inset pl-full-width">
       <label class="item-input-wrapper ">
@@ -41,4 +44,3 @@
       </button>
     </div>
   </ion-footer-bar> -->
-</ion-view>

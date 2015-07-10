@@ -32,7 +32,7 @@
       <!-- Displays all goals. -->
       <ul class="list">
         <li class="item item-checkbox" 
-          ng-repeat="goal in ctrl.clientGoals | toArray | filter: searchText">
+          ng-repeat="goal in ctrl.userGoals | toArray | filter: searchText">
            <label class="checkbox">
              <input type="checkbox" 
               ng-checked="goal.checked" 

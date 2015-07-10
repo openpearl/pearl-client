@@ -43,6 +43,7 @@ function PrlChatScroll($ionicScrollDelegate) {
   }
 }
 
+// TODO: For future text inputs.
 function PrlChatInputSpace() {
   return {
     restrict: 'E'

@@ -4,6 +4,7 @@ var CoreM = require('./core/core.m.js');
 // Shared.
 var UserM = require('./shared/user/user.m.js');
 var GoalsM = require('./shared/goals/goals.m.js');
+var UserContextM = require('./shared/userContext/userContext.m.js');
 
 // Components.
 var SliderM = require('./components/slider/slider.m.js');
@@ -20,6 +21,7 @@ var app = angular.module('app', [
   // Shared.
   UserM.name,
   GoalsM.name,
+  UserContextM.name,
 
   // Components.
   SliderM.name,

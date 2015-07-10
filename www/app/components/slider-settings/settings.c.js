@@ -2,39 +2,39 @@ module.exports = function(app) {
   app.controller('SettingsCtrl', [
     '$state',
     '$ionicPlatform',
-    'UserModel',
-    'ServerClientGoalService',
+    'UserServ',
+    'GoalsServ',
     SettingsCtrl
   ]);
 }
 
-function SettingsCtrl($state, $ionicPlatform, UserModel, 
-  ServerClientGoalService) {
+function SettingsCtrl($state, $ionicPlatform, UserServ, GoalsServ) {
 
   var vm = this;
 
-  vm.userID = UserModel.userID;
-  vm.clientGoals = UserModel.clientGoals;
+  vm.userID = UserServ.userID;
+  vm.userGoals = GoalsServ.userGoals;
+
+  vm.refresh = refresh;
 
   vm.searchText;
   vm.clickLogout = clickLogout;
-  vm.refresh = refresh;
   vm.clickGoal = clickGoal;
 
-  vm.getClientGoals = ServerClientGoalService.getClientGoals;
+  vm.getUserGoals = GoalsServ.getUserGoals;
 
   $ionicPlatform.on('resume', function() {
     console.log("Resuming.");
-    vm.getClientGoals();
+    vm.getUserGoals();
   });
+
+  function refresh() {
+    vm.getUserGoals();    
+  }
 
   function clickLogout() {
     // TODO: Delete session.
     $state.go('login');
-  }
-
-  function refresh() {
-    vm.getClientGoals();    
   }
 
   function clickGoal(goalID) {
@@ -42,8 +42,7 @@ function SettingsCtrl($state, $ionicPlatform, UserModel,
     console.log(goalID);
 
     // Toggle the checked state of the goal.
-    var goalCheck = !vm.clientGoals[goalID].checked;
-
-    ServerClientGoalService.toggleClientGoal(goalID, goalCheck);
+    var goalCheck = !vm.userGoals[goalID].checked;
+    GoalsServ.httpToggleGoal(goalID, goalCheck);
   }
 }

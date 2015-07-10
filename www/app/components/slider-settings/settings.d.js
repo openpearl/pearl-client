@@ -1,9 +1,7 @@
 module.exports = function(app) {
-  
   app.directive('prlSettings', [
     PrlSettings
   ]);
-
 }
 
 function PrlSettings() {
@@ -15,9 +13,10 @@ function PrlSettings() {
     bindToController: true,
     controller: 'SettingsController',
     controllerAs: 'ctrl',
-
-    link: function(scope, element, attrs) {
-      
-    }
+    link: link
   };
+
+  function link(scope, element, attrs) {
+
+  }
 }
