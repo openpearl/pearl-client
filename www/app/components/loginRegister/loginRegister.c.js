@@ -2,14 +2,13 @@ module.exports = function(app) {
   app.controller('LoginRegisterCtrl', [
     "$rootScope",
     "$state",
-    "submitLogin",
-    "submitSignup",
+    "LoginRegisterServ",
 
     LoginRegisterCtrl
   ]);
 }
 
-function LoginRegisterCtrl($rootScope, $state, submitLogin, submitSignup) {
+function LoginRegisterCtrl($rootScope, $state, LoginRegisterServ) {
   var vm = this;
 
   vm.name = '';
@@ -19,14 +18,12 @@ function LoginRegisterCtrl($rootScope, $state, submitLogin, submitSignup) {
 
   vm.loginMode = true;
   vm.toggleMode = toggleMode;
+
   vm.clickLogin = clickLogin;
   vm.clickSignup = clickSignup;
 
-  vm.goToChat = goToChat;
-
-
+  // TODO: Figure out if this belongs here or somewhere else.
   $rootScope.$on('auth:login-success', function(ev, user) {
-    // alert("Welcome ", user.email);
     $state.go('slider');
   });
 
@@ -35,17 +32,13 @@ function LoginRegisterCtrl($rootScope, $state, submitLogin, submitSignup) {
   }
 
   function clickLogin() {
-    console.log("Login clicked.");
-    submitLogin(vm.email, vm.password, vm.goToChat);
+    console.log("Login button clicked.");
+    LoginRegisterServ.submitLogin(vm.email, vm.password);
   }
   
   function clickSignup() {
-    submitSignup(vm.name, vm.email, vm.password, 
-      vm.confirmPassword, vm.goToChat);
-  }
-
-  function goToChat() {
-    console.log("Going to chat.");
-    $state.go("slider");
+    console.log("Register button clicked.");
+    LoginRegisterServ.submitRegister(vm.name, vm.email, vm.password, 
+      vm.confirmPassword);    
   }
 }

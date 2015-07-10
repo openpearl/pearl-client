@@ -1,5 +1,5 @@
 module.exports = function(app) {
-  app.controller('ChatController', [
+  app.controller('ChatCtrl', [
     '$scope',
     '$http',
     '$ionicScrollDelegate', 
@@ -12,11 +12,11 @@ module.exports = function(app) {
     'requestNextComm',
 
 
-    ChatController
+    ChatCtrl
   ]);
 }
 
-function ChatController(
+function ChatCtrl(
     $scope,
     $http, 
     $ionicScrollDelegate,

@@ -1,8 +1,6 @@
-appSettings = angular.module('components.settings', []);
+var SettingsM = angular.module('components.settings', []);
 
-require('./settings.c.js')(appSettings);
-require('./serverClientGoal.s.js')(appSettings);
-require('./settings.d.js')(appSettings);
+require('./settings.c.js')(SettingsM);
+require('./settings.d.js')(SettingsM);
 
-
-module.exports = appSettings;
+module.exports = SettingsM;

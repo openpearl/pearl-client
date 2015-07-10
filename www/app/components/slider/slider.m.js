@@ -1,4 +1,4 @@
-var appSlider = angular.module('components.slider', []);
-require('./slider.c.js')(appSlider);
+var SliderM = angular.module('components.slider', []);
+require('./slider.c.js')(SliderM);
 
-module.exports = appSlider;
+module.exports = SliderM;

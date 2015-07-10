@@ -1,21 +1,20 @@
 module.exports = function(app) {
-  app.factory('submitLogin', [
+  app.factory('LoginRegisterServ', [
     '$http',
     '$auth',
-    submitLogin
-  ]);
-
-  app.factory('submitSignup', [
-    '$http',
-    submitSignup
+    'ApiEndpoint',
+    LoginRegisterServ
   ]);
 }
 
-function submitLogin($http, $auth) {
+function LoginRegisterServ($http, $auth, ApiEndpoint) {
 
-  return function(email, password, callback) {
+  var loginRegister = {
+    submitLogin: submitLogin,
+    submitRegister: submitRegister
+  };
 
-    console.log(callback);
+  function submitLogin(email, password) {
 
     console.log("Login button pressed.");
     console.log("Email: " + email);
@@ -33,48 +32,24 @@ function submitLogin($http, $auth) {
     }
 
     // Complete POST request and redirect.
-    var route = CURRENT_HOST + "/api/v1/auth/sign_in/";
+    var route = ApiEndpoint.url + "/auth/sign_in/";
     var loginJson = {
       email: email,
       password: password
     }
 
-    // postInfo(route, loginJson, callback);
-
     $auth.submitLogin(loginJson)
       .then(function(resp) {
         console.log("Logged in.");
         console.log(resp);
-        // callback();
       })
       .catch(function(resp) {
         console.log("Failed logging in.");
         console.log(resp);
       });
-  } 
-}
-
-function submitSignup($http) {
-
-  function postInfo(route, jsonObj, callback) {
-
-    console.log("Posting info.");
-
-    $http.post(route, jsonObj).
-      success(function(data, status, headers, config) {
-        // this callback will be called asynchronously
-        // when the response is available
-        console.log("Logging in successful.");
-        console.log(data.message);
-      }).
-      error(function(data, status, headers, config) {
-        console.error("Error sending login-signup.");
-        console.log(jsonObj);
-      });
   }
 
-  return function(name, email, password, confirmPassword, callback) {
-    // Validate all information.
+  function submitRegister(name, email, password, confirmPassword) {
 
     if (name.length === 0) {
       alert("Please enter your name so we can start talking!");
@@ -97,17 +72,27 @@ function submitSignup($http) {
     }
 
     // Complete POST request and redirect.
-    var route = CURRENT_HOST + "/api/v1/auth/";
-    var signUpJson = {
+    var route = ApiEndpoint.url + "/auth/";
+    var registerJson = {
       name: name,
       email: email,
       password: password,
-      password_confirmation: password,
-
-      // FIXME: Change this link to something reasonable.
-      confirm_success_url: "http://www.google.com/"
+      password_confirmation: confirmPassword,
+      confirm_success_url: "http://www.openpearl.org/"
     }
 
-    postInfo(route, signUpJson, callback);
+    $http.post(route, registerJson).
+      success(function(data, status, headers, config) {
+        // this callback will be called asynchronously
+        // when the response is available
+        console.log("Logging in successful.");
+        console.log(data.message);
+      }).
+      error(function(data, status, headers, config) {
+        console.error("Error sending register request.");
+        console.log(jsonObj);
+      });
   }
+
+  return loginRegister;
 }

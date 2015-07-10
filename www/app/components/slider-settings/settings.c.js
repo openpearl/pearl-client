@@ -1,14 +1,14 @@
 module.exports = function(app) {
-  app.controller('SettingsController', [
+  app.controller('SettingsCtrl', [
     '$state',
     '$ionicPlatform',
     'UserModel',
     'ServerClientGoalService',
-    SettingsController
+    SettingsCtrl
   ]);
 }
 
-function SettingsController($state, $ionicPlatform, UserModel, 
+function SettingsCtrl($state, $ionicPlatform, UserModel, 
   ServerClientGoalService) {
 
   var vm = this;
