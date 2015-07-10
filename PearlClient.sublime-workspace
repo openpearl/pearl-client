@@ -451,6 +451,9 @@
 	},
 	"file_history":
 	[
+		"/Users/davidzhu/PearlClient/www/app/shared/userContext/userContext.s.js",
+		"/Users/davidzhu/PearlClient/www/app/components/loginRegister/loginRegister.s.js",
+		"/Users/davidzhu/PearlClient/www/app/app.r.js",
 		"/Users/davidzhu/PearlClient/www/app/bundle.js",
 		"/Users/davidzhu/PearlClient/www/app/core/apiEndpoint.const.js",
 		"/Users/davidzhu/PearlClient/PearlClient.sublime-project",
@@ -503,7 +506,6 @@
 		"/Users/davidzhu/PearlClient/bower.json",
 		"/Users/davidzhu/PearlClient/www/assets/lib/ionic/bower.json",
 		"/Users/davidzhu/PearlClient/package.json",
-		"/Users/davidzhu/PearlClient/www/app/app.r.js",
 		"/Users/davidzhu/PearlClient/www/assets/lib/ionic/js/ionic.bundle.js",
 		"/Users/davidzhu/PearlClient/spec/support/jasmine.json",
 		"/Users/davidzhu/PearlClient/www/assets/js/browserSettings.js",
@@ -576,9 +578,7 @@
 		"/Users/davidzhu/dotfiles/sublimePackages",
 		"/Users/davidzhu/Library/Application Support/Sublime Text 3/Packages/Package Control/Package Control.sublime-settings",
 		"/Users/davidzhu/dotfiles/.vimrc",
-		"/Users/davidzhu/dotfiles/synclist",
-		"/Users/davidzhu/openpearl_move/lib/openpearl_move.rb",
-		"/Users/davidzhu/openpearl_move/spec/openpearl_move_spec.rb"
+		"/Users/davidzhu/dotfiles/synclist"
 	],
 	"find":
 	{
@@ -601,6 +601,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"route",
+			"appRoutes",
+			"route",
 			"'apiendpoint'",
 			"apiendpoint",
 			"sendclientcontex",
@@ -725,10 +728,7 @@
 			"cardId",
 			"CardID",
 			"cardId",
-			"CardId",
-			"cardId",
-			"CardId",
-			"cardId"
+			"CardId"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1334,7 +1334,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 267.0,
+	"side_bar_width": 283.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

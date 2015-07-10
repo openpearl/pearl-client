@@ -1,25 +1,29 @@
 module.exports = function(app) {
   app.factory('ChatServ', [
     '$http',
+    '$rootScope',
     'ApiEndpoint',
     ChatServ
   ]);
 }
 
-function ChatServ($http, ApiEndpoint) {
+function ChatServ($http, $rootScope, ApiEndpoint) {
+
   var chatServ = {
+    chatMessages: [],
     httpRequestNextCard: httpRequestNextCard
   }
 
-  function httpRequestNextCard(nextCardID) {
+  function httpRequestNextCard(nextCardID, callback) {
+    var nextCardID = typeof nextCardID !== 'undefined' ? nextCardID : "root";
     console.log('About to httpRequestNextCard.');
 
-    var url = ApiEndpoint.url + '/communications';
+    var url = ApiEndpoint.url + '/pearl/converse';
     var cardRequest = {
       cardID: nextCardID
     }
 
-    $http.post(url, cardID)
+    $http.post(url, cardRequest)
       .success(function(data, status, headers, config){
 
         console.log("httpRequestNextCard success.");
@@ -31,6 +35,8 @@ function ChatServ($http, ApiEndpoint) {
           return;
         }
 
+        // console.log(callback);
+        callback(data);
       })
       .error(function(data, status, headers, config){
         console.log("httpRequestNextCard error.");

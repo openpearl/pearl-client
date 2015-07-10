@@ -2,6 +2,8 @@ module.exports = function(app) {
   app.factory('UserContextServ', [
     '$q',
     '$http',
+    '$rootScope',
+
     '$ionicPlatform',
     '$cordovaHealthKit',
     'ApiEndpoint',
@@ -9,7 +11,7 @@ module.exports = function(app) {
   ]);
 }
 
-function UserContextServ($q, $http, $ionicPlatform, $cordovaHealthKit, ApiEndpoint) {
+function UserContextServ($q, $http, $rootScope, $ionicPlatform, $cordovaHealthKit, ApiEndpoint) {
   var userContextServ = {
     // Store.
     userContext: {},
@@ -128,7 +130,7 @@ function UserContextServ($q, $http, $ionicPlatform, $cordovaHealthKit, ApiEndpoi
     console.log(data);
 
     // FIXME: This is fake and temporary data.
-    var url = ApiEndpoint.url + '/pearl/context/'
+    var url = ApiEndpoint.url + '/documents/'
     var placeholderData = {
       "keys": ["steps"]
     }
@@ -153,6 +155,8 @@ function UserContextServ($q, $http, $ionicPlatform, $cordovaHealthKit, ApiEndpoi
       .success(function(data, status, headers, config) {
         console.log("Success posting to /pearl/context.");
         console.log(data);
+
+        $rootScope.$emit("converse:ready");
       })
       .error(function(data, status, headers, config) {
         console.log("Unable to httpTempPostContextToPearl.");

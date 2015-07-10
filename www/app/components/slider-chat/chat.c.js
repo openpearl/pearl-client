@@ -1,18 +1,20 @@
 module.exports = function(app) {
   app.controller('ChatCtrl', [
     '$scope',
+    '$rootScope',
     'UserContextServ',
     'ChatServ',
     ChatCtrl
   ]);
 }
 
-function ChatCtrl($scope, UserContextServ, ChatServ) {
+function ChatCtrl($scope, $rootScope, UserContextServ, ChatServ) {
 
   var vm = this;
 
   // Chat storage.
-  vm.chatMessages = []; // Messages displayed in the history.
+  vm.ChatServ = ChatServ;
+
   vm.inputOptions = []; // User input options.
   vm.currentInputID = ""; // Holder for ID to reference later.
   vm.currentInputMessage = "";
@@ -33,6 +35,10 @@ function ChatCtrl($scope, UserContextServ, ChatServ) {
     vm.doRefresh();
   });
 
+  $rootScope.$on('converse:ready', function() {
+    ChatServ.httpRequestNextCard("root", vm.addNextCard);
+  });
+
   // METHODS ********************
 
   function doRefresh() {
@@ -43,8 +49,10 @@ function ChatCtrl($scope, UserContextServ, ChatServ) {
     // TODO: What do I want after getting the required context?
 
     // TODO: Refactor this to be somewhere else.
-    // vm.chatMessages = [];
     // ChatServ.httpRequestNextCard("root", vm.addNextCard);
+    ChatServ.chatMessages = [];
+    vm.inputOptions = [];
+
     $scope.$broadcast('scroll.refreshComplete');
   }
 
@@ -59,7 +67,7 @@ function ChatCtrl($scope, UserContextServ, ChatServ) {
 
     // Now push user message into the history.
     // TODO: This is not DRY. Package and make DRY.
-    vm.chatMessages.push({
+    ChatServ.chatMessages.push({
       speaker: "client",
       message: vm.currentInputMessage,
     });
@@ -75,19 +83,28 @@ function ChatCtrl($scope, UserContextServ, ChatServ) {
 
   function addNextCard(responseData) {
 
+    console.log(ChatServ.chatMessages);
+
+    console.log("addNextCard");
+    console.log(responseData);
+
     var currentCardID = responseData.cardID;
     var currentSpeaker = responseData.speaker;
-    var currentMessage = responseData.message;
+    var currentMessage = responseData.messages;
 
-    var nextCardID = responseData.childrenCards[0].cardId;
-    var nextSpeaker = responseData.childrenCards[0].speaker;
+    var choice = Math.random();
+    choice = Math.floor(choice * responseData.childrenCardIDs.length);
+    console.log(choice);
+
+    var nextCardID = responseData.childrenCardIDs[choice];
+    var nextSpeaker = responseData.childrenCards[choice].speaker;
 
     console.log("Returned cardID: " + nextCardID);
     console.log("Returned speaker: " + nextSpeaker);
 
     // Push the mssage of the card.
     if (currentSpeaker === "ai") {
-      vm.chatMessages.push({
+      ChatServ.chatMessages.push({
         speaker: currentSpeaker,
         message: currentMessage,
       });
@@ -95,7 +112,7 @@ function ChatCtrl($scope, UserContextServ, ChatServ) {
 
     // Do another request if the next speaker is also an AI.
     if (nextSpeaker === "ai") {
-      ChatServ.httpRequestNextCard(nextCardID);
+      ChatServ.httpRequestNextCard(nextCardID, vm.addNextCard);
     }
 
     // Populate choices if next speaker is a client.
@@ -106,9 +123,12 @@ function ChatCtrl($scope, UserContextServ, ChatServ) {
       // Push over the options.
       for (i in responseData.childrenCards) {
         vm.inputOptions.push({
-          inputMessage: responseData.childrenCards[i].message,
-          inputCardID: responseData.childrenCards[i].cardId
+          inputMessage: responseData.childrenCards[i].messages,
+          inputCardID: responseData.childrenCards[i].cardID
         });
+
+        console.log("vm.inputOptions: ");
+        console.log(vm.inputOptions);
       }
     }
   }
