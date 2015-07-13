@@ -96,8 +96,8 @@ function ChatCtrl($scope, $rootScope, UserContextServ, ChatServ) {
     choice = Math.floor(choice * responseData.childrenCardIDs.length);
     console.log(choice);
 
-    var nextCardID = responseData.childrenCardIDs[choice];
-    var nextSpeaker = responseData.childrenCards[choice].speaker;
+    var nextCardID = responseData.childrenCardIDs[0];
+    var nextSpeaker = responseData.childrenCards[0].speaker;
 
     console.log("Returned cardID: " + nextCardID);
     console.log("Returned speaker: " + nextSpeaker);
