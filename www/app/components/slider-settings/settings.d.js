@@ -2,7 +2,7 @@ module.exports = function(app) {
   app.directive('prlSettings', [
     PrlSettings
   ]);
-}
+};
 
 function PrlSettings() {
   return {

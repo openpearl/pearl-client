@@ -22,18 +22,33 @@ prl-chat-scroll {
   margin-top: 10px;
 }
 
+.animate-enter {
+  opacity: 0;
+  -webkit-transition: all ease 0.5s;
+  transition: all ease 0.5s;  
+}
+
+// ngAnimate.
+.animate-enter.animate-enter-stagger {
+  -webkit-transition-delay:1s;
+  transition-delay: 1s;
+
+  -webkit-transition-duration: 0s;
+  transition-duration: 0s;
+}
+
 %bubble {
   border-radius: 12px;
   border-bottom-right-radius: 0px;
   padding: 5px 10px;
   box-sizing: content-box;
-  animation: fadein 0.5s;
+  // animation: fadein 0.5s;
 }
 
-@keyframes fadein {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
+// @keyframes fadein {
+//   from { opacity: 0; }
+//   to   { opacity: 1; }
+// }
 
 .chat-bubble {
   margin-right: 10px;

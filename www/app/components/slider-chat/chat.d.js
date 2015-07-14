@@ -13,7 +13,7 @@ module.exports = function(app) {
     PrlChatInputSpace
   ]);
 
-}
+};
 
 function PrlChat() {
   return {
@@ -40,12 +40,12 @@ function PrlChatScroll($ionicScrollDelegate) {
         }
       }, true);
     }
-  }
+  };
 }
 
 // TODO: For future text inputs.
 function PrlChatInputSpace() {
   return {
     restrict: 'E'
-  }
+  };
 }

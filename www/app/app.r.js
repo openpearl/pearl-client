@@ -1,18 +1,18 @@
 module.exports = function(app) {
   app.config(appRoutes); 
-}
+};
 
 function appRoutes($stateProvider, $urlRouterProvider) {
 
   $stateProvider
 
-  .state('login', {
-    url: "/login",
-    template: "<prl-login-register></prl-login-register>"
-    // templateUrl: "app/components/loginSignUp/loginSignUp.t.html",
-    // controller: 'LoginSignUpController',
-    // controllerAs: 'loginCtrl'
-  })
+  // .state('login', {
+  //   url: "/login",
+  //   template: "<prl-login-register></prl-login-register>"
+  //   // templateUrl: "app/components/loginSignUp/loginSignUp.t.html",
+  //   // controller: 'LoginSignUpController',
+  //   // controllerAs: 'loginCtrl'
+  // })
 
   // setup an abstract state for the slider directive
   .state('slider', {
@@ -22,5 +22,5 @@ function appRoutes($stateProvider, $urlRouterProvider) {
   });
 
   // If none of the above states are matched, use this as the fallback.
-  $urlRouterProvider.otherwise('/login');
+  $urlRouterProvider.otherwise('/slider');
 }

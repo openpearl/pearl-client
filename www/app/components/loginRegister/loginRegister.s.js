@@ -5,7 +5,7 @@ module.exports = function(app) {
     'ApiEndpoint',
     LoginRegisterServ
   ]);
-}
+};
 
 function LoginRegisterServ($http, $auth, ApiEndpoint) {
 
@@ -36,7 +36,7 @@ function LoginRegisterServ($http, $auth, ApiEndpoint) {
     var loginJson = {
       email: email,
       password: password
-    }
+    };
 
     $auth.submitLogin(loginJson)
       .then(function(resp) {
@@ -79,7 +79,7 @@ function LoginRegisterServ($http, $auth, ApiEndpoint) {
       password: password,
       password_confirmation: confirmPassword,
       confirm_success_url: "http://www.openpearl.org/"
-    }
+    };
 
     $http.post(url, registerJson).
       success(function(data, status, headers, config) {

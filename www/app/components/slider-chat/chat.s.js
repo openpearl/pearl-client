@@ -5,28 +5,28 @@ module.exports = function(app) {
     'ApiEndpoint',
     ChatServ
   ]);
-}
+};
 
 function ChatServ($http, $rootScope, ApiEndpoint) {
 
   var chatServ = {
     chatMessages: [],
-    httpRequestNextCard: httpRequestNextCard
-  }
+    requestNextCard: requestNextCard
+  };
 
-  function httpRequestNextCard(nextCardID, callback) {
-    var nextCardID = typeof nextCardID !== 'undefined' ? nextCardID : "root";
-    console.log('About to httpRequestNextCard.');
+  function requestNextCard(nextCardID, callback) {
+    var newCardID = typeof nextCardID !== 'undefined' ? nextCardID : "root";
+    console.log('About to requestNextCard.');
 
     var url = ApiEndpoint.url + '/pearl/converse';
     var cardRequest = {
-      cardID: nextCardID
-    }
+      cardID: newCardID
+    };
 
     $http.post(url, cardRequest)
       .success(function(data, status, headers, config){
 
-        console.log("httpRequestNextCard success.");
+        console.log("requestNextCard success.");
         console.log(data);
 
         // When we reach the last message, terminate the conversation.
@@ -39,7 +39,7 @@ function ChatServ($http, $rootScope, ApiEndpoint) {
         callback(data);
       })
       .error(function(data, status, headers, config){
-        console.log("httpRequestNextCard error.");
+        console.log("requestNextCard error.");
         console.log(data);  
       });
   }

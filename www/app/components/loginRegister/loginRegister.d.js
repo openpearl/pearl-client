@@ -2,7 +2,7 @@ module.exports = function(app) {
   app.directive('prlLoginRegister', [
     prlLoginRegister
   ]);
-}
+};
 
 function prlLoginRegister() {
   return {

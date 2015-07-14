@@ -6,7 +6,7 @@ module.exports = function(app) {
     'GoalsServ',
     SettingsCtrl
   ]);
-}
+};
 
 function SettingsCtrl($state, $ionicPlatform, UserServ, GoalsServ) {
 
@@ -15,7 +15,6 @@ function SettingsCtrl($state, $ionicPlatform, UserServ, GoalsServ) {
 
   vm.refresh = refresh;
 
-  vm.searchText;
   vm.clickLogout = clickLogout;
   vm.clickGoal = clickGoal;
 

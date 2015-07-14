@@ -3,18 +3,20 @@ module.exports = function(app) {
     '$scope',
     '$rootScope',
     'UserContextServ',
+    'LoginRegisterServ',
     'ChatServ',
     ChatCtrl
   ]);
-}
+};
 
-function ChatCtrl($scope, $rootScope, UserContextServ, ChatServ) {
+function ChatCtrl($scope, $rootScope, UserContextServ, LoginRegisterServ, ChatServ) {
 
   var vm = this;
 
-  // Chat storage.
+  vm.LoginRegisterServ = LoginRegisterServ;
   vm.ChatServ = ChatServ;
 
+  vm.chatMessages = [];
   vm.inputOptions = []; // User input options.
   vm.currentInputID = ""; // Holder for ID to reference later.
   vm.currentInputMessage = "";
@@ -36,24 +38,44 @@ function ChatCtrl($scope, $rootScope, UserContextServ, ChatServ) {
   });
 
   $rootScope.$on('converse:ready', function() {
-    ChatServ.httpRequestNextCard("root", vm.addNextCard);
+    ChatServ.requestNextCard("root", vm.addNextCard);
   });
 
-  // METHODS ********************
+  // METHODS ******************************************************************
 
   function doRefresh() {
     console.log("Refreshing the conversation!");
-    UserContextServ.httpGetRequiredContext(
-      UserContextServ.httpSendUserContext
-    );
-    // TODO: What do I want after getting the required context?
 
-    // TODO: Refactor this to be somewhere else.
-    // ChatServ.httpRequestNextCard("root", vm.addNextCard);
+    // TODO: This seems like a pretty bad way of doing things.
+    // Refactor if possible.
     ChatServ.chatMessages = [];
+    LoginRegisterServ.chatMessages = [];
+
+    vm.chatMessages = [];
     vm.inputOptions = [];
 
-    $scope.$broadcast('scroll.refreshComplete');
+    LoginRegisterServ.isLoggedIn().then(function() {
+      // Ping to server to see if I am still logged in or not.
+      // If logged in, send conversation.
+      // If not, trigger login.
+
+      vm.chatMessages = vm.ChatServ.chatMessages;
+
+      UserContextServ.httpGetRequiredContext(
+        UserContextServ.httpSendUserContext
+      );
+      // TODO: What do I want after getting the required context?
+      // TODO: Refactor this to be somewhere else.
+      // ChatServ.requestNextCard("root", vm.addNextCard);
+
+      $scope.$broadcast('scroll.refreshComplete');
+    
+    }, function(error) {
+      // Not logged in yet. Let's start the login conversation.
+      vm.chatMessages = vm.LoginRegisterServ.chatMessages;
+      LoginRegisterServ.requestNextCard("introChats");
+      $scope.$broadcast('scroll.refreshComplete');
+    });
   }
 
   function enterUserInput($index) {
@@ -78,7 +100,7 @@ function ChatCtrl($scope, $rootScope, UserContextServ, ChatServ) {
     console.log("inputOptions are cleared.");
     console.log(vm.inputOptions);
 
-    ChatServ.httpRequestNextCard(vm.currentInputID, vm.addNextCard);
+    ChatServ.requestNextCard(vm.currentInputID, vm.addNextCard);
   }
 
   function addNextCard(responseData) {
@@ -112,7 +134,7 @@ function ChatCtrl($scope, $rootScope, UserContextServ, ChatServ) {
 
     // Do another request if the next speaker is also an AI.
     if (nextSpeaker === "ai") {
-      ChatServ.httpRequestNextCard(nextCardID, vm.addNextCard);
+      ChatServ.requestNextCard(nextCardID, vm.addNextCard);
     }
 
     // Populate choices if next speaker is a client.
@@ -121,7 +143,7 @@ function ChatCtrl($scope, $rootScope, UserContextServ, ChatServ) {
       vm.inputOptions = [];
 
       // Push over the options.
-      for (i in responseData.childrenCards) {
+      for (var i in responseData.childrenCards) {
         vm.inputOptions.push({
           inputMessage: responseData.childrenCards[i].messages,
           inputCardID: responseData.childrenCards[i].cardID
