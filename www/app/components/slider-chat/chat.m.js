@@ -1,5 +1,5 @@
-var ChatM = angular.module('components.chat', ['ngAnimate']);
-// var ChatM = angular.module('components.chat', []);
+// var ChatM = angular.module('components.chat', ['ngAnimate']);
+var ChatM = angular.module('components.chat', []);
 
 require('./loginStoryboard.const.js')(ChatM);
 

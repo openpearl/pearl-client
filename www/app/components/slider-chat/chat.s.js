@@ -1,5 +1,5 @@
 module.exports = function(app) {
-  app.factory('ChatServ', [
+  app.service('ChatServ', [
     '$http',
     '$rootScope',
     'ApiEndpoint',
@@ -8,35 +8,40 @@ module.exports = function(app) {
 };
 
 function ChatServ($http, $rootScope, ApiEndpoint) {
+  var _this = this;
 
-  var chatServ = {
-    chatMessages: [],
-    requestNextCard: requestNextCard
-  };
+  _this.chatMessages = [];
+  _this.inputOptions = [];
+  _this.requestNextCard = requestNextCard;
 
-  function requestNextCard(nextCardID, callback) {
-    var newCardID = typeof nextCardID !== 'undefined' ? nextCardID : "root";
+  function requestNextCard(nextCardRequest, callback) {
+
+    // `nextCardRequest` takes the format of:
+    // {
+    //   cardID: String,
+    //   type: String, // The variable that should be filled in.
+    //   style: String, // Could be `email`, `password`, etc for formatting.
+    //   value: String // Actual user value.
+    // }
+
+    var newCardRequest = nextCardRequest;
+    if (nextCardRequest === undefined) { newCardRequest = { cardID: "root" }; }
     console.log('About to requestNextCard.');
 
     var url = ApiEndpoint.url + '/pearl/converse';
-    var cardRequest = {
-      cardID: newCardID
-    };
 
-    $http.post(url, cardRequest)
-      .success(function(data, status, headers, config){
-
+    $http.post(url, newCardRequest)
+      .success(function(receivedCard, status, headers, config){
         console.log("requestNextCard success.");
-        console.log(data);
+        console.log(receivedCard);
 
         // When we reach the last message, terminate the conversation.
-        if (data === null) {
+        if (receivedCard === null) {
           console.log("No more messages to receive.");
           return;
         }
-
         // console.log(callback);
-        callback(data);
+        callback(receivedCard);
       })
       .error(function(data, status, headers, config){
         console.log("requestNextCard error.");
@@ -44,7 +49,58 @@ function ChatServ($http, $rootScope, ApiEndpoint) {
       });
   }
 
-  // HELPERS ********************
+  _this.addNextCard = function addNextCard(responseCard) {
 
-  return chatServ;
+    console.log("addNextCard");
+    console.log(responseCard);
+
+    var currentCardID = responseCard.cardID;
+    var currentSpeaker = responseCard.speaker;
+    var currentMessage = responseCard.messages;
+
+    var choice = Math.random();
+    choice = Math.floor(choice * responseCard.childrenCardIDs.length);
+    console.log(choice);
+
+    var nextCardID = responseCard.childrenCardIDs[0];
+    var nextSpeaker = responseCard.childrenCards[0].speaker;
+
+    console.log("Returned cardID: " + nextCardID);
+    console.log("Returned speaker: " + nextSpeaker);
+
+    // Push the mssage of the card.
+    if (currentSpeaker === "ai") {
+      _this.chatMessages.push({
+        speaker: currentSpeaker,
+        message: currentMessage,
+      });
+    }
+
+    // Do another request if the next speaker is also an AI.
+    if (nextSpeaker === "ai") {
+      // FIXME: This line is problematic for switching.
+      // `this` rather than `_this` is crucial here. 
+      // It points to the latest referrer.
+      this.requestNextCard({cardID: nextCardID}, this.addNextCard);
+    }
+
+    // Populate choices if next speaker is a client.
+    if (nextSpeaker === "client") {
+      console.log("Next speaker is a client.");
+      _this.inputOptions = [];
+
+      // Push over the options.
+      for (var i in responseCard.childrenCards) {
+        _this.inputOptions.push({
+          inputMessage: responseCard.childrenCards[i].messages,
+          inputCardID: responseCard.childrenCards[i].cardID
+        });
+
+        console.log("_this.inputOptions: ");
+        console.log(_this.inputOptions);
+      }
+    }
+  };
+
+  // HELPERS ******************************************************************
 }

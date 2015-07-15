@@ -35,9 +35,7 @@ function UserContextServ($q, $http, $rootScope, $ionicPlatform, $cordovaHealthKi
       $cordovaHealthKit.isAvailable().then(function(yes) {
         // TODO: Don't make this hard coded. The server can pass this info.
         var readPermissions = [
-          'HKQuantityTypeIdentifierDistanceWalkingRunning',
-          'HKQuantityTypeIdentifierDistanceCycling',
-          'HKQuantityTypeIdentifierStepCount',
+          'HKQuantityTypeIdentifierStepCount'
         ];
         var writePermissions = [];
         console.log(readPermissions);      

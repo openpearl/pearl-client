@@ -1,5 +1,6 @@
 module.exports = function(app) {
-  app.factory('LoginRegisterServ', [
+  app.service('LoginRegisterServ', [
+    'ChatServ',
     '$http',
     '$rootScope',
     '$timeout',
@@ -9,23 +10,14 @@ module.exports = function(app) {
   ]);
 };
 
-function LoginRegisterServ($http, $rootScope, $timeout, ApiEndpoint, LoginStoryboard) {
-  var loginRegisterServ = {
-    chatMessages: [],
-    msgStorage: {},
+function LoginRegisterServ(ChatServ, $http, $rootScope, $timeout, ApiEndpoint, LoginStoryboard) {
 
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
+  var _this = this;
 
-    isLoggedIn: isLoggedIn,
-    requestNextCard: requestNextCard
-  };
-
-  // DATA *********************************************************************
-
-  loginRegisterServ.msgStorage = LoginStoryboard.conversation;
+  _this.isLoggedIn = isLoggedIn;
+  _this.requestNextCard = requestNextCard;
+  _this.addNextCard = ChatServ.addNextCard;
+  _this.msgStorage = LoginStoryboard.conversation;
 
   // METHODS ******************************************************************
 
@@ -35,18 +27,32 @@ function LoginRegisterServ($http, $rootScope, $timeout, ApiEndpoint, LoginStoryb
   }
 
   // Provide the next blurbs in the list depending on the input ID.
-  function requestNextCard(cardID, callback) {
-    var formattedMessage = {
-      "speaker": this.msgStorage[cardID].speaker,
-      "message": this.msgStorage[cardID].messages 
-    };
+  function requestNextCard(newCardRequest, callback) {
+    // var formattedMessage = {
+    //   "speaker": this.msgStorage[newCardRequest.cardID].speaker,
+    //   "message": this.msgStorage[newCardRequest.cardID].messages 
+    // };
 
-    this.chatMessages.push(formattedMessage);
+    // this.chatMessages.push(formattedMessage);
 
-    callback();
+    var receivedCard = _this.msgStorage[newCardRequest.cardID];
+    console.log(receivedCard);
+
+    receivedCard.childrenCards = [];
+    for (var i in receivedCard.childrenCardIDs) {
+      // TODO: Refactor to make more readable.
+      // Populates the children IDs with actual children.
+      receivedCard.childrenCards
+        .push(_this.msgStorage[receivedCard.childrenCardIDs[i]]);
+    }
+
+    // TODO: This binding and pseudo-inheritance is real jank.
+    console.log("requestNextCard");
+    console.log(_this);
+    var boundCallback = callback.bind(_this);
+    boundCallback(receivedCard);
   }
 
   // HELPERS ******************************************************************
 
-  return loginRegisterServ;
 }

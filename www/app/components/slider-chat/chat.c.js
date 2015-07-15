@@ -16,8 +16,7 @@ function ChatCtrl($scope, $rootScope, UserContextServ, LoginRegisterServ, ChatSe
   vm.LoginRegisterServ = LoginRegisterServ;
   vm.ChatServ = ChatServ;
 
-  vm.chatMessages = [];
-  vm.inputOptions = []; // User input options.
+  vm.inputOptions = ChatServ.inputOptions; // User input options.
   vm.currentInputID = ""; // Holder for ID to reference later.
   vm.currentInputMessage = "";
 
@@ -25,23 +24,23 @@ function ChatCtrl($scope, $rootScope, UserContextServ, LoginRegisterServ, ChatSe
   vm.requestNextCard = requestNextCard;
   
   vm.enterUserInput = enterUserInput;
-  vm.addNextCard = addNextCard;
 
   // Request permissions and then refresh the page.
   UserContextServ.localRequestPermissions(function() {
     vm.doRefresh = doRefresh;
   });
 
-  $scope.$on('$ionicView.enter', function() {
-    console.log("I have entered the app.");
+  // $scope.$on('$ionicView.enter', function() {
+  //   console.log("I have entered the app.");
 
-    // TODO: This is where you can send the context of the walking steps.
-    // Check to see if logged in first.
-    vm.doRefresh();
-  });
+  //   // TODO: This is where you can send the context of the walking steps.
+  //   // Check to see if logged in first.
+  //   vm.doRefresh();
+  // });
 
   $rootScope.$on('converse:ready', function() {
-    vm.requestNextCard("root", vm.addNextCard);
+    console.log("converse:ready");
+    vm.requestNextCard({cardID: "root"}, vm.addNextCard);
   });
 
   // METHODS ******************************************************************
@@ -63,14 +62,10 @@ function ChatCtrl($scope, $rootScope, UserContextServ, LoginRegisterServ, ChatSe
       // If not, trigger login.
 
       vm.chatMessages = vm.ChatServ.chatMessages;
-
       UserContextServ.httpGetRequiredContext(
         UserContextServ.httpSendUserContext
       );
-      // TODO: What do I want after getting the required context?
-      // TODO: Refactor this to be somewhere else.
-      // ChatServ.requestNextCard("root", vm.addNextCard);
-
+      // vm.requestNextCard({cardID: "root"}, vm.addNextCard);
       $scope.$broadcast('scroll.refreshComplete');
     
     }, function(error) {
@@ -78,23 +73,24 @@ function ChatCtrl($scope, $rootScope, UserContextServ, LoginRegisterServ, ChatSe
       vm.chatMessages = vm.LoginRegisterServ.chatMessages;
       vm.currentService = LoginRegisterServ;
 
-      LoginRegisterServ.requestNextCard("root", addNextCard);
+      // LoginRegisterServ.requestNextCard({cardID: "root"}, 
+      //   LoginRegisterServ.addNextCard);
+      vm.requestNextCard({cardID: "root"}, "addNextCard");
       $scope.$broadcast('scroll.refreshComplete');
     });
   }
 
-  function requestNextCard(cardID, callback, service) {
-    if (service === undefined) { servce = vm.currentService; }
-    service.requestNextCard(cardID, callback);
+  function requestNextCard(cardID, callback) {
+    vm.currentService.requestNextCard(cardID, vm.currentService[callback]);
   }
 
   function enterUserInput($index) {
     console.log("Entering the user input.");
     console.log("Input option index: " + $index);
-    console.log("Input option: " + vm.inputOptions[$index]);
+    console.log("Input option: " + ChatServ.inputOptions[$index]);
 
-    vm.currentInputMessage = vm.inputOptions[$index].inputMessage;
-    vm.currentInputID = vm.inputOptions[$index].inputCardID;
+    vm.currentInputMessage = ChatServ.inputOptions[$index].inputMessage;
+    vm.currentInputID = ChatServ.inputOptions[$index].inputCardID;
     console.log(vm.currentInputMessage);
 
     // Now push user message into the history.
@@ -108,60 +104,7 @@ function ChatCtrl($scope, $rootScope, UserContextServ, LoginRegisterServ, ChatSe
     vm.currentInputMessage = "";
     vm.inputOptions = [];
     console.log("inputOptions are cleared.");
-    console.log(vm.inputOptions);
 
-    vm.requestNextCard(vm.currentInputID, vm.addNextCard);
-  }
-
-  function addNextCard(responseData) {
-
-    console.log(ChatServ.chatMessages);
-
-    console.log("addNextCard");
-    console.log(responseData);
-
-    var currentCardID = responseData.cardID;
-    var currentSpeaker = responseData.speaker;
-    var currentMessage = responseData.messages;
-
-    var choice = Math.random();
-    choice = Math.floor(choice * responseData.childrenCardIDs.length);
-    console.log(choice);
-
-    var nextCardID = responseData.childrenCardIDs[0];
-    var nextSpeaker = responseData.childrenCards[0].speaker;
-
-    console.log("Returned cardID: " + nextCardID);
-    console.log("Returned speaker: " + nextSpeaker);
-
-    // Push the mssage of the card.
-    if (currentSpeaker === "ai") {
-      ChatServ.chatMessages.push({
-        speaker: currentSpeaker,
-        message: currentMessage,
-      });
-    }
-
-    // Do another request if the next speaker is also an AI.
-    if (nextSpeaker === "ai") {
-      vm.requestNextCard(nextCardID, vm.addNextCard);
-    }
-
-    // Populate choices if next speaker is a client.
-    if (nextSpeaker === "client") {
-      console.log("Next speaker is a client.");
-      vm.inputOptions = [];
-
-      // Push over the options.
-      for (var i in responseData.childrenCards) {
-        vm.inputOptions.push({
-          inputMessage: responseData.childrenCards[i].messages,
-          inputCardID: responseData.childrenCards[i].cardID
-        });
-
-        console.log("vm.inputOptions: ");
-        console.log(vm.inputOptions);
-      }
-    }
+    vm.requestNextCard(vm.currentInputID, ChatServ.addNextCard);
   }
 }
