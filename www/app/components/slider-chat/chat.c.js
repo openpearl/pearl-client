@@ -12,10 +12,7 @@ module.exports = function(app) {
 function ChatCtrl($scope, $rootScope, UserContextServ, LoginRegisterServ, ChatServ) {
 
   var vm = this;
-
-  vm.LoginRegisterServ = LoginRegisterServ;
-  vm.ChatServ = ChatServ;
-
+  vm.CS = ChatServ;
   vm.inputOptions = ChatServ.inputOptions; // User input options.
   vm.currentInputID = ""; // Holder for ID to reference later.
   vm.currentInputMessage = "";
@@ -61,7 +58,6 @@ function ChatCtrl($scope, $rootScope, UserContextServ, LoginRegisterServ, ChatSe
       // If logged in, send conversation.
       // If not, trigger login.
 
-      vm.chatMessages = vm.ChatServ.chatMessages;
       UserContextServ.httpGetRequiredContext(
         UserContextServ.httpSendUserContext
       );
@@ -70,7 +66,6 @@ function ChatCtrl($scope, $rootScope, UserContextServ, LoginRegisterServ, ChatSe
     
     }, function(error) {
       // Not logged in yet. Let's start the login conversation.
-      vm.chatMessages = vm.LoginRegisterServ.chatMessages;
       vm.currentService = LoginRegisterServ;
 
       // LoginRegisterServ.requestNextCard({cardID: "root"}, 

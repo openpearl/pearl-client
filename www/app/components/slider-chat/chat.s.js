@@ -10,6 +10,10 @@ module.exports = function(app) {
 function ChatServ($http, $rootScope, ApiEndpoint) {
   var _this = this;
 
+  // _this.chatMessages = [{
+  //   speaker: "ai",
+  //   message: "Hello world!"
+  // }];
   _this.chatMessages = [];
   _this.inputOptions = [];
   _this.requestNextCard = requestNextCard;
@@ -74,6 +78,9 @@ function ChatServ($http, $rootScope, ApiEndpoint) {
         speaker: currentSpeaker,
         message: currentMessage,
       });
+
+      console.log("chatMessages: ");
+      console.log(_this.chatMessages);
     }
 
     // Do another request if the next speaker is also an AI.
