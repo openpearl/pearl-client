@@ -75,8 +75,9 @@ function ChatCtrl($scope, $rootScope, UserContextServ, LoginRegisterServ, ChatSe
     });
   }
 
-  function requestNextCard(cardID, callback) {
-    vm.currentService.requestNextCard(cardID, vm.currentService[callback]);
+  // Toggles between which `requestNextCard` to execute.
+  function requestNextCard(card, callback) {
+    vm.currentService.requestNextCard(card, vm.currentService[callback]);
   }
 
   function enterUserInput($index) {
@@ -100,6 +101,6 @@ function ChatCtrl($scope, $rootScope, UserContextServ, LoginRegisterServ, ChatSe
     vm.inputOptions = [];
     console.log("inputOptions are cleared.");
 
-    vm.requestNextCard(vm.currentInputID, ChatServ.addNextCard);
+    vm.requestNextCard({cardID: vm.currentInputID}, "addNextCard");
   }
 }
