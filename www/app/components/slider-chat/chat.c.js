@@ -21,6 +21,9 @@ function ChatCtrl($scope, $rootScope, UserContextServ, LoginRegisterServ, ChatSe
   vm.currentInputID = ""; // Holder for ID to reference later.
   vm.currentInputMessage = "";
 
+  vm.currentService = ChatServ; // Stores which service should be accessed.
+  vm.requestNextCard = requestNextCard;
+  
   vm.enterUserInput = enterUserInput;
   vm.addNextCard = addNextCard;
 
@@ -38,7 +41,7 @@ function ChatCtrl($scope, $rootScope, UserContextServ, LoginRegisterServ, ChatSe
   });
 
   $rootScope.$on('converse:ready', function() {
-    ChatServ.requestNextCard("root", vm.addNextCard);
+    vm.requestNextCard("root", vm.addNextCard);
   });
 
   // METHODS ******************************************************************
@@ -73,9 +76,16 @@ function ChatCtrl($scope, $rootScope, UserContextServ, LoginRegisterServ, ChatSe
     }, function(error) {
       // Not logged in yet. Let's start the login conversation.
       vm.chatMessages = vm.LoginRegisterServ.chatMessages;
-      LoginRegisterServ.requestNextCard("root");
+      vm.currentService = LoginRegisterServ;
+
+      LoginRegisterServ.requestNextCard("root", addNextCard);
       $scope.$broadcast('scroll.refreshComplete');
     });
+  }
+
+  function requestNextCard(cardID, callback, service) {
+    if (service === undefined) { servce = vm.currentService; }
+    service.requestNextCard(cardID, callback);
   }
 
   function enterUserInput($index) {
@@ -100,7 +110,7 @@ function ChatCtrl($scope, $rootScope, UserContextServ, LoginRegisterServ, ChatSe
     console.log("inputOptions are cleared.");
     console.log(vm.inputOptions);
 
-    ChatServ.requestNextCard(vm.currentInputID, vm.addNextCard);
+    vm.requestNextCard(vm.currentInputID, vm.addNextCard);
   }
 
   function addNextCard(responseData) {
@@ -134,8 +144,8 @@ function ChatCtrl($scope, $rootScope, UserContextServ, LoginRegisterServ, ChatSe
 
     // Do another request if the next speaker is also an AI.
     if (nextSpeaker === "ai") {
-      ChatServ.requestNextCard(nextCardID, vm.addNextCard);
-    } 
+      vm.requestNextCard(nextCardID, vm.addNextCard);
+    }
 
     // Populate choices if next speaker is a client.
     if (nextSpeaker === "client") {

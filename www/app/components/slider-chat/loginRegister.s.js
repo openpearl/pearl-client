@@ -25,33 +25,9 @@ function LoginRegisterServ($http, $rootScope, $timeout, ApiEndpoint, LoginStoryb
 
   // DATA *********************************************************************
 
-  console.log(LoginStoryboard);
   loginRegisterServ.msgStorage = LoginStoryboard.conversation;
 
-  // loginRegisterServ.msgStorage = {
-  //   "introChats": {
-  //     "ai": [
-  //       "Hi! I'm Pearl, your personal health assistant.",
-  //       "Drag down anytime to refresh our conversation :D",
-  //       "Want to login or register?"
-  //     ],
-  //     "client": [
-  //       "Login",
-  //       "Register"
-  //     ]
-  //   }
-
-  //   "loginChats": [
-  //     "Email?",
-  //     "Password?"
-  //   ],
-  //   "registerChats": [
-  //     "What's your name?",
-  //     "Email?",
-  //     "Password",
-  //     "(Password) one more time!"
-  //   ]
-  // };
+  // METHODS ******************************************************************
 
   function isLoggedIn() {
     var url = ApiEndpoint.url + '/is_logged_in';
@@ -59,13 +35,15 @@ function LoginRegisterServ($http, $rootScope, $timeout, ApiEndpoint, LoginStoryb
   }
 
   // Provide the next blurbs in the list depending on the input ID.
-  function requestNextCard(cardID) {
+  function requestNextCard(cardID, callback) {
     var formattedMessage = {
       "speaker": this.msgStorage[cardID].speaker,
       "message": this.msgStorage[cardID].messages 
     };
 
     this.chatMessages.push(formattedMessage);
+
+    callback();
   }
 
   // HELPERS ******************************************************************
