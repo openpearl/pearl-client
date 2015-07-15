@@ -98,8 +98,23 @@ function ChatServ($http, $rootScope, ApiEndpoint) {
 
       // Push over the options.
       for (var i in responseCard.childrenCards) {
+        
+        // Perform regex here.
+        var _messages = responseCard.childrenCards[i].messages;
+
+        var re = /\%\{(.*?)\}/;
+        var inputVariable = re.exec(_messages);
+        re.lastIndex = 0;
+
+        var inputMessage = responseCard.childrenCards[i].messages;
+        if (inputVariable !== null) {
+          inputMessage = "";
+        } 
+
         _this.inputOptions.push({
-          inputMessage: responseCard.childrenCards[i].messages,
+          inputStyle: responseCard.childrenCardIDs[i].style,
+          inputVariable: inputVariable,
+          inputMessage: inputMessage,
           inputCardID: responseCard.childrenCards[i].cardID
         });
 

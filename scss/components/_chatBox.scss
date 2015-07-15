@@ -42,13 +42,15 @@ prl-chat-scroll {
   border-bottom-right-radius: 0px;
   padding: 5px 10px;
   box-sizing: content-box;
-  // animation: fadein 0.5s;
+  min-height: 1.25em;
+  min-width: 2em;
+  animation: fadein 0.5s;
 }
 
-// @keyframes fadein {
-//   from { opacity: 0; }
-//   to   { opacity: 1; }
-// }
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
 
 .chat-bubble {
   margin-right: 10px;

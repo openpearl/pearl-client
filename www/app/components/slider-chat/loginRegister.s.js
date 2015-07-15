@@ -18,6 +18,13 @@ function LoginRegisterServ(ChatServ, $http, $rootScope, $timeout, ApiEndpoint, L
   _this.requestNextCard = requestNextCard;
   _this.addNextCard = ChatServ.addNextCard;
   _this.msgStorage = LoginStoryboard.conversation;
+  
+  _this.dataStore = {
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: ""
+  };
 
   // METHODS ******************************************************************
 
@@ -28,16 +35,7 @@ function LoginRegisterServ(ChatServ, $http, $rootScope, $timeout, ApiEndpoint, L
 
   // Provide the next blurbs in the list depending on the input ID.
   function requestNextCard(newCardRequest, callback) {
-    // var formattedMessage = {
-    //   "speaker": this.msgStorage[newCardRequest.cardID].speaker,
-    //   "message": this.msgStorage[newCardRequest.cardID].messages 
-    // };
-
-    // this.chatMessages.push(formattedMessage);
-
     var receivedCard = _this.msgStorage[newCardRequest.cardID];
-    console.log(receivedCard);
-
     receivedCard.childrenCards = [];
     for (var i in receivedCard.childrenCardIDs) {
       // TODO: Refactor to make more readable.
@@ -47,12 +45,9 @@ function LoginRegisterServ(ChatServ, $http, $rootScope, $timeout, ApiEndpoint, L
     }
 
     // TODO: This binding and pseudo-inheritance is real jank.
-    console.log("requestNextCard");
-    console.log(_this);
     var boundCallback = callback.bind(_this);
     boundCallback(receivedCard);
   }
 
   // HELPERS ******************************************************************
-
 }

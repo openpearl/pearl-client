@@ -109,7 +109,8 @@ var storedConversation = {
       "uuid_6a538423764a3426"
     ],
     "speaker": "client",
-    "messages": "%{clientInputEmail}",
+    "messages": "%{email}",
+    "style": "email",
     "visible": "true",
     "highlight": "false",
     "xpos": "0",
@@ -141,7 +142,8 @@ var storedConversation = {
       "uuid_039846a019bdd0a4"
     ],
     "speaker": "client",
-    "messages": "%{clientInputPassword}",
+    "messages": "%{password}",
+    "style": "password",
     "visible": "true",
     "highlight": "false",
     "xpos": "-1",
@@ -173,7 +175,8 @@ var storedConversation = {
       "uuid_7755aa439b9e40bb"
     ],
     "speaker": "client",
-    "messages": "%{clientInput}",
+    "messages": "%{name}",
+    "style": "text",
     "visible": "true",
     "highlight": "false",
     "xpos": "541.111111111111",
@@ -205,7 +208,8 @@ var storedConversation = {
       "uuid_08f5e8ef7328ab45"
     ],
     "speaker": "client",
-    "messages": "%{clientInputEmail}",
+    "messages": "%{email}",
+    "style": "email",
     "visible": "true",
     "highlight": "false",
     "xpos": "541.111111111111",
@@ -237,7 +241,8 @@ var storedConversation = {
       "uuid_162de4b756bba546"
     ],
     "speaker": "client",
-    "messages": "%{clientInputPassword}",
+    "messages": "%{password}",
+    "style": "password",
     "visible": "true",
     "highlight": "false",
     "xpos": "541.111111111111",
@@ -269,7 +274,8 @@ var storedConversation = {
       "uuid_776e790998b956ca"
     ],
     "speaker": "client",
-    "messages": "%{clientInputPassword}",
+    "messages": "%{confirmPassword}",
+    "style": "password",
     "visible": "true",
     "highlight": "false",
     "xpos": "541",
