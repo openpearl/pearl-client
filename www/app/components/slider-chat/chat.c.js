@@ -73,7 +73,7 @@ function ChatCtrl($scope, $rootScope, UserContextServ, LoginRegisterServ, ChatSe
     }, function(error) {
       // Not logged in yet. Let's start the login conversation.
       vm.chatMessages = vm.LoginRegisterServ.chatMessages;
-      LoginRegisterServ.requestNextCard("introChats");
+      LoginRegisterServ.requestNextCard("root");
       $scope.$broadcast('scroll.refreshComplete');
     });
   }
@@ -135,7 +135,7 @@ function ChatCtrl($scope, $rootScope, UserContextServ, LoginRegisterServ, ChatSe
     // Do another request if the next speaker is also an AI.
     if (nextSpeaker === "ai") {
       ChatServ.requestNextCard(nextCardID, vm.addNextCard);
-    }
+    } 
 
     // Populate choices if next speaker is a client.
     if (nextSpeaker === "client") {

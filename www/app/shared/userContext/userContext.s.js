@@ -9,7 +9,7 @@ module.exports = function(app) {
     'ApiEndpoint',
     UserContextServ
   ]);
-}
+};
 
 function UserContextServ($q, $http, $rootScope, $ionicPlatform, $cordovaHealthKit, ApiEndpoint) {
   var userContextServ = {
@@ -95,7 +95,7 @@ function UserContextServ($q, $http, $rootScope, $ionicPlatform, $cordovaHealthKi
             console.log("Unable to httpSendUserContext.");
             console.log(data);  
           });
-      })
+      });
   }
 
   // HELPERS. ********************
@@ -130,10 +130,10 @@ function UserContextServ($q, $http, $rootScope, $ionicPlatform, $cordovaHealthKi
     console.log(data);
 
     // FIXME: This is fake and temporary data.
-    var url = ApiEndpoint.url + '/documents/'
+    var url = ApiEndpoint.url + '/documents/';
     var placeholderData = {
       "keys": ["steps"]
-    }
+    };
 
     $http.post(url, placeholderData).success(httpTempPostContextToPearl)
       .error(function(data, status, headers, config) {

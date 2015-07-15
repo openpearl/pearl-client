@@ -5,7 +5,7 @@ module.exports = function(app) {
     'ApiEndpoint',
     GoalsServ
   ]);
-}
+};
 
 function GoalsServ($http, UserServ, ApiEndpoint) {
 

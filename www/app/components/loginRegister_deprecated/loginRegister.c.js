@@ -6,7 +6,7 @@ module.exports = function(app) {
 
     LoginRegisterCtrl
   ]);
-}
+};
 
 function LoginRegisterCtrl($rootScope, $state, LoginRegisterServ) {
   var vm = this;

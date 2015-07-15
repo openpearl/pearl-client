@@ -4,11 +4,12 @@ module.exports = function(app) {
     '$rootScope',
     '$timeout',
     'ApiEndpoint',
+    'LoginStoryboard',
     LoginRegisterServ
   ]);
 };
 
-function LoginRegisterServ($http, $rootScope, $timeout, ApiEndpoint) {
+function LoginRegisterServ($http, $rootScope, $timeout, ApiEndpoint, LoginStoryboard) {
   var loginRegisterServ = {
     chatMessages: [],
     msgStorage: {},
@@ -22,25 +23,35 @@ function LoginRegisterServ($http, $rootScope, $timeout, ApiEndpoint) {
     requestNextCard: requestNextCard
   };
 
-  // DATA ********************
+  // DATA *********************************************************************
 
-  loginRegisterServ.msgStorage = {
-    "introChats": [
-      "Hi! I'm Pearl, your personal health assistant.",
-      "Drag down anytime to refresh our conversation :D",
-      "Want to login or register?"
-    ],
-    "loginChats": [
-      "Email?",
-      "Password?"
-    ],
-    "registerChats": [
-      "What's your name?",
-      "Email?",
-      "Password",
-      "(Password) one more time!"
-    ]
-  };
+  console.log(LoginStoryboard);
+  loginRegisterServ.msgStorage = LoginStoryboard.conversation;
+
+  // loginRegisterServ.msgStorage = {
+  //   "introChats": {
+  //     "ai": [
+  //       "Hi! I'm Pearl, your personal health assistant.",
+  //       "Drag down anytime to refresh our conversation :D",
+  //       "Want to login or register?"
+  //     ],
+  //     "client": [
+  //       "Login",
+  //       "Register"
+  //     ]
+  //   }
+
+  //   "loginChats": [
+  //     "Email?",
+  //     "Password?"
+  //   ],
+  //   "registerChats": [
+  //     "What's your name?",
+  //     "Email?",
+  //     "Password",
+  //     "(Password) one more time!"
+  //   ]
+  // };
 
   function isLoggedIn() {
     var url = ApiEndpoint.url + '/is_logged_in';
@@ -48,18 +59,16 @@ function LoginRegisterServ($http, $rootScope, $timeout, ApiEndpoint) {
   }
 
   // Provide the next blurbs in the list depending on the input ID.
-  function requestNextCard(chatBlobID) {
-    var messages = this.msgStorage[chatBlobID];
-    for (var i in messages) {
-      var formattedMessage = {
-        "speaker": "ai",
-        "message": messages[i] 
-      };
-      this.chatMessages.push(formattedMessage);
-    }
+  function requestNextCard(cardID) {
+    var formattedMessage = {
+      "speaker": this.msgStorage[cardID].speaker,
+      "message": this.msgStorage[cardID].messages 
+    };
+
+    this.chatMessages.push(formattedMessage);
   }
 
-  // HELPERS ********************
+  // HELPERS ******************************************************************
 
   return loginRegisterServ;
 }

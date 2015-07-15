@@ -3,7 +3,7 @@ module.exports = function(app) {
     '$http',
     UserServ
   ]);
-}
+};
 
 function UserServ($http) {
   var userServ = {
