@@ -5,9 +5,9 @@
     <ion-refresher pulling-text="Pull to refresh" 
       on-refresh="ctrl.doRefresh();">
     </ion-refresher>
-    
-    <prl-messages chat-messages="ctrl.CS.chatMessages"></prl-messages>
-    <div id="spacer"></div>
+
+    <prl-messages chat-messages="ctrl.CS.chatMessages" />
+    <div id="spacer" />
   </ion-content>
-  <prl-chat-input-space></prl-chat-input-space>
+  <prl-chat-input-space input-options="ctrl.CS.inputOptions"/>
 </ion-view>

@@ -1,18 +1,7 @@
-module.exports = function(app) {app
-
-  .directive('prlChat', [
+module.exports = function(app) {
+  app.directive('prlChat', [
     PrlChat
   ])
-
-  .controller('ChatCtrl', [
-    '$scope',
-    '$rootScope',
-    'UserContextServ',
-    'LoginRegisterServ',
-    'ChatServ',
-    ChatCtrl
-  ])
-
 ;};
 
 function PrlChat() {
@@ -21,18 +10,20 @@ function PrlChat() {
     scope: {},
     templateUrl: '_templates/chat.t.html',
     replace: true,
-    controller: 'ChatCtrl',
+    controller: ChatCtrl,
     controllerAs: 'ctrl',
     bindToController: true,
   };
 }
 
-function ChatCtrl($scope, $rootScope, UserContextServ, LoginRegisterServ, ChatServ) {
+ChatCtrl.$inject = ['$scope', '$rootScope', 
+  'UserContextServ', 'LoginRegisterServ', 'ChatServ'];
+
+function ChatCtrl($scope, $rootScope, UserContextServ, 
+  LoginRegisterServ, ChatServ) {
 
   var vm = this;
   vm.CS = ChatServ;
-  console.log('vm.CS.chatMessages');
-  console.log(vm.CS.chatMessages);
 
   vm.inputOptions = ChatServ.inputOptions; // User input options.
   vm.currentInputID = ""; // Holder for ID to reference later.
@@ -41,8 +32,6 @@ function ChatCtrl($scope, $rootScope, UserContextServ, LoginRegisterServ, ChatSe
   vm.currentService = ChatServ; // Stores which service should be accessed.
   vm.requestNextCard = requestNextCard;
   
-  vm.enterUserInput = enterUserInput;
-
   // Request permissions and then refresh the page.
   UserContextServ.localRequestPermissions(function() {
     vm.doRefresh = doRefresh;
@@ -75,22 +64,17 @@ function ChatCtrl($scope, $rootScope, UserContextServ, LoginRegisterServ, ChatSe
     vm.inputOptions = [];
 
     LoginRegisterServ.isLoggedIn().then(function() {
-      // Ping to server to see if I am still logged in or not.
-      // If logged in, send conversation.
-      // If not, trigger login.
+      // If logged in...
 
       UserContextServ.httpGetRequiredContext(
         UserContextServ.httpSendUserContext
       );
-      // vm.requestNextCard({cardID: "root"}, vm.addNextCard);
+      vm.requestNextCard({cardID: "root"}, vm.addNextCard);
       $scope.$broadcast('scroll.refreshComplete');
     
     }, function(error) {
-      // Not logged in yet. Let's start the login conversation.
+      // Not logged in yet.
       vm.currentService = LoginRegisterServ;
-
-      // LoginRegisterServ.requestNextCard({cardID: "root"}, 
-      //   LoginRegisterServ.addNextCard);
       vm.requestNextCard({cardID: "root"}, "addNextCard");
       $scope.$broadcast('scroll.refreshComplete');
     });
@@ -99,29 +83,5 @@ function ChatCtrl($scope, $rootScope, UserContextServ, LoginRegisterServ, ChatSe
   // Toggles between which `requestNextCard` to execute.
   function requestNextCard(card, callback) {
     vm.currentService.requestNextCard(card, vm.currentService[callback]);
-  }
-
-  function enterUserInput($index) {
-    console.log("Entering the user input.");
-    console.log("Input option index: " + $index);
-    console.log("Input option: " + ChatServ.inputOptions[$index]);
-
-    vm.currentInputMessage = ChatServ.inputOptions[$index].inputMessage;
-    vm.currentInputID = ChatServ.inputOptions[$index].inputCardID;
-    console.log(vm.currentInputMessage);
-
-    // Now push user message into the history.
-    // TODO: This is not DRY. Package and make DRY.
-    ChatServ.chatMessages.push({
-      speaker: "client",
-      message: vm.currentInputMessage,
-    });
-
-    // Clear input options.
-    vm.currentInputMessage = "";
-    vm.inputOptions = [];
-    console.log("inputOptions are cleared.");
-
-    vm.requestNextCard({cardID: vm.currentInputID}, "addNextCard");
   }
 }
