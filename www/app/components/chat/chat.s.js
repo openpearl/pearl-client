@@ -62,10 +62,6 @@ function ChatServ($http, $rootScope, ApiEndpoint) {
     var currentSpeaker = responseCard.speaker;
     var currentMessage = responseCard.messages;
 
-    var choice = Math.random();
-    choice = Math.floor(choice * responseCard.childrenCardIDs.length);
-    console.log(choice);
-
     var nextCardID = responseCard.childrenCardIDs[0];
     var nextSpeaker = responseCard.childrenCards[0].speaker;
 

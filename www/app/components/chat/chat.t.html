@@ -5,36 +5,9 @@
     <ion-refresher pulling-text="Pull to refresh" 
       on-refresh="ctrl.doRefresh();">
     </ion-refresher>
-
-    <prl-chat-messages 
-      val="ctrl.chatMessages" 
-      class="chat-bubble-wrapper" 
-      ng-repeat="chatMessage in ctrl.CS.chatMessages track by $index">
-
-      <!-- TODO: This should not be hardcoded in the future. -->
-      <div class="chat-bubble"
-        ng-animate=" 'animate' "
-        ng-class="{'chat-bubble-left': chatMessage.speaker !== 'client'}">
-        {{chatMessage.message}}
-      </div>
-    </prl-chat-messages>
-
+    
+    <prl-messages chat-messages="ctrl.CS.chatMessages"></prl-messages>
     <div id="spacer"></div>
-
   </ion-content>
-
   <prl-chat-input-space></prl-chat-input-space>
-
-  <!-- For later when we want to add typed text. -->
-  <!--   <ion-footer-bar>
-      <div class="item-input-inset pl-full-width">
-        <label class="item-input-wrapper ">
-          <input type="text" ng-model="ctrl.message" placeholder="Message">
-        </label>
-
-        <button ng-click="ctrl.sendInformation()" class="button button-small button-positive">
-          <i class="icon ion-paper-airplane"></i>
-        </button>
-      </div>
-    </ion-footer-bar> -->
 </ion-view>
