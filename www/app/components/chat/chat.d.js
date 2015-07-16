@@ -4,13 +4,9 @@ module.exports = function(app) {
     PrlChat
   ]);
 
-  app.directive('prlChatScroll', [
+  app.directive('prlChatMessages', [
     '$ionicScrollDelegate', 
-    PrlChatScroll
-  ]);
-
-  app.directive('prlChatInputSpace', [
-    PrlChatInputSpace
+    prlChatMessages
   ]);
 
 };
@@ -19,7 +15,7 @@ function PrlChat() {
   return {
     restrict: 'E',
     scope: {},
-    templateUrl: 'app/components/slider-chat/chat.t.html',
+    templateUrl: '_templates/chat.t.html',
     replace: true,
     bindToController: true,
     controller: 'ChatCtrl',
@@ -27,7 +23,7 @@ function PrlChat() {
   };
 }
 
-function PrlChatScroll($ionicScrollDelegate) {
+function prlChatMessages($ionicScrollDelegate) {
   return {
     restrict: 'EA',
     scope: {
@@ -40,12 +36,5 @@ function PrlChatScroll($ionicScrollDelegate) {
         }
       }, true);
     }
-  };
-}
-
-// TODO: For future text inputs.
-function PrlChatInputSpace() {
-  return {
-    restrict: 'E'
   };
 }

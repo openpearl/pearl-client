@@ -1,4 +1,3 @@
 var SliderM = angular.module('components.slider', []);
-require('./slider.c.js')(SliderM);
-
+require('./slider.d.js')(SliderM);
 module.exports = SliderM;

@@ -8,7 +8,7 @@ function PrlSettings() {
   return {
     restrict: 'EA',
     scope: {},
-    templateUrl: 'app/components/slider-settings/settings.t.html',
+    templateUrl: 'app/components/settings/settings.t.html',
     replace: true,
     bindToController: true,
     controller: 'SettingsCtrl',

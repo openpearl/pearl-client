@@ -1,34 +1,43 @@
+// General.
 var gulp = require('gulp');
-var debug = require('gulp-debug');
-
 var source = require('vinyl-source-stream');
+var watch = require('gulp-watch');
+
+// Utils.
+var sh = require('shelljs');
+var replace = require('replace');
+var gutil = require('gulp-util');
+var rename = require('gulp-rename');
+var flatten = require('gulp-flatten');
+
+// Bower.
+var bower = require('bower');
+
+// Browserify.
 var browserify = require('browserify');
 var watchify = require('watchify');
-var gutil = require('gulp-util');
-var bower = require('bower');
-var concat = require('gulp-concat');
+
+// Sass.
 var sass = require('gulp-sass');
 var postcss = require('gulp-postcss');
 var autoprefixer = require('autoprefixer-core');
 var minifyCss = require('gulp-minify-css');
-var rename = require('gulp-rename');
-var sh = require('shelljs');
-
-var replace = require('replace');
 
 var paths = {
   sass: ['./scss/**/*.scss']
 };
 
-gulp.task('default', ['sass', 'watch', 'watchify']);
+gulp.task('default', ['sass', 'watch', 'watchify', 'templates']);
 
-// FIXME: This doesn't work.
-// gulp.task('browserify', function () {
-//   return gulp.src('./www/app/app.m.js')
-//    .pipe(browserify())
-//    .pipe(rename('bundle.js'))
-//    .pipe(gulp.dest('./dist'));
-// });
+//Moves all templates into a flat structure. 
+gulp.task('templates', function() {
+  var source = 'www/app';
+  var destination = 'www/_templates';
+  gulp.src(source + '/**/*.t.html', {base: source})
+    .pipe(watch(source, {base: source}))
+    .pipe(flatten())  
+    .pipe(gulp.dest(destination));
+});
 
 gulp.task('watchify', function() {
   

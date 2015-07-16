@@ -6,7 +6,7 @@
       on-refresh="ctrl.doRefresh();">
     </ion-refresher>
 
-    <prl-chat-scroll 
+    <prl-chat-messages 
       val="ctrl.chatMessages" 
       class="chat-bubble-wrapper" 
       ng-repeat="chatMessage in ctrl.CS.chatMessages track by $index">
@@ -17,20 +17,13 @@
         ng-class="{'chat-bubble-left': chatMessage.speaker !== 'client'}">
         {{chatMessage.message}}
       </div>
-    </prl-chat-scroll>
+    </prl-chat-messages>
 
     <div id="spacer"></div>
 
   </ion-content>
 
-  <prl-chat-input-space>
-    <div class="input-bubble-wrapper"
-      ng-repeat="inputOption in ctrl.CS.inputOptions track by $index">
-      <div class="input-bubble" ng-click="ctrl.enterUserInput($index)">
-        {{inputOption.inputMessage}}
-      </div>
-    </div>
-  </prl-chat-input-space>
+  <prl-chat-input-space></prl-chat-input-space>
 
   <!-- For later when we want to add typed text. -->
   <!--   <ion-footer-bar>
