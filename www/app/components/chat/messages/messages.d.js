@@ -8,9 +8,7 @@ module.exports = function(app) {app
 function prlMessages($ionicScrollDelegate) {
   return {
     restrict: 'EA',
-    scope: {
-      chatMessages: '='
-    },
+    scope: {},
     templateUrl: "_templates/messages.t.html",
     replace: true,
     controller: MessagesCtrl,
@@ -20,8 +18,11 @@ function prlMessages($ionicScrollDelegate) {
   };
 }
 
-function MessagesCtrl() {
+MessagesCtrl.$inject = ['ChatServ'];
+
+function MessagesCtrl(ChatServ) {
   vm = this;
+  vm.CS = ChatServ;
 }
 
 function MessagesLink(scope, element, attrs) {

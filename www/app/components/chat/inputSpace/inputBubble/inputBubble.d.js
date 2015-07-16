@@ -1,13 +1,8 @@
-module.exports = function(app) {app
-
-  .directive('prlInputBubble', [
+module.exports = function(app) {
+  app.directive('prlInputBubble', [
     prlInputBubble
-  ])
-  .controller('InputBubbleCtrl', [
-    InputBubbleCtrl
-  ])
-  
-;};
+  ]);
+};
 
 // TODO: For future text inputs.
 function prlInputBubble() {
@@ -18,15 +13,47 @@ function prlInputBubble() {
     },
     templateUrl: "_templates/chatInputSpace.t.html",
     replace: true,
-    controller: "InputBubbleCtrl",
+    controller: InputBubbleCtrl,
     controllerAs: "ctrl",
     bindToController: true,
     link: InputBubbleLink
   };
 }
 
-function InputBubbleCtrl() {
+InputBubbleCtrl.$inject = ['$rootScope', 'ChatServ'];
 
+function InputBubbleCtrl($rootScope, ChatServ) {
+
+  // Data.
+  vm.inputID = ""; // Holder for ID to reference later.
+  vm.inputType = "";
+  vm.inputMessage = "";
+
+  // Methods.
+  vm.enterUserInput = enterUserInput;
+
+  // METHODS ******************************************************************
+
+  function enterUserInput() {
+    console.log("Entering the user input.");
+
+    // Now push user message into the history.
+    // TODO: This is not DRY. Package and make DRY.
+    ChatServ.chatMessages.push({
+      speaker: "client",
+      message: vm.inputMessage
+    });
+
+    // Clear input options.
+    ChatServ.inputOptions = {};
+    console.log("inputOptions are cleared.");
+
+    // Emit a call to request next card.
+    $rootScope.$emit('chat:requestNextCard', {
+      cardID: vm.inputID,
+      inputMessage: vm.inputMessage
+    });
+  }
 }
 
 function InputBubbleLink() {

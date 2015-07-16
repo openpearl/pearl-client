@@ -1,23 +1,22 @@
 module.exports = function(app) {
   app.service('LoginRegisterServ', [
-    'ChatServ',
     '$http',
-    '$rootScope',
-    '$timeout',
     'ApiEndpoint',
     'LoginStoryboard',
+    'ChatServ',
     LoginRegisterServ
   ]);
 };
 
-function LoginRegisterServ(ChatServ, $http, $rootScope, $timeout, ApiEndpoint, LoginStoryboard) {
+function LoginRegisterServ($http, ApiEndpoint, LoginStoryboard, ChatServ) {
 
   var _this = this;
 
+  _this.msgStorage = LoginStoryboard.conversation;
+
   _this.isLoggedIn = isLoggedIn;
   _this.requestNextCard = requestNextCard;
-  _this.addNextCard = ChatServ.addNextCard;
-  _this.msgStorage = LoginStoryboard.conversation;
+  _this.addNextCard = ChatServ.addNextCard; // For the correct callback. 
   
   _this.dataStore = {
     name: "",
@@ -35,7 +34,9 @@ function LoginRegisterServ(ChatServ, $http, $rootScope, $timeout, ApiEndpoint, L
 
   // Provide the next blurbs in the list depending on the input ID.
   function requestNextCard(newCardRequest, callback) {
-    var receivedCard = _this.msgStorage[newCardRequest.cardID];
+    var currentCard = _this.msgStorage[newCardRequest.cardID];
+    var receivedCard = _this.msgStorage[currentCard.childrenCardIDs[0]];
+
     receivedCard.childrenCards = [];
     for (var i in receivedCard.childrenCardIDs) {
       // TODO: Refactor to make more readable.

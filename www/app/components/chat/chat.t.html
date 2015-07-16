@@ -9,5 +9,8 @@
     <prl-messages chat-messages="ctrl.CS.chatMessages" />
     <div id="spacer" />
   </ion-content>
-  <prl-chat-input-space input-options="ctrl.CS.inputOptions"/>
+
+  <!-- TODO: requestNextCard may be bad practice. -->
+  <prl-chat-input-space 
+    request-next-card="ctrl.requestNextCard"/>
 </ion-view>

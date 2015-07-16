@@ -17,6 +17,7 @@ function ChatServ($http, $rootScope, ApiEndpoint) {
   _this.chatMessages = [];
   _this.inputOptions = [];
   _this.requestNextCard = requestNextCard;
+  _this.addNextCard = addNextCard;
 
   function requestNextCard(nextCardRequest, callback) {
 
@@ -53,7 +54,7 @@ function ChatServ($http, $rootScope, ApiEndpoint) {
       });
   }
 
-  _this.addNextCard = function addNextCard(responseCard) {
+  function addNextCard(responseCard) {
 
     console.log("addNextCard");
     console.log(responseCard);
@@ -61,12 +62,7 @@ function ChatServ($http, $rootScope, ApiEndpoint) {
     var currentCardID = responseCard.cardID;
     var currentSpeaker = responseCard.speaker;
     var currentMessage = responseCard.messages;
-
-    var nextCardID = responseCard.childrenCardIDs[0];
     var nextSpeaker = responseCard.childrenCards[0].speaker;
-
-    console.log("Returned cardID: " + nextCardID);
-    console.log("Returned speaker: " + nextSpeaker);
 
     // Push the mssage of the card.
     if (currentSpeaker === "ai") {
@@ -84,7 +80,7 @@ function ChatServ($http, $rootScope, ApiEndpoint) {
       // FIXME: This line is problematic for switching.
       // `this` rather than `_this` is crucial here. 
       // It points to the latest referrer.
-      this.requestNextCard({cardID: nextCardID}, this.addNextCard);
+      this.requestNextCard({cardID: currentCardID}, this.addNextCard);
     }
 
     // Populate choices if next speaker is a client.
@@ -108,7 +104,7 @@ function ChatServ($http, $rootScope, ApiEndpoint) {
         } 
 
         _this.inputOptions.push({
-          inputStyle: responseCard.childrenCardIDs[i].style,
+          inputType: responseCard.childrenCardIDs[i].inputType,
           inputVariable: inputVariable,
           inputMessage: inputMessage,
           inputCardID: responseCard.childrenCards[i].cardID
@@ -118,7 +114,7 @@ function ChatServ($http, $rootScope, ApiEndpoint) {
         console.log(_this.inputOptions);
       }
     }
-  };
+  }
 
   // HELPERS ******************************************************************
 }

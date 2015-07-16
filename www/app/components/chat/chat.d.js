@@ -23,11 +23,6 @@ function ChatCtrl($scope, $rootScope, UserContextServ,
   LoginRegisterServ, ChatServ) {
 
   var vm = this;
-  vm.CS = ChatServ;
-
-  vm.inputOptions = ChatServ.inputOptions; // User input options.
-  vm.currentInputID = ""; // Holder for ID to reference later.
-  vm.currentInputMessage = "";
 
   vm.currentService = ChatServ; // Stores which service should be accessed.
   vm.requestNextCard = requestNextCard;
@@ -47,7 +42,11 @@ function ChatCtrl($scope, $rootScope, UserContextServ,
 
   $rootScope.$on('converse:ready', function() {
     console.log("converse:ready");
-    vm.requestNextCard({cardID: "root"}, vm.addNextCard);
+    vm.requestNextCard({cardID: "root"});
+  });
+
+  $rootScope.$on('chat:requestNextCard', function(event, card) {
+    vm.requestNextCard(card);
   });
 
   // METHODS ******************************************************************
@@ -58,10 +57,6 @@ function ChatCtrl($scope, $rootScope, UserContextServ,
     // TODO: This seems like a pretty bad way of doing things.
     // Refactor if possible.
     ChatServ.chatMessages = [];
-    LoginRegisterServ.chatMessages = [];
-
-    vm.chatMessages = [];
-    vm.inputOptions = [];
 
     LoginRegisterServ.isLoggedIn().then(function() {
       // If logged in...
@@ -69,19 +64,21 @@ function ChatCtrl($scope, $rootScope, UserContextServ,
       UserContextServ.httpGetRequiredContext(
         UserContextServ.httpSendUserContext
       );
-      vm.requestNextCard({cardID: "root"}, vm.addNextCard);
+      vm.requestNextCard({cardID: "root"});
       $scope.$broadcast('scroll.refreshComplete');
     
     }, function(error) {
       // Not logged in yet.
       vm.currentService = LoginRegisterServ;
-      vm.requestNextCard({cardID: "root"}, "addNextCard");
+      vm.requestNextCard({cardID: "root"});
       $scope.$broadcast('scroll.refreshComplete');
     });
   }
 
   // Toggles between which `requestNextCard` to execute.
   function requestNextCard(card, callback) {
-    vm.currentService.requestNextCard(card, vm.currentService[callback]);
+    var _callback = callback;
+    if (_callback === undefined) {_callback = ChatServ.addNextCard;}
+    vm.currentService.requestNextCard(card, _callback);
   }
 }

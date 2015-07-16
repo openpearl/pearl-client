@@ -8,6 +8,20 @@ var storedConversation = {
   "root": {
     "cardID": "root",
     "childrenCardIDs": [
+      "qwerty"
+    ],
+    "speaker": "ai",
+    "messages": "",
+    "visible": "true",
+    "highlight": "false",
+    "xpos": "0",
+    "ypos": "0",
+    "parentCardIDs": [],
+    "filters": []
+  },
+  "qwerty": {
+    "cardID": "qwerty",
+    "childrenCardIDs": [
       "uuid_31f6e7046976d442"
     ],
     "speaker": "ai",
@@ -25,7 +39,7 @@ var storedConversation = {
       "uuid_a138b51a1986cd67"
     ],
     "parentCardIDs": [
-      "root"
+      "qwerty"
     ],
     "speaker": "ai",
     "messages": "Drag down anytime to refresh our conversation :D",
@@ -110,7 +124,7 @@ var storedConversation = {
     ],
     "speaker": "client",
     "messages": "%{email}",
-    "style": "email",
+    "inputType": "email",
     "visible": "true",
     "highlight": "false",
     "xpos": "0",
@@ -143,7 +157,7 @@ var storedConversation = {
     ],
     "speaker": "client",
     "messages": "%{password}",
-    "style": "password",
+    "inputType": "password",
     "visible": "true",
     "highlight": "false",
     "xpos": "-1",
@@ -176,7 +190,7 @@ var storedConversation = {
     ],
     "speaker": "client",
     "messages": "%{name}",
-    "style": "text",
+    "inputType": "text",
     "visible": "true",
     "highlight": "false",
     "xpos": "541.111111111111",
@@ -209,7 +223,7 @@ var storedConversation = {
     ],
     "speaker": "client",
     "messages": "%{email}",
-    "style": "email",
+    "inputType": "email",
     "visible": "true",
     "highlight": "false",
     "xpos": "541.111111111111",
@@ -242,7 +256,7 @@ var storedConversation = {
     ],
     "speaker": "client",
     "messages": "%{password}",
-    "style": "password",
+    "inputType": "password",
     "visible": "true",
     "highlight": "false",
     "xpos": "541.111111111111",
@@ -275,7 +289,7 @@ var storedConversation = {
     ],
     "speaker": "client",
     "messages": "%{confirmPassword}",
-    "style": "password",
+    "inputType": "password",
     "visible": "true",
     "highlight": "false",
     "xpos": "541",
