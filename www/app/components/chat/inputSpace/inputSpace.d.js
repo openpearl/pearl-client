@@ -7,9 +7,6 @@ module.exports = function(app) {
 function prlInputSpace() {
   return {
     restrict: 'EA',
-    scope: {
-      requestNextCard: '='
-    },
     templateUrl: "_templates/inputSpace.t.html",
     replace: true,
     controller: InputSpaceCtrl,
@@ -23,6 +20,9 @@ InputSpaceCtrl.$inject = ['ChatServ'];
 
 function InputSpaceCtrl(ChatServ) {
   var vm = this;
+  vm.ChatServ = ChatServ;
+
+  console.log("Yo!");
 
 }
 

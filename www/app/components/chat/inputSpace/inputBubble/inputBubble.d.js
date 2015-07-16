@@ -11,7 +11,7 @@ function prlInputBubble() {
     scope: {
       
     },
-    templateUrl: "_templates/chatInputSpace.t.html",
+    templateUrl: "_templates/inputBubble.t.html",
     replace: true,
     controller: InputBubbleCtrl,
     controllerAs: "ctrl",

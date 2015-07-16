@@ -146,12 +146,13 @@ prl-chat-scroll {
   border-radius: 12px;
   border-top-left-radius: 0px; }
 
-prl-chat-input-space {
+#prl-input-space {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
   height: 120px;
+  background-color: red;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;

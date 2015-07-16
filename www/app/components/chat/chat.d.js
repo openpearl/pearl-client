@@ -24,7 +24,7 @@ function ChatCtrl($scope, $rootScope, $ionicPlatform, UserContextServ,
 
   var vm = this;
 
-  vm.doRefresh = null;
+  vm.doRefresh = function() {};
   vm.currentService = ChatServ; // Stores which service should be accessed.
   vm.requestNextCard = requestNextCard;
   
