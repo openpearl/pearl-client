@@ -15,7 +15,7 @@ function ChatServ($http, $rootScope, ApiEndpoint) {
   //   message: "Hello world!"
   // }];
   _this.chatMessages = [];
-  _this.inputOptions = [];
+  _this.inputOptions = {};
   _this.requestNextCard = requestNextCard;
   _this.addNextCard = addNextCard;
 
@@ -86,7 +86,7 @@ function ChatServ($http, $rootScope, ApiEndpoint) {
     // Populate choices if next speaker is a client.
     if (nextSpeaker === "client") {
       console.log("Next speaker is a client.");
-      _this.inputOptions = [];
+      _this.inputOptions = {};
 
       // Push over the options.
       for (var i in responseCard.childrenCards) {
@@ -103,12 +103,13 @@ function ChatServ($http, $rootScope, ApiEndpoint) {
           inputMessage = "";
         } 
 
-        _this.inputOptions.push({
-          inputType: responseCard.childrenCardIDs[i].inputType,
+        var inputCardID = responseCard.childrenCardIDs[i];
+        _this.inputOptions[inputCardID] = {
+          inputType: responseCard.childrenCards[i].inputType,
           inputVariable: inputVariable,
           inputMessage: inputMessage,
-          inputCardID: responseCard.childrenCards[i].cardID
-        });
+          inputCardID: inputCardID
+        };
 
         console.log("_this.inputOptions: ");
         console.log(_this.inputOptions);

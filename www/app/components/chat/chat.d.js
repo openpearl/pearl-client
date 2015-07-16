@@ -16,20 +16,22 @@ function PrlChat() {
   };
 }
 
-ChatCtrl.$inject = ['$scope', '$rootScope', 
+ChatCtrl.$inject = ['$scope', '$rootScope', '$ionicPlatform',
   'UserContextServ', 'LoginRegisterServ', 'ChatServ'];
 
-function ChatCtrl($scope, $rootScope, UserContextServ, 
+function ChatCtrl($scope, $rootScope, $ionicPlatform, UserContextServ, 
   LoginRegisterServ, ChatServ) {
 
   var vm = this;
 
+  vm.doRefresh = null;
   vm.currentService = ChatServ; // Stores which service should be accessed.
   vm.requestNextCard = requestNextCard;
   
   // Request permissions and then refresh the page.
   UserContextServ.localRequestPermissions(function() {
     vm.doRefresh = doRefresh;
+    vm.doRefresh();
   });
 
   // $scope.$on('$ionicView.enter', function() {
@@ -39,6 +41,15 @@ function ChatCtrl($scope, $rootScope, UserContextServ,
   //   // Check to see if logged in first.
   //   vm.doRefresh();
   // });
+
+  // https://cordova.apache.org/docs/en/4.0.0/cordova_events_events.md.html
+  $ionicPlatform.on('deviceready', function() {
+    vm.doRefresh();
+  });
+
+  $ionicPlatform.on('resume', function() {
+    vm.doRefresh();
+  });
 
   $rootScope.$on('converse:ready', function() {
     console.log("converse:ready");
