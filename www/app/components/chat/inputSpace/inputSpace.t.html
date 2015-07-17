@@ -1,4 +1,8 @@
 <div id="prl-input-space">
-  <prl-input-bubble class="input-bubble-wrapper" input-option="inputOption" 
-    ng-repeat="inputOption in ctrl.ChatServ.inputOptions track by $index"/>
+  <div class="input-bubble-wrapper"
+    ng-repeat="inputOption in ctrl.ChatServ.inputOptions track by $index">
+    <div class="chat-bubble-wrapper">
+      <prl-input-bubble input-option="inputOption"></prl-input-bubble>
+    </div>
+  </div>
 </div>

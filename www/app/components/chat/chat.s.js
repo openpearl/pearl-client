@@ -56,6 +56,11 @@ function ChatServ($http, $rootScope, ApiEndpoint) {
 
   function addNextCard(responseCard) {
 
+    if (responseCard.childrenCards.length === 0) {
+      console.log("No more cards to add.");
+      return;
+    }
+
     console.log("addNextCard");
     console.log(responseCard);
 
@@ -103,12 +108,12 @@ function ChatServ($http, $rootScope, ApiEndpoint) {
           inputMessage = "";
         } 
 
-        var inputCardID = responseCard.childrenCardIDs[i];
-        _this.inputOptions[inputCardID] = {
+        var cardID = responseCard.childrenCardIDs[i];
+        _this.inputOptions[cardID] = {
           inputType: responseCard.childrenCards[i].inputType,
           inputVariable: inputVariable,
           inputMessage: inputMessage,
-          inputCardID: inputCardID
+          cardID: cardID
         };
 
         console.log("_this.inputOptions: ");

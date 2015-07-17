@@ -1,14 +1,14 @@
-<ion-view view-title="Pearl" 
-  ng-init="ctrl.sendUserContext();">
+<ion-view view-title="Pearl">
   <ion-content class="chat-history" id="chat-page">
 
-    <ion-refresher pulling-text="Pull to refresh" 
-      on-refresh="ctrl.doRefresh();">
+    <ion-refresher pulling-text="Pull to refresh!" 
+      on-refresh="chatCtrl.doRefresh()">
     </ion-refresher>
 
-    <prl-messages chat-messages="ctrl.CS.chatMessages" />
-    <div id="spacer" />
+    <prl-messages></prl-messages>
+    <div id="spacer"></div>
   </ion-content>
 
-  <prl-input-space />
+  <div>{{swag}}</div>
+  <prl-input-space></prl-input-space>
 </ion-view>

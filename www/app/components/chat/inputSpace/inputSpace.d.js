@@ -21,9 +21,6 @@ InputSpaceCtrl.$inject = ['ChatServ'];
 function InputSpaceCtrl(ChatServ) {
   var vm = this;
   vm.ChatServ = ChatServ;
-
-  console.log("Yo!");
-
 }
 
 function InputSpaceLink() {

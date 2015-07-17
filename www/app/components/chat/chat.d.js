@@ -2,29 +2,33 @@ module.exports = function(app) {
   app.directive('prlChat', [
     PrlChat
   ])
+
+  .controller('ChatCtrl', ['$scope', '$rootScope', '$ionicPlatform',
+  'UserContextServ', 'LoginRegisterServ', 'ChatServ', ChatCtrl
+  ])
 ;};
 
 function PrlChat() {
   return {
-    restrict: 'E',
+    restrict: 'EA',
     scope: {},
     templateUrl: '_templates/chat.t.html',
     replace: true,
-    controller: ChatCtrl,
-    controllerAs: 'ctrl',
-    bindToController: true,
+    controller: 'ChatCtrl',
+    controllerAs: 'chatCtrl',
+    bindToController: true
   };
 }
 
-ChatCtrl.$inject = ['$scope', '$rootScope', '$ionicPlatform',
-  'UserContextServ', 'LoginRegisterServ', 'ChatServ'];
+// ChatCtrl.$inject = ['$scope', '$rootScope', '$ionicPlatform',
+//   'UserContextServ', 'LoginRegisterServ', 'ChatServ'];
 
 function ChatCtrl($scope, $rootScope, $ionicPlatform, UserContextServ, 
   LoginRegisterServ, ChatServ) {
 
   var vm = this;
 
-  vm.doRefresh = function() {};
+  vm.doRefresh = function() {console.log("Hello!");};
   vm.currentService = ChatServ; // Stores which service should be accessed.
   vm.requestNextCard = requestNextCard;
   
