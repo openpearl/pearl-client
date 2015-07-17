@@ -21,7 +21,7 @@ function prlMessages($ionicScrollDelegate) {
 MessagesCtrl.$inject = ['ChatServ'];
 
 function MessagesCtrl(ChatServ) {
-  vm = this;
+  var vm = this;
   vm.CS = ChatServ;
 }
 

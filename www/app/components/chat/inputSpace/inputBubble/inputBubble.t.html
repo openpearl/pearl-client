@@ -1,6 +1,8 @@
-<div>Hello world!
-
-
+<div class="chat-bubble-wrapper">
+  <div class="input-bubble"
+    ng-click="ctrl.determineInput(ctrl.inputOption);">
+    {{ctrl.inputOption.inputMessage}}
+  </div>
 
   <!--   <div class="input-bubble" ng-click="ctrl.enterUserInput($index)">
       {{inputOption.inputMessage}}
@@ -18,5 +20,4 @@
         </button>
       </div>
     </ion-footer-bar> -->
-
 </div>
