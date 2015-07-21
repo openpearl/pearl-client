@@ -16,7 +16,8 @@ function ChatServ($http, $rootScope, ApiEndpoint) {
 
   // Methods.
   chatServ.requestNextCard = requestNextCard;
-  chatServ.addNextCard = addNextCard;
+  chatServ.delegateNextCard = delegateNextCard;
+  chatServ.addChatMessage = addChatMessage;
   chatServ.inputOptionToMessages = inputOptionToMessages;
   chatServ.clearInputOptions = clearInputOptions;
 
@@ -27,7 +28,7 @@ function ChatServ($http, $rootScope, ApiEndpoint) {
     if (card === undefined) { return; }
     console.log('About to requestNextCard.');
 
-    var url = ApiEndpoint.url + '/pearl/converse';
+    var url = ApiEndpoint.url + '/converse';
     $http.post(url, card)
       .success(function(receivedCard, status, headers, config){
         console.log("requestNextCard success.");
@@ -46,14 +47,18 @@ function ChatServ($http, $rootScope, ApiEndpoint) {
       });
   }
 
-  function addNextCard(responseCard) {
-    console.log("addNextCard");
+  function delegateNextCard(responseCard) {
+    console.log("delegateNextCard");
     console.log(responseCard);
 
     if (responseCard.childrenCards.length === 0) {
       console.log("No more cards to add.");
+      
+      // To carry out final actions.
+      this.requestNextCard();
       return;
     }
+
     var currentCard = responseCard;
     var nextSpeaker = responseCard.childrenCards[0].speaker;
 
@@ -64,7 +69,7 @@ function ChatServ($http, $rootScope, ApiEndpoint) {
 
     // Do another request if the next speaker is also an AI.
     if (nextSpeaker === "ai") {
-      this.requestNextCard(currentCard, this.addNextCard);
+      this.requestNextCard(currentCard, this.delegateNextCard);
     }
 
     // Populate choices if next speaker is a client.
@@ -82,9 +87,13 @@ function ChatServ($http, $rootScope, ApiEndpoint) {
     }
   }
 
+  function addChatMessage(card) {
+    chatServ.chatMessages.push(card);
+  }
+
   // Add chosen input card to chatMessages.
   function inputOptionToMessages(inputOption) {
-    chatServ.chatMessages.push(inputOption);
+    this.addChatMessage(inputOption);
     this.clearInputOptions();
     this.requestNextCard(inputOption);
   }

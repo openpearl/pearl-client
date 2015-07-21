@@ -57,16 +57,9 @@ function UserContextServ($q, $http, $rootScope, $ionicPlatform, $cordovaHealthKi
 
   }
 
-  function httpGetRequiredContext(callback) {
-    var url = ApiEndpoint.url + "/pearl/context";
-    $http.get(url)
-      .success(function(data, status, headers, config) {
-        console.log("localFetchUserContext success.");
-        callback(data);
-      })
-      .error(function(data, status, headers, config) {
-        console.log("localFetchUserContext error.");
-      });
+  function httpGetRequiredContext() {
+    var url = ApiEndpoint.url + "/context";
+    return $http.get(url);
   }
 
   function httpSendUserContext() {
@@ -82,13 +75,16 @@ function UserContextServ($q, $http, $rootScope, $ionicPlatform, $cordovaHealthKi
       .then(function(steps) {
 
         // TODO: Make this more general and flexible.
-        var url = ApiEndpoint.url + "/documents/";
-        var userContext = {"steps": steps};
+        var url = ApiEndpoint.url + "/context/";
+        var userContext = {"HKQuantityTypeIdentifierStepCount": steps};
 
         console.log("httpSendUserContext => userContext");
         console.log(userContext);
 
-        $http.patch(url, userContext).success(httpPostTemporaryContext)
+        $http.post(url, userContext)
+          .success(function(data, status, headers, config) {
+            $rootScope.$emit('converse:ready');  
+          })
           .error(function(data, status, headers, config) {
             console.log("Unable to httpSendUserContext.");
             console.log(data);  
@@ -119,47 +115,6 @@ function UserContextServ($q, $http, $rootScope, $ionicPlatform, $cordovaHealthKi
         reject();
       });
     });
-  }
-
-  // TODO: This url needs to be refactored out in the future.
-  // TODO: Document this method better.
-  function httpPostTemporaryContext(data, status, headers, config) {
-    console.log("In httpPostTemporaryContext.");
-    console.log(data);
-
-    // FIXME: This is fake and temporary data.
-    var url = ApiEndpoint.url + '/documents/';
-    var placeholderData = {
-      "keys": ["steps"]
-    };
-
-    $http.post(url, placeholderData).success(httpTempPostContextToPearl)
-      .error(function(data, status, headers, config) {
-        console.log("Unable to httpPostTemporaryContext.");
-        console.log(data);  
-      });
-  }
-
-  // TODO: This url needs to be refactored out in the future.
-  // TODO: Document this method better.
-  function httpTempPostContextToPearl(data, status, headers, config) {
-    console.log("In httpTempPostContextToPearl.");
-    console.log(data);
-
-    // TODO: Populate messages with the next message.
-    // Call method to populate messages and commands.
-    var url = ApiEndpoint.url + "/pearl/context";
-    $http.post(url, data["data"])
-      .success(function(data, status, headers, config) {
-        console.log("Success posting to /pearl/context.");
-        console.log(data);
-
-        $rootScope.$emit("converse:ready");
-      })
-      .error(function(data, status, headers, config) {
-        console.log("Unable to httpTempPostContextToPearl.");
-        console.log(data);
-      });
   }
 
   return userContextServ;

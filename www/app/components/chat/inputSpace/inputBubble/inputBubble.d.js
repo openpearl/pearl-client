@@ -27,10 +27,19 @@ function InputBubbleCtrl($rootScope) {
   var vm = this;
 
   // Data.
+  vm.inputText = "";
 
   // Methods.
+  vm.submit = submit;   
 
   // METHODS ******************************************************************
+  function submit() {
+    console.log("Hitting submit.");
+    if (vm.inputText !== "") {
+      vm.inputOption.message = vm.inputText;
+      $rootScope.$emit('chat:continue', vm.inputOption);
+    }
+  }
 
   // HELPERS ******************************************************************
 }

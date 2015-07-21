@@ -1,9 +1,9 @@
 <div>
-  <ion-view ng-controller="SliderCtrl as ctrl">
+  <ion-view>
     <ion-slide-box
       show-pager="false" 
-      on-slide-changed="ctrl.slideHasChanged($index)"
-      active-slide="ctrl.currentSlide">
+      on-slide-changed="sliderCtrl.slideHasChanged($index)"
+      active-slide="sliderCtrl.currentSlide">
 
       <!-- Dashboard Pane -->
       <ion-slide title="Pearl">
@@ -11,7 +11,9 @@
       </ion-slide>
 
       <!-- Account Pane -->
-      <ion-slide title="Settings">
+      <ion-slide 
+        ng-if="sliderCtrl.LoginRegisterServ.isLoggedIn"
+        title="Settings">
         <prl-settings></prl-settings>
       </ion-slide>
 

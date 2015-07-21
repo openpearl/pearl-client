@@ -16,14 +16,13 @@ function PrlChat() {
   };
 }
 
-ChatCtrl.$inject = ['$scope', '$rootScope', '$ionicPlatform',
-  'UserContextServ', 'ChatServ', 'LoginRegisterServ'];
+ChatCtrl.$inject = ['$scope', '$rootScope', '$ionicPlatform', 
+  '$ionicSlideBoxDelegate', 'UserContextServ', 'ChatServ', 
+  'LoginRegisterServ'];
 
-function ChatCtrl($scope, $rootScope, $ionicPlatform, UserContextServ, 
-  ChatServ, LoginRegisterServ) {
+function ChatCtrl($scope, $rootScope, $ionicPlatform, $ionicSlideBoxDelegate, UserContextServ, ChatServ, LoginRegisterServ) {
 
   var vm = this;
-  var loggedIn = false;
 
   // Methods.
   vm.doRefresh = function() {};
@@ -48,7 +47,6 @@ function ChatCtrl($scope, $rootScope, $ionicPlatform, UserContextServ,
   });
 
   $rootScope.$on('converse:ready', function() {
-    console.log("converse:ready");
     ChatServ.requestNextCard({cardID: "root"});
   });
 
@@ -56,8 +54,9 @@ function ChatCtrl($scope, $rootScope, $ionicPlatform, UserContextServ,
   // TODO: I'm not too happy about this method.
   // Needs better implementation.
   $rootScope.$on('chat:continue', function(event, card) {
-    if (loggedIn === false) { LoginRegisterServ.inputOptionToMessages(card); } 
-    else { ChatServ.inputOptionToMessages(card); }
+    if (LoginRegisterServ.isLoggedIn === false) { 
+      LoginRegisterServ.inputOptionToMessages(card); 
+    } else { ChatServ.inputOptionToMessages(card); }
   });
 
   // METHODS ******************************************************************
@@ -69,19 +68,19 @@ function ChatCtrl($scope, $rootScope, $ionicPlatform, UserContextServ,
     // Refactor if possible.
     ChatServ.chatMessages = [];
 
-    LoginRegisterServ.isLoggedIn().then(function() {
-      loggedIn = true;
-      console.log("Logged in.");
-
-      // If logged in...
-      UserContextServ.httpGetRequiredContext(
-        UserContextServ.httpSendUserContext
-      );
-      ChatServ.requestNextCard({cardID: "root"});
-      $scope.$broadcast('scroll.refreshComplete');
-    
-    }, function(error) {
-      loggedIn = false;
+    UserContextServ.httpGetRequiredContext().then(
+      function(data, status, headers, config) {
+        $scope.$broadcast('scroll.refreshComplete');
+        LoginRegisterServ.isLoggedIn = true;
+        $ionicSlideBoxDelegate.enableSlide(true);
+        console.log("Logged in.");
+        console.log(data);
+  
+        // If logged in...
+        UserContextServ.httpSendUserContext();
+    }, function() {
+      LoginRegisterServ.isLoggedIn = false;
+      $ionicSlideBoxDelegate.enableSlide(false);
       console.log("Not logged in yet.");
 
       // Not logged in yet.

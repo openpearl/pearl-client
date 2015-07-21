@@ -1,11 +1,29 @@
-<div class="input-bubble" 
+<form class="prl-input-bubble"
+  ng-submit="inputBubbleCtrl.submit()" 
   ng-switch="inputBubbleCtrl.inputOption.cardType">
-  <input ng-switch-when="text" type="text"></input>
-  <input ng-switch-when="email" type="email"></input>
-  <input ng-switch-when="tel" type="tel"></input>
-  <input ng-switch-when="search" type="search"></input>
-  <input ng-switch-when="number" type="number"></input>
-  <input ng-switch-when="date" type="date"></input>
-  <input ng-switch-when="month" type="month"></input>
-  <input ng-switch-when="password" type="password"></input>
-</div>
+  
+  <input class="input-bubble" ng-switch-when="text" 
+    ng-model="inputBubbleCtrl.inputText" type="text"></input>
+  
+  <input class="input-bubble" ng-switch-when="email" 
+    ng-model="inputBubbleCtrl.inputText" type="email"></input>
+  
+  <input class="input-bubble" ng-switch-when="tel" 
+    ng-model="inputBubbleCtrl.inputText" type="tel"></input>
+  
+  <input class="input-bubble" ng-switch-when="search" 
+    ng-model="inputBubbleCtrl.inputText" type="search"></input>
+  
+  <input class="input-bubble" ng-switch-when="number" 
+    ng-model="inputBubbleCtrl.inputText" type="number"></input>
+  
+  <input class="input-bubble" ng-switch-when="date" 
+    ng-model="inputBubbleCtrl.inputText" type="date"></input>
+  
+  <input class="input-bubble" ng-switch-when="month" 
+    ng-model="inputBubbleCtrl.inputText" type="month"></input>
+  
+  <input class="input-bubble" ng-switch-when="password" 
+    ng-model="inputBubbleCtrl.inputText" type="password"></input>
+
+</form>

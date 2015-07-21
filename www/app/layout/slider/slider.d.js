@@ -18,10 +18,13 @@ function prlSlider() {
     replace: true,
     bindToController: true,
     controller: SliderCtrl,
-    controllerAs: 'ctrl'
+    controllerAs: 'sliderCtrl'
   };
 }
 
-function SliderCtrl() {
+SliderCtrl.$inject = ['LoginRegisterServ'];
+
+function SliderCtrl(LoginRegisterServ) {
   var vm = this;
+  vm.LoginRegisterServ = LoginRegisterServ;
 }
