@@ -1,5 +1,5 @@
 module.exports = function(app) {
-  app.service('ChatServ', [
+  app.factory('ChatServ', [
     '$http',
     '$rootScope',
     'ApiEndpoint',
@@ -8,17 +8,17 @@ module.exports = function(app) {
 };
 
 function ChatServ($http, $rootScope, ApiEndpoint) {
-  var _this = this;
+  var chatServ = {};
 
   // Data.
-  _this.chatMessages = [];
-  _this.inputOptions = {};
+  chatServ.chatMessages = [];
+  chatServ.inputOptions = {};
 
   // Methods.
-  _this.requestNextCard = requestNextCard;
-  _this.addNextCard = addNextCard;
-  _this.inputOptionToMessages = inputOptionToMessages;
-  _this.clearInputOptions = clearInputOptions;
+  chatServ.requestNextCard = requestNextCard;
+  chatServ.addNextCard = addNextCard;
+  chatServ.inputOptionToMessages = inputOptionToMessages;
+  chatServ.clearInputOptions = clearInputOptions;
 
   // METHODS ******************************************************************
 
@@ -59,39 +59,42 @@ function ChatServ($http, $rootScope, ApiEndpoint) {
 
     // Push the mssage of the card.
     if (currentCard.speaker === "ai") {
-      _this.chatMessages.push(currentCard);
+      chatServ.chatMessages.push(currentCard);
     }
 
     // Do another request if the next speaker is also an AI.
     if (nextSpeaker === "ai") {
-      _this.requestNextCard(currentCard, _this.addNextCard);
+      this.requestNextCard(currentCard, this.addNextCard);
     }
 
     // Populate choices if next speaker is a client.
     if (nextSpeaker === "client") {
       console.log("Next speaker is a client.");
-      _this.clearInputOptions();
+      chatServ.clearInputOptions();
 
       // Push over the options.
       for (var i in responseCard.childrenCards) {
-        _this.inputOptions[cardID] = responseCard.childrenCards[i];
-        console.log("_this.inputOptions: ");
-        console.log(_this.inputOptions);
+        chatServ.inputOptions[responseCard.childrenCards[i].cardID] = 
+          responseCard.childrenCards[i];
+        console.log("chatServ.inputOptions: ");
+        console.log(chatServ.inputOptions);
       }
     }
   }
 
   // Add chosen input card to chatMessages.
   function inputOptionToMessages(inputOption) {
-    _this.chatMessages.push(inputOption);
-    _this.clearInputOptions();
-    _this.requestNextCard(inputOption);
+    chatServ.chatMessages.push(inputOption);
+    chatServ.clearInputOptions();
+    chatServ.requestNextCard(inputOption);
   }
 
   function clearInputOptions() {
-    _this.inputOptions = {};
+    chatServ.inputOptions = {};
     console.log("inputOptions are cleared.");
   }
 
   // HELPERS ******************************************************************
+
+  return chatServ;
 }

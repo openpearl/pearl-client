@@ -11,17 +11,17 @@ module.exports = function(app) {
 function LoginRegisterServ($http, ApiEndpoint, LoginStoryboard, ChatServ) {
 
   // Inheritance so that we can overwrite CharServ's server communications.
-  angular.extend(LoginRegisterServ.prototype, ChatServ);
-  var _this = this;
+  var loginRegisterServ = 
+    angular.extend(LoginRegisterServ.prototype, ChatServ);
 
   // Methods.
-  _this.isLoggedIn = isLoggedIn;
-  _this.requestNextCard = requestNextCard;
-  // _this.addNextCard --- For the correct follow-up action. 
+  loginRegisterServ.isLoggedIn = isLoggedIn;
+  loginRegisterServ.requestNextCard = requestNextCard;
+  // loginRegisterServ.addNextCard --- For the correct follow-up action. 
 
   // Data.
-  _this.msgStorage = LoginStoryboard.conversation;
-  _this.dataStore = {
+  loginRegisterServ.msgStorage = LoginStoryboard.conversation;
+  loginRegisterServ.dataStore = {
     name: "",
     email: "",
     password: "",
@@ -32,24 +32,31 @@ function LoginRegisterServ($http, ApiEndpoint, LoginStoryboard, ChatServ) {
 
   function isLoggedIn() {
     var url = ApiEndpoint.url + '/is_logged_in';
-    return $http.get(url);
+    return $http.get({
+      url: url,
+      timeout: 5,
+      // timeout: 1000,
+    });
   }
 
   // Provide the next blurbs in the list depending on the input ID.
   function requestNextCard(card) {
-    var currentCard = _this.msgStorage[card.cardID];
-    var receivedCard = _this.msgStorage[currentCard.childrenCardIDs[0]];
+    var currentCard = loginRegisterServ.msgStorage[card.cardID];
+    var receivedCard = 
+      loginRegisterServ.msgStorage[currentCard.childrenCardIDs[0]];
 
     receivedCard.childrenCards = [];
     for (var i in receivedCard.childrenCardIDs) {
       // TODO: Refactor to make more readable.
       // Populates the children IDs with actual children.
       receivedCard.childrenCards
-        .push(_this.msgStorage[receivedCard.childrenCardIDs[i]]);
+        .push(loginRegisterServ.msgStorage[receivedCard.childrenCardIDs[i]]);
     }
 
-    _this.addNextCard(receivedCard);
+    loginRegisterServ.addNextCard(receivedCard);
   }
 
   // HELPERS ******************************************************************
+
+  return loginRegisterServ;
 }

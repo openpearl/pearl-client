@@ -17,10 +17,10 @@ function PrlChat() {
 }
 
 ChatCtrl.$inject = ['$scope', '$rootScope', '$ionicPlatform',
-  'UserContextServ', 'ChatServ'];
+  'UserContextServ', 'ChatServ', 'LoginRegisterServ'];
 
 function ChatCtrl($scope, $rootScope, $ionicPlatform, UserContextServ, 
-  ChatServ) {
+  ChatServ, LoginRegisterServ) {
 
   var vm = this;
   vm.doRefresh = function() {};
@@ -57,6 +57,7 @@ function ChatCtrl($scope, $rootScope, $ionicPlatform, UserContextServ,
     ChatServ.chatMessages = [];
 
     LoginRegisterServ.isLoggedIn().then(function() {
+      console.log("Logged in.");
 
       // If logged in...
       UserContextServ.httpGetRequiredContext(
@@ -66,6 +67,7 @@ function ChatCtrl($scope, $rootScope, $ionicPlatform, UserContextServ,
       $scope.$broadcast('scroll.refreshComplete');
     
     }, function(error) {
+      console.log("Not logged in yet.");
 
       // Not logged in yet.
       LoginRegisterServ.requestNextCard({cardID: "root"});
