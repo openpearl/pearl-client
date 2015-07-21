@@ -10,7 +10,7 @@ function prlChoiceBubble() {
     scope: {
       inputOption: '='
     },
-    templateUrl: "_templates/inputBubble.t.html",
+    templateUrl: "_templates/choiceBubble.t.html",
     replace: true,
     controller: ChoiceBubbleCtrl,
     controllerAs: "choiceBubbleCtrl",
@@ -23,12 +23,12 @@ ChoiceBubbleCtrl.$inject = ['$rootScope', 'ChatServ'];
 function ChoiceBubbleCtrl($rootScope, ChatServ) {
   var vm = this;
 
+  console.log("ChoiceBubbleCtrl inputOption");
   console.log(vm.inputOption);
 
   // Data.
 
   // Methods.
-  vm.enterChoiceInput = enterChoiceInput;
 
   // METHODS ******************************************************************
 
