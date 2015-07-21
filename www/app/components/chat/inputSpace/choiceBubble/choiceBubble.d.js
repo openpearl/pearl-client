@@ -23,6 +23,8 @@ ChoiceBubbleCtrl.$inject = ['$rootScope', 'ChatServ'];
 function ChoiceBubbleCtrl($rootScope, ChatServ) {
   var vm = this;
 
+  console.log(vm.inputOption);
+
   // Data.
 
   // Methods.

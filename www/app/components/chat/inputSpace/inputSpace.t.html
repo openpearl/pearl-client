@@ -1,19 +1,35 @@
 <div id="prl-input-space">
   <div class="input-bubble-wrapper"
-    ng-repeat="inputOption in ctrl.ChatServ.inputOptions track by $index">
-    <div class="chat-bubble-wrapper" ng-switch="inputOption.cardType">
+    ng-repeat="(cardID, inputOption) in inputSpaceCtrl.ChatServ.inputOptions track by $index">
+    <div class="chat-bubble-wrapper" 
+      ng-switch="inputOption.cardType || 'cat'">
+  
+      <prl-input-bubble ng-switch-when="text" input-option="inputOption">
+      </prl-input-bubble>
+      
+      <prl-input-bubble ng-switch-when="email" input-option="inputOption">
+      </prl-input-bubble>
 
-      <!-- FIXME: Completely unDRY. -->
-      <prl-input-bubble ng-switch-when="text" input-option="inputOption" />
-      <prl-input-bubble ng-switch-when="email" input-option="inputOption" />
-      <prl-input-bubble ng-switch-when="tel" input-option="inputOption" />
-      <prl-input-bubble ng-switch-when="search" input-option="inputOption" />
-      <prl-input-bubble ng-switch-when="number" input-option="inputOption" />
-      <prl-input-bubble ng-switch-when="date" input-option="inputOption" />
-      <prl-input-bubble ng-switch-when="month" input-option="inputOption" />
-      <prl-input-bubble ng-switch-when="password" input-option="inputOption" />
+      <prl-input-bubble ng-switch-when="tel" input-option="inputOption">
+      </prl-input-bubble>
 
-      <prl-choice-bubble ng-switch-default input-option="inputOption" />
+      <prl-input-bubble ng-switch-when="search" input-option="inputOption">
+      </prl-input-bubble>
+      
+      <prl-input-bubble ng-switch-when="number" input-option="inputOption">
+      </prl-input-bubble>
+      
+      <prl-input-bubble ng-switch-when="date" input-option="inputOption">
+      </prl-input-bubble>
+      
+      <prl-input-bubble ng-switch-when="month" input-option="inputOption">
+      </prl-input-bubble>
+      
+      <prl-input-bubble ng-switch-when="password" input-option="inputOption">
+      </prl-input-bubble>
+
+      <prl-choice-bubble ng-switch-default input-option="inputOption">
+      </prl-choice-bubble>
     </div>
   </div>
 </div>

@@ -10,7 +10,7 @@ function prlInputSpace() {
     templateUrl: "_templates/inputSpace.t.html",
     replace: true,
     controller: InputSpaceCtrl,
-    controllerAs: 'ctrl',
+    controllerAs: 'inputSpaceCtrl',
     bindToController: true,
     link: InputSpaceLink
   };
