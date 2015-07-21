@@ -1,0 +1,13 @@
+<ion-view view-title="Pearl">
+  <ion-content class="chat-history" id="chat-page">
+
+    <ion-refresher pulling-text="Pull to refresh!" 
+      on-refresh="chatCtrl.doRefresh()">
+    </ion-refresher>
+
+    <prl-messages></prl-messages>
+    <div id="spacer"></div>
+  </ion-content>
+
+  <prl-input-space></prl-input-space>
+</ion-view>

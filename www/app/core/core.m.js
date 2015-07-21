@@ -3,6 +3,7 @@
 
 var appCore = angular.module('app.core', [
 	'ionic',
+  // 'ngAnimate',
   'ngCordova',
   'ng-token-auth',
   'angular-toArrayFilter'

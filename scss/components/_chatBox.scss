@@ -22,11 +22,28 @@ prl-chat-scroll {
   margin-top: 10px;
 }
 
+.animate-enter {
+  opacity: 0;
+  -webkit-transition: all ease 0.5s;
+  transition: all ease 0.5s;  
+}
+
+// ngAnimate.
+.animate-enter.animate-enter-stagger {
+  -webkit-transition-delay:1s;
+  transition-delay: 1s;
+
+  -webkit-transition-duration: 0s;
+  transition-duration: 0s;
+}
+
 %bubble {
   border-radius: 12px;
   border-bottom-right-radius: 0px;
   padding: 5px 10px;
   box-sizing: content-box;
+  min-height: 1.25em;
+  min-width: 2em;
   animation: fadein 0.5s;
 }
 
@@ -57,7 +74,12 @@ prl-chat-scroll {
   border-top-left-radius: 0px;
 }
 
-prl-chat-input-space {
+.chat-bubble-password {
+  -webkit-text-security: disc;
+  text-security: disc;
+}
+
+#prl-input-space {
   position: absolute; 
   bottom: 0;
   left: 0;
@@ -71,7 +93,7 @@ prl-chat-input-space {
   flex-wrap: wrap;
 }
 
-.input-bubble {
+.prl-bubble {
   @extend %bubble;
   background-color: $orange;
   color: white;
@@ -83,4 +105,26 @@ prl-chat-input-space {
   &:active {
     @extend %sh0;
   }
+}
+
+.prl-input-bubble {
+  @extend .prl-bubble;
+  width: 600px;
+  margin-left: 35px;
+  margin-right: 35px;
+}
+
+.input-bubble {
+  background-color: rgba(0,0,0,0);
+  color: white !important;
+  padding: 0;
+  margin: 0;
+  height: 0;
+
+  // TODO: Make this dynamic.
+  width: 100%;
+}
+
+.input-bubble:focus {
+  color: white;
 }

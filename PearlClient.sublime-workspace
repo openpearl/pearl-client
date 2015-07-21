@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"input",
+				"inputOptions"
+			],
+			[
 				"client",
 				"clientContext"
 			],
@@ -451,6 +455,17 @@
 	},
 	"file_history":
 	[
+		"/Users/davidzhu/PearlClient/www/app/components/slider-chat/chat.t.html",
+		"/Users/davidzhu/PearlClient/www/app/components/slider-chat/chat.s.js",
+		"/Users/davidzhu/PearlClient/www/app/components/slider-chat/chat.c.js",
+		"/Users/davidzhu/PearlClient/www/app/shared/userContext/userContext.s.js",
+		"/Users/davidzhu/PearlClient/www/app/shared/userContext/userContext.m.js",
+		"/Users/davidzhu/PearlClient/scss/helpers/_colors.scss",
+		"/Users/davidzhu/PearlClient/scss/helpers/_shadows.scss",
+		"/Users/davidzhu/PearlClient/scss/components/_chatBox.scss",
+		"/Users/davidzhu/PearlClient/scss/base/_base.scss",
+		"/Users/davidzhu/PearlClient/www/app/components/loginRegister/loginRegister.s.js",
+		"/Users/davidzhu/PearlClient/www/app/app.r.js",
 		"/Users/davidzhu/PearlClient/www/app/bundle.js",
 		"/Users/davidzhu/PearlClient/www/app/core/apiEndpoint.const.js",
 		"/Users/davidzhu/PearlClient/PearlClient.sublime-project",
@@ -473,13 +488,10 @@
 		"/Users/davidzhu/PearlClient/www/app/components/loginSignUp/loginSignUp.t.html",
 		"/Users/davidzhu/PearlClient/scss/components/_login.scss",
 		"/Users/davidzhu/PearlClient/www/app/components/settings/settings.t.html",
-		"/Users/davidzhu/PearlClient/scss/base/_base.scss",
 		"/Users/davidzhu/PearlClient/www/index.html",
-		"/Users/davidzhu/PearlClient/scss/components/_chatBox.scss",
 		"/Users/davidzhu/PearlClient/scss/ionic.app.scss",
 		"/Users/davidzhu/PearlClient/www/app/components/chat/chat.t.html",
 		"/Users/davidzhu/PearlClient/platforms/ios/build/emulator/pearl-client.app/www/assets/css/ionic.app.css",
-		"/Users/davidzhu/PearlClient/scss/helpers/_colors.scss",
 		"/Users/davidzhu/PearlClient/www/app/components/settings/settings.c.js",
 		"/Users/davidzhu/PearlClient/www/app/components/settings/settings.d.js",
 		"/Users/davidzhu/PearlClient/spec/app/components/settings/serverClientGoal.s.spec.js",
@@ -503,7 +515,6 @@
 		"/Users/davidzhu/PearlClient/bower.json",
 		"/Users/davidzhu/PearlClient/www/assets/lib/ionic/bower.json",
 		"/Users/davidzhu/PearlClient/package.json",
-		"/Users/davidzhu/PearlClient/www/app/app.r.js",
 		"/Users/davidzhu/PearlClient/www/assets/lib/ionic/js/ionic.bundle.js",
 		"/Users/davidzhu/PearlClient/spec/support/jasmine.json",
 		"/Users/davidzhu/PearlClient/www/assets/js/browserSettings.js",
@@ -571,14 +582,7 @@
 		"/Users/davidzhu/PearlTool-LogicGenerator/uploads/final1434988964000.json",
 		"/Users/davidzhu/PearlTool-LogicGenerator/uploads/final1434988961940.json",
 		"/Users/davidzhu/PearlTool-LogicGenerator/uploads/final1434989394888.json",
-		"/Users/davidzhu/Library/Application Support/Sublime Text 3/Packages/User/Package Control.sublime-settings",
-		"/Users/davidzhu/dotfiles/Preferences.sublime-settings",
-		"/Users/davidzhu/dotfiles/sublimePackages",
-		"/Users/davidzhu/Library/Application Support/Sublime Text 3/Packages/Package Control/Package Control.sublime-settings",
-		"/Users/davidzhu/dotfiles/.vimrc",
-		"/Users/davidzhu/dotfiles/synclist",
-		"/Users/davidzhu/openpearl_move/lib/openpearl_move.rb",
-		"/Users/davidzhu/openpearl_move/spec/openpearl_move_spec.rb"
+		"/Users/davidzhu/Library/Application Support/Sublime Text 3/Packages/User/Package Control.sublime-settings"
 	],
 	"find":
 	{
@@ -601,6 +605,19 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"0",
+			"messages",
+			"addNextCard",
+			"chatMessage",
+			"chatmessages",
+			"httpRequestNextCard",
+			"httprequestnextcard",
+			"addnextcard",
+			"a",
+			"gradient",
+			"route",
+			"appRoutes",
+			"route",
 			"'apiendpoint'",
 			"apiendpoint",
 			"sendclientcontex",
@@ -715,20 +732,7 @@
 			"7ba70d62_ae21_dbdc_d06f_262e351c8489",
 			"4093f548_26b3_d665_c80b_31b510cfe09f",
 			"b4a20b31_66c0_a994_71dc_432fd7850ba1",
-			"cardIDNode",
-			"GlobalTree",
-			"$(GlobalEvents)",
-			"_this.handleCEChange",
-			"CardId",
-			"cardId",
-			"CardID",
-			"cardId",
-			"CardID",
-			"cardId",
-			"CardId",
-			"cardId",
-			"CardId",
-			"cardId"
+			"cardIDNode"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -795,20 +799,40 @@
 		"selected_items":
 		[
 			[
+				"chat.t.",
+				"www/app/components/slider-chat/chat.t.html"
+			],
+			[
+				"chat.s",
+				"www/app/components/slider-chat/chat.s.js"
+			],
+			[
+				"chat.c",
+				"www/app/components/slider-chat/chat.c.js"
+			],
+			[
+				"userconte",
+				"www/app/shared/userContext/userContext.s.js"
+			],
+			[
+				"usercon",
+				"www/app/shared/userContext/userContext.s.js"
+			],
+			[
+				"usercontex",
+				"www/app/shared/userContext/userContext.m.js"
+			],
+			[
+				"color",
+				"scss/helpers/_colors.scss"
+			],
+			[
 				"bundle",
 				"www/app/bundle.js"
 			],
 			[
 				"apito",
 				"www/app/core/apiEndpoint.const.js"
-			],
-			[
-				"chat.s",
-				"www/app/components/chat/chat.s.js"
-			],
-			[
-				"chat.c",
-				"www/app/components/chat/chat.c.js"
 			],
 			[
 				"apiend",
@@ -893,10 +917,6 @@
 			[
 				"base.scs",
 				"scss/base/_base.scss"
-			],
-			[
-				"color",
-				"scss/helpers/_colors.scss"
 			],
 			[
 				"settings.sc",
@@ -1289,22 +1309,6 @@
 			[
 				"edii",
 				"src/jsx/Editor/Editor.jsx"
-			],
-			[
-				"logc",
-				"src/jsx/Editor/Tree/LogicCard.jsx"
-			],
-			[
-				"",
-				"package.json"
-			],
-			[
-				"tree.s",
-				"scss/components/_tree.scss"
-			],
-			[
-				"messageba",
-				"src/jsx/Editor/MessageBank/MessageBank.jsx"
 			]
 		],
 		"width": 0.0
@@ -1334,7 +1338,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 267.0,
+	"side_bar_width": 256.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
