@@ -33,19 +33,4 @@ function InputBubbleCtrl($rootScope, ChatServ) {
   // METHODS ******************************************************************
 
   // HELPERS ******************************************************************
-
-  function enterChoiceInput() {
-    ChatServ.chatMessages.push({
-      speaker: "client",
-      message: vm.inputOption.inputMessage
-    });
-
-    clearInputs();
-    
-    // Emit a call to request next card.
-    $rootScope.$emit('chat:requestNextCard', {
-      cardID: vm.inputOption.cardID,
-      inputMessage: vm.inputOption.inputMessage
-    });
-  }
 }

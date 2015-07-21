@@ -18,9 +18,9 @@ function prlChoiceBubble() {
   };
 }
 
-ChoiceBubbleCtrl.$inject = ['$rootScope', 'ChatServ'];
+ChoiceBubbleCtrl.$inject = ['$rootScope'];
 
-function ChoiceBubbleCtrl($rootScope, ChatServ) {
+function ChoiceBubbleCtrl($rootScope) {
   var vm = this;
 
   console.log("ChoiceBubbleCtrl inputOption");
@@ -29,9 +29,13 @@ function ChoiceBubbleCtrl($rootScope, ChatServ) {
   // Data.
 
   // Methods.
+  vm.chooseOption = chooseOption;
 
   // METHODS ******************************************************************
+  function chooseOption() {
+    console.log("Choosing option.");
+    $rootScope.$emit('chat:continue', vm.inputOption);
+  }
 
-  
   // HELPERS ******************************************************************
 }

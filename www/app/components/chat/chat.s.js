@@ -70,7 +70,7 @@ function ChatServ($http, $rootScope, ApiEndpoint) {
     // Populate choices if next speaker is a client.
     if (nextSpeaker === "client") {
       console.log("Next speaker is a client.");
-      chatServ.clearInputOptions();
+      this.clearInputOptions();
 
       // Push over the options.
       for (var i in responseCard.childrenCards) {
@@ -85,8 +85,8 @@ function ChatServ($http, $rootScope, ApiEndpoint) {
   // Add chosen input card to chatMessages.
   function inputOptionToMessages(inputOption) {
     chatServ.chatMessages.push(inputOption);
-    chatServ.clearInputOptions();
-    chatServ.requestNextCard(inputOption);
+    this.clearInputOptions();
+    this.requestNextCard(inputOption);
   }
 
   function clearInputOptions() {

@@ -23,8 +23,13 @@ function ChatCtrl($scope, $rootScope, $ionicPlatform, UserContextServ,
   ChatServ, LoginRegisterServ) {
 
   var vm = this;
+  var loggedIn = false;
+
+  // Methods.
   vm.doRefresh = function() {};
   
+  // INITIAL RUN **************************************************************
+
   // Request permissions and then refresh the page.
   UserContextServ.localRequestPermissions(function() {
     vm.doRefresh = doRefresh;
@@ -47,6 +52,14 @@ function ChatCtrl($scope, $rootScope, $ionicPlatform, UserContextServ,
     ChatServ.requestNextCard({cardID: "root"});
   });
 
+  // Continue the conversation through the chat directive.
+  // TODO: I'm not too happy about this method.
+  // Needs better implementation.
+  $rootScope.$on('chat:continue', function(event, card) {
+    if (loggedIn === false) { LoginRegisterServ.inputOptionToMessages(card); } 
+    else { ChatServ.inputOptionToMessages(card); }
+  });
+
   // METHODS ******************************************************************
 
   function doRefresh() {
@@ -57,6 +70,7 @@ function ChatCtrl($scope, $rootScope, $ionicPlatform, UserContextServ,
     ChatServ.chatMessages = [];
 
     LoginRegisterServ.isLoggedIn().then(function() {
+      loggedIn = true;
       console.log("Logged in.");
 
       // If logged in...
@@ -67,6 +81,7 @@ function ChatCtrl($scope, $rootScope, $ionicPlatform, UserContextServ,
       $scope.$broadcast('scroll.refreshComplete');
     
     }, function(error) {
+      loggedIn = false;
       console.log("Not logged in yet.");
 
       // Not logged in yet.
