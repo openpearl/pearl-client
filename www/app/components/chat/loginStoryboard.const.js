@@ -11,7 +11,7 @@ var storedConversation = {
       "qwerty"
     ],
     "speaker": "ai",
-    "messages": "",
+    "message": "",
     "visible": "true",
     "highlight": "false",
     "xpos": "0",
@@ -25,7 +25,7 @@ var storedConversation = {
       "uuid_31f6e7046976d442"
     ],
     "speaker": "ai",
-    "messages": "Hi! I'm Pearl, your personal health assistant.",
+    "message": "Hi! I'm Pearl, your personal health assistant.",
     "visible": "true",
     "highlight": "false",
     "xpos": "0",
@@ -42,7 +42,7 @@ var storedConversation = {
       "qwerty"
     ],
     "speaker": "ai",
-    "messages": "Drag down anytime to refresh our conversation :D",
+    "message": "Drag down anytime to refresh our conversation :D",
     "visible": "true",
     "highlight": "false",
     "xpos": "0",
@@ -59,7 +59,7 @@ var storedConversation = {
       "uuid_31f6e7046976d442"
     ],
     "speaker": "ai",
-    "messages": "Want to login or register?",
+    "message": "Want to login or register?",
     "visible": "true",
     "highlight": "false",
     "xpos": "0",
@@ -75,7 +75,7 @@ var storedConversation = {
       "uuid_a138b51a1986cd67"
     ],
     "speaker": "client",
-    "messages": "login",
+    "message": "login",
     "visible": "true",
     "highlight": "false",
     "xpos": "0",
@@ -91,7 +91,7 @@ var storedConversation = {
       "uuid_a138b51a1986cd67"
     ],
     "speaker": "client",
-    "messages": "register",
+    "message": "register",
     "visible": "true",
     "highlight": "false",
     "xpos": "541.111111111111",
@@ -107,7 +107,7 @@ var storedConversation = {
       "uuid_36653bb0d497b34d"
     ],
     "speaker": "ai",
-    "messages": "Email?",
+    "message": "Email?",
     "visible": "true",
     "highlight": "false",
     "xpos": "0",
@@ -123,8 +123,8 @@ var storedConversation = {
       "uuid_6a538423764a3426"
     ],
     "speaker": "client",
-    "messages": "%{email}",
-    "inputType": "email",
+    "inputs": ["email"],
+    "cardType": "email",
     "visible": "true",
     "highlight": "false",
     "xpos": "0",
@@ -140,7 +140,7 @@ var storedConversation = {
       "uuid_532fd06be6dc93de"
     ],
     "speaker": "ai",
-    "messages": "Password?",
+    "message": "Password?",
     "visible": "true",
     "highlight": "false",
     "xpos": "-1.11111111111111",
@@ -156,8 +156,8 @@ var storedConversation = {
       "uuid_039846a019bdd0a4"
     ],
     "speaker": "client",
-    "messages": "%{password}",
-    "inputType": "password",
+    "inputs": ["password"],
+    "cardType": "password",
     "visible": "true",
     "highlight": "false",
     "xpos": "-1",
@@ -173,7 +173,7 @@ var storedConversation = {
       "uuid_a7ed06b861431ea3"
     ],
     "speaker": "ai",
-    "messages": "Name?",
+    "message": "Name?",
     "visible": "true",
     "highlight": "false",
     "xpos": "541.111111111111",
@@ -189,8 +189,8 @@ var storedConversation = {
       "uuid_7755aa439b9e40bb"
     ],
     "speaker": "client",
-    "messages": "%{name}",
-    "inputType": "text",
+    "inputs": ["name"],
+    "cardType": "text",
     "visible": "true",
     "highlight": "false",
     "xpos": "541.111111111111",
@@ -206,7 +206,7 @@ var storedConversation = {
       "uuid_6372127a67c84d05"
     ],
     "speaker": "ai",
-    "messages": "Email?",
+    "message": "Email?",
     "visible": "true",
     "highlight": "false",
     "xpos": "541.111111111111",
@@ -222,8 +222,8 @@ var storedConversation = {
       "uuid_08f5e8ef7328ab45"
     ],
     "speaker": "client",
-    "messages": "%{email}",
-    "inputType": "email",
+    "inputs": ["email"],
+    "cardType": "email",
     "visible": "true",
     "highlight": "false",
     "xpos": "541.111111111111",
@@ -239,7 +239,7 @@ var storedConversation = {
       "uuid_aeca97318d24a710"
     ],
     "speaker": "ai",
-    "messages": "Password?",
+    "message": "Password?",
     "visible": "true",
     "highlight": "false",
     "xpos": "541.111111111111",
@@ -255,8 +255,8 @@ var storedConversation = {
       "uuid_162de4b756bba546"
     ],
     "speaker": "client",
-    "messages": "%{password}",
-    "inputType": "password",
+    "inputs": ["password"],
+    "cardType": "password",
     "visible": "true",
     "highlight": "false",
     "xpos": "541.111111111111",
@@ -272,7 +272,7 @@ var storedConversation = {
       "uuid_fc67a9223e0c1fb0"
     ],
     "speaker": "ai",
-    "messages": "Password again?",
+    "message": "Password again?",
     "visible": "true",
     "highlight": "false",
     "xpos": "541",
@@ -288,8 +288,8 @@ var storedConversation = {
       "uuid_776e790998b956ca"
     ],
     "speaker": "client",
-    "messages": "%{confirmPassword}",
-    "inputType": "password",
+    "inputs": ["confirmPassword"],
+    "cardType": "password",
     "visible": "true",
     "highlight": "false",
     "xpos": "541",
@@ -303,7 +303,7 @@ var storedConversation = {
       "uuid_cb8cd62d8d553372"
     ],
     "speaker": "ai",
-    "messages": "Thanks!",
+    "message": "Thanks!",
     "visible": "true",
     "highlight": "false",
     "xpos": "541",

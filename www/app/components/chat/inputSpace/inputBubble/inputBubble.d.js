@@ -15,8 +15,7 @@ function prlInputBubble() {
     replace: true,
     controller: InputBubbleCtrl,
     controllerAs: "inputBubbleCtrl",
-    bindToController: true,
-    link: InputBubbleLink
+    bindToController: true
   };
 }
 
@@ -28,32 +27,10 @@ function InputBubbleCtrl($rootScope, ChatServ) {
   var vm = this;
 
   // Data.
-  vm.inputType = "";
-  vm.inputMessage = "";
 
   // Methods.
-  vm.determineInput = determineInput;
 
   // METHODS ******************************************************************
-
-  function determineInput() {
-    console.log("Determining the input.");
-
-    switch(vm.inputOption.inputType) {
-      
-      case "choice":
-        enterChoiceInput();
-        break;
-
-      case "email":
-        console.log("It's an email!");
-        enterEmailInput();
-        break;
-
-      default:
-        enterChoiceInput();
-    }
-  }
 
   // HELPERS ******************************************************************
 
@@ -71,24 +48,4 @@ function InputBubbleCtrl($rootScope, ChatServ) {
       inputMessage: vm.inputOption.inputMessage
     });
   }
-
-  function enterEmailInput() {
-    console.log("Entering email.");
-  }
-
-  function clearInputs() {
-    // Clear input options.
-    ChatServ.inputOptions = {};
-    console.log("inputOptions are cleared.");
-  }
-}
-
-function InputBubbleLink(scope, element, attrs) {
-  element.on('click', function() {
-    console.log("Clicked!");
-    console.log(scope);   
-    console.log(element);
-  });
-
-  // HELPERS ******************************************************************
 }

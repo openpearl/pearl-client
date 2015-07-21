@@ -10,14 +10,17 @@ module.exports = function(app) {
 
 function LoginRegisterServ($http, ApiEndpoint, LoginStoryboard, ChatServ) {
 
+  // Inheritance so that we can overwrite CharServ's server communications.
+  angular.extend(LoginRegisterServ.prototype, ChatServ);
   var _this = this;
 
-  _this.msgStorage = LoginStoryboard.conversation;
-
+  // Methods.
   _this.isLoggedIn = isLoggedIn;
   _this.requestNextCard = requestNextCard;
-  _this.addNextCard = ChatServ.addNextCard; // For the correct callback. 
-  
+  // _this.addNextCard --- For the correct follow-up action. 
+
+  // Data.
+  _this.msgStorage = LoginStoryboard.conversation;
   _this.dataStore = {
     name: "",
     email: "",
@@ -33,8 +36,8 @@ function LoginRegisterServ($http, ApiEndpoint, LoginStoryboard, ChatServ) {
   }
 
   // Provide the next blurbs in the list depending on the input ID.
-  function requestNextCard(newCardRequest, callback) {
-    var currentCard = _this.msgStorage[newCardRequest.cardID];
+  function requestNextCard(card) {
+    var currentCard = _this.msgStorage[card.cardID];
     var receivedCard = _this.msgStorage[currentCard.childrenCardIDs[0]];
 
     receivedCard.childrenCards = [];
@@ -45,9 +48,7 @@ function LoginRegisterServ($http, ApiEndpoint, LoginStoryboard, ChatServ) {
         .push(_this.msgStorage[receivedCard.childrenCardIDs[i]]);
     }
 
-    // TODO: This binding and pseudo-inheritance is real jank.
-    var boundCallback = callback.bind(_this);
-    boundCallback(receivedCard);
+    _this.addNextCard(receivedCard);
   }
 
   // HELPERS ******************************************************************
