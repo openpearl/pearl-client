@@ -12,7 +12,7 @@ function prlMessages($ionicScrollDelegate) {
     templateUrl: "_templates/messages.t.html",
     replace: true,
     controller: MessagesCtrl,
-    controllerAs: 'ctrl',
+    controllerAs: 'messagesCtrl',
     bindToController: true,
     link: MessagesLink
   };
@@ -26,7 +26,7 @@ function MessagesCtrl(ChatServ) {
 }
 
 function MessagesLink(scope, element, attrs) {
-  scope.$watch('chatMessages', function(newValue, oldValue) {
+  scope.$watch('messagesCtrl.CS.chatMessages', function(newValue, oldValue) {
     if (newValue) {
       $ionicScrollDelegate.scrollBottom(true);
     }

@@ -88,12 +88,16 @@ function LoginRegisterServ($http, $auth, $rootScope, ApiEndpoint,
 
     // Complete POST request and redirect.
     var route = ApiEndpoint.url + "/auth/sign_in/";
+    var processedLogin = {
+      email: loginData.email,
+      password: loginData.password
+    };
 
-    $auth.submitLogin(loginData)
+    $auth.submitLogin(processedLogin)
       .then(function(resp) {
         console.log("Logged in.");
         console.log(resp);
-        $rootScope.$emit('converse:ready');
+        $rootScope.$emit('refresh');
       })
       .catch(function(resp) {
         console.log("Failed logging in.");

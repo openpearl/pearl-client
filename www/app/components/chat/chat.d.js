@@ -16,9 +16,7 @@ function PrlChat() {
   };
 }
 
-ChatCtrl.$inject = ['$scope', '$rootScope', '$ionicPlatform', 
-  '$ionicSlideBoxDelegate', 'UserContextServ', 'ChatServ', 
-  'LoginRegisterServ'];
+ChatCtrl.$inject = ['$scope', '$rootScope', '$ionicPlatform', '$ionicSlideBoxDelegate', 'UserContextServ', 'ChatServ', 'LoginRegisterServ'];
 
 function ChatCtrl($scope, $rootScope, $ionicPlatform, $ionicSlideBoxDelegate, UserContextServ, ChatServ, LoginRegisterServ) {
 
@@ -43,6 +41,10 @@ function ChatCtrl($scope, $rootScope, $ionicPlatform, $ionicSlideBoxDelegate, Us
   });
 
   $ionicPlatform.on('resume', function() {
+    vm.doRefresh();
+  });
+
+  $rootScope.$on('refresh', function() {
     vm.doRefresh();
   });
 
@@ -72,7 +74,7 @@ function ChatCtrl($scope, $rootScope, $ionicPlatform, $ionicSlideBoxDelegate, Us
       function(data, status, headers, config) {
         $scope.$broadcast('scroll.refreshComplete');
         LoginRegisterServ.isLoggedIn = true;
-        $ionicSlideBoxDelegate.enableSlide(true);
+        $ionicSlideBoxDelegate.update();
         console.log("Logged in.");
         console.log(data);
   
@@ -80,7 +82,6 @@ function ChatCtrl($scope, $rootScope, $ionicPlatform, $ionicSlideBoxDelegate, Us
         UserContextServ.httpSendUserContext();
     }, function() {
       LoginRegisterServ.isLoggedIn = false;
-      $ionicSlideBoxDelegate.enableSlide(false);
       console.log("Not logged in yet.");
 
       // Not logged in yet.
