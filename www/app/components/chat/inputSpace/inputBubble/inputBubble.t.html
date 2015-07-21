@@ -1,3 +1,11 @@
-<div class="input-bubble">
-  {{inputBubbleCtrl.inputOption.inputMessage}}
+<div class="input-bubble" 
+  ng-switch="inputBubbleCtrl.inputOption.cardType">
+  <input ng-switch-when="text" type="text"></input>
+  <input ng-switch-when="email" type="email"></input>
+  <input ng-switch-when="tel" type="tel"></input>
+  <input ng-switch-when="search" type="search"></input>
+  <input ng-switch-when="number" type="number"></input>
+  <input ng-switch-when="date" type="date"></input>
+  <input ng-switch-when="month" type="month"></input>
+  <input ng-switch-when="password" type="password"></input>
 </div>

@@ -19,9 +19,9 @@ function prlInputBubble() {
   };
 }
 
-InputBubbleCtrl.$inject = ['$rootScope', 'ChatServ'];
+InputBubbleCtrl.$inject = ['$rootScope'];
 
-function InputBubbleCtrl($rootScope, ChatServ) {
+function InputBubbleCtrl($rootScope) {
   // FIXME: For some reason, I can't use `vm` in this situation.
   // RESOLVED: Apparent, I've accidentally set a globa `vm`.
   var vm = this;

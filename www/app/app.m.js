@@ -6,6 +6,9 @@ var UserM = require('./shared/user/user.m.js');
 var GoalsM = require('./shared/goals/goals.m.js');
 var UserContextM = require('./shared/userContext/userContext.m.js');
 
+// Utils.
+var InputTypeM = require('./shared/inputType/inputType.d.js');
+
 // Layouts.
 var SliderM = require('./layout/slider/slider.m.js');
 
@@ -23,6 +26,8 @@ var app = angular.module('app', [
   UserM.name,
   GoalsM.name,
   UserContextM.name,
+
+  // Utils.
 
   // Layouts.
   SliderM.name,

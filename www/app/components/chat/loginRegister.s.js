@@ -53,7 +53,7 @@ function LoginRegisterServ($http, ApiEndpoint, LoginStoryboard, ChatServ) {
         .push(loginRegisterServ.msgStorage[receivedCard.childrenCardIDs[i]]);
     }
 
-    loginRegisterServ.addNextCard(receivedCard);
+    this.addNextCard(receivedCard);
   }
 
   // HELPERS ******************************************************************
