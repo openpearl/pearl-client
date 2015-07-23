@@ -16,6 +16,14 @@ function prlMessages($ionicScrollDelegate) {
     bindToController: true,
     link: MessagesLink
   };
+
+  function MessagesLink(scope, element, attrs) {
+    scope.$watch('messagesCtrl.CS.chatMessages', function(newValue, oldValue) {
+      if (newValue) {
+        $ionicScrollDelegate.scrollBottom(true);
+      }
+    }, true);
+  }
 }
 
 MessagesCtrl.$inject = ['ChatServ'];
@@ -23,12 +31,4 @@ MessagesCtrl.$inject = ['ChatServ'];
 function MessagesCtrl(ChatServ) {
   var vm = this;
   vm.CS = ChatServ;
-}
-
-function MessagesLink(scope, element, attrs) {
-  scope.$watch('messagesCtrl.CS.chatMessages', function(newValue, oldValue) {
-    if (newValue) {
-      $ionicScrollDelegate.scrollBottom(true);
-    }
-  }, true);
 }
