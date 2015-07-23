@@ -13,21 +13,23 @@ function PrlSettings() {
     bindToController: true,
     controller: SettingsCtrl,
     controllerAs: 'ctrl',
-    link: link
+    link: SettingsLink
   };
 
-  function link(scope, element, attrs) {
-
+  function SettingsLink(scope, element, attrs) {
   }
 }
 
 SettingsCtrl.$inject = [
+    '$http',
     '$state',
+    '$window',
     '$ionicPlatform',
+    'ApiEndpoint',
     'UserServ',
     'GoalsServ'];
 
-function SettingsCtrl($state, $ionicPlatform, UserServ, GoalsServ) {
+function SettingsCtrl($http, $state, $window, $ionicPlatform, ApiEndpoint, UserServ, GoalsServ) {
 
   var vm = this;
   vm.GoalsServ = GoalsServ;
@@ -49,8 +51,11 @@ function SettingsCtrl($state, $ionicPlatform, UserServ, GoalsServ) {
   }
 
   function clickLogout() {
-    // TODO: Delete session.
-    $state.go('slider');
+    UserServ.submitLogout(function() {
+      // $state.go('slider');
+      // $state.go('slider', {}, {reload: true});
+      $window.location.reload(true);
+    });
   }
 
   function clickGoal(goalID) {

@@ -101,7 +101,7 @@ function ChatServ($http, $rootScope, ApiEndpoint) {
   }
 
   function clearInputOptions() {
-    chatServ.inputOptions = {};
+    chatServ.inputOptions = {};  
     console.log("inputOptions are cleared.");
   }
 

@@ -26,6 +26,8 @@ function UserContextServ($q, $http, $rootScope, $ionicPlatform, $cordovaHealthKi
     httpSendUserContext: httpSendUserContext
   };
 
+  // METHODS ******************************************************************
+
   // Request Healthkit permissions.
   // TODO: Allow in the future to pass in permissions here.
   function localRequestPermissions(callback) {
