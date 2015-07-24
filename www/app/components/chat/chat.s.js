@@ -31,6 +31,7 @@ function ChatServ($http, $rootScope, ApiEndpoint) {
     console.log('About to requestNextCard.');
 
     var url = ApiEndpoint.url + '/converse';
+    var _this = this;
     $http.post(url, card)
       .success(function(receivedCard, status, headers, config){
         console.log("requestNextCard success.");
@@ -41,7 +42,7 @@ function ChatServ($http, $rootScope, ApiEndpoint) {
           console.log("No more messages to receive.");
           return;
         }
-        this.delegateNextCard(receivedCard);
+        _this.delegateNextCard(receivedCard);
       })
       .error(function(data, status, headers, config){
         console.log("requestNextCard error.");

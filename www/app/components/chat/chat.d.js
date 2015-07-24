@@ -49,6 +49,7 @@ function ChatCtrl($scope, $rootScope, $ionicPlatform, $ionicSlideBoxDelegate, Us
   });
 
   $rootScope.$on('converse:ready', function() {
+    console.log("converse:ready");
     ChatServ.requestNextCard({cardID: "root"});
   });
 

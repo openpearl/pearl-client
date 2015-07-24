@@ -53,16 +53,16 @@ function LoginRegisterServ($http, $auth, $rootScope, ApiEndpoint,
       }
     }
     
-    if (card.message === "login") {
+    if (card.messages === "login") {
       loginRegisterServ.choosingLogin = true;
-    } else if (card.message === "register") {
+    } else if (card.messages === "register") {
       loginRegisterServ.choosingLogin = false;
     }
 
     // Capture requested data such as email and password.
     if (card.inputs) {
       var input = card.inputs[0];
-      loginRegisterServ.dataStore[input] = card.message;
+      loginRegisterServ.dataStore[input] = card.messages;
     }
 
     var currentCard = loginRegisterServ.msgStorage[card.cardID];
@@ -148,7 +148,7 @@ function LoginRegisterServ($http, $auth, $rootScope, ApiEndpoint,
         // this callback will be called asynchronously
         // when the response is available
         console.log("Logging in successful.");
-        console.log(data.message);
+        console.log(data.messages);
       }).
       error(function(data, status, headers, config) {
         console.error("Error sending login-signup.");

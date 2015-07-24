@@ -36,7 +36,7 @@ function InputBubbleCtrl($rootScope) {
   function submit() {
     console.log("Hitting submit.");
     if (vm.inputText !== "") {
-      vm.inputOption.message = vm.inputText;
+      vm.inputOption.messages = vm.inputText;
       $rootScope.$emit('chat:continue', vm.inputOption);
     }
   }
