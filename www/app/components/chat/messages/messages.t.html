@@ -1,0 +1,11 @@
+<div 
+  class="chat-bubble-wrapper"
+  ng-repeat="chatMessage in messagesCtrl.CS.chatMessages track by $index">
+
+  <!-- TODO: This should not be hardcoded in the future. -->
+  <div class="chat-bubble"
+    ng-animate=" 'animate' "
+    ng-class="{'chat-bubble-left': chatMessage.speaker !== 'client', 'chat-bubble-password': chatMessage.cardType === 'password'}">
+    {{chatMessage.messages}}
+  </div>
+</div>

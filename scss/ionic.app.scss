@@ -31,7 +31,9 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 @import "./base/base";
 
 // Components
+@import "./components/login";
 @import "./components/chatBox";
 @import "./components/textInputArea";
+@import "./components/settings";
 
 // Pages

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="com.InvoStudios.Pearl" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>pearl-client</name>
+  <name>Pearl</name>
   <description>
-        An Ionic Framework and Cordova project.
+        Your personal health assistant.
     </description>
   <author email="david@goinvo.com" href="http://openpearl.org/">
-      Ionic Framework Team
+      Involution Studios
     </author>
   <content src="index.html"/>
   <access origin="*"/>
@@ -14,25 +14,10 @@
   <preference name="DisallowOverscroll" value="true"/>
   <preference name="android-minSdkVersion" value="16"/>
   <preference name="BackupWebStorage" value="none"/>
-  <preference name="SplashScreen" value="screen"/>
-  <preference name="SplashScreenDelay" value="3000"/>
+  <preference name="SplashScreen" value="none"/>
+  <preference name="SplashScreenDelay" value="0"/>
   <platform name="ios">
-    <icon height="57" src="resources/ios/icon/icon.png" width="57"/>
-    <icon height="114" src="resources/ios/icon/icon@2x.png" width="114"/>
-    <icon height="40" src="resources/ios/icon/icon-40.png" width="40"/>
-    <icon height="80" src="resources/ios/icon/icon-40@2x.png" width="80"/>
-    <icon height="50" src="resources/ios/icon/icon-50.png" width="50"/>
-    <icon height="100" src="resources/ios/icon/icon-50@2x.png" width="100"/>
-    <icon height="60" src="resources/ios/icon/icon-60.png" width="60"/>
-    <icon height="120" src="resources/ios/icon/icon-60@2x.png" width="120"/>
-    <icon height="180" src="resources/ios/icon/icon-60@3x.png" width="180"/>
-    <icon height="72" src="resources/ios/icon/icon-72.png" width="72"/>
-    <icon height="144" src="resources/ios/icon/icon-72@2x.png" width="144"/>
-    <icon height="76" src="resources/ios/icon/icon-76.png" width="76"/>
-    <icon height="152" src="resources/ios/icon/icon-76@2x.png" width="152"/>
-    <icon height="29" src="resources/ios/icon/icon-small.png" width="29"/>
-    <icon height="58" src="resources/ios/icon/icon-small@2x.png" width="58"/>
-    <icon height="87" src="resources/ios/icon/icon-small@3x.png" width="87"/>
+    <icon src="icons/ios/pearl.png"/>
     <splash height="1136" src="resources/ios/splash/Default-568h@2x~iphone.png" width="640"/>
     <splash height="1334" src="resources/ios/splash/Default-667h.png" width="750"/>
     <splash height="2208" src="resources/ios/splash/Default-736h.png" width="1242"/>

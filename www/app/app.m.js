@@ -1,36 +1,42 @@
-var appCore = require('./core/core.m.js');
-var sharedSlider = require('./shared/slider/slider.m.js');
+// Core.
+var CoreM = require('./core/core.m.js');
 
-var componentsLoginSignUp 
-  = require('./components/loginSignUp/loginSignUp.m.js');
-var componentsChat = require('./components/chat/chat.m.js');
-var componentsSettings = require('./components/settings/settings.m.js');
+// Shared.
+var UserM = require('./shared/user/user.m.js');
+var GoalsM = require('./shared/goals/goals.m.js');
+var UserContextM = require('./shared/userContext/userContext.m.js');
 
+// Utils.
+var InputTypeM = require('./shared/inputType/inputType.d.js');
+
+// Layouts.
+var SliderM = require('./layout/slider/slider.m.js');
+
+// Components.
+var ChatM = require('./components/chat/chat.m.js');
+var SettingsM = require('./components/settings/settings.m.js');
+
+// Inject all modules at this one centralized place.
 var app = angular.module('app', [
 
-  appCore.name,
-  sharedSlider.name,
+  // Core.
+  CoreM.name,
 
-  componentsLoginSignUp.name,
-  componentsChat.name,
-  componentsSettings.name,
+  // Shared.
+  UserM.name,
+  GoalsM.name,
+  UserContextM.name,
 
-])
+  // Utils.
 
-.run(function($ionicPlatform, $cordovaStatusbar) {
-  $ionicPlatform.ready(function() {
-    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs)
-    if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-    }
-    $cordovaStatusbar.style(2);
-    // if (window.StatusBar) {
-    //   // org.apache.cordova.statusbar required
-    //   window.StatusBar.styleBlackTranslucent();
-    // }
-  });
+  // Layouts.
+  SliderM.name,
 
-});
+  // Components.
+  ChatM.name,
+  SettingsM.name,
 
-require('./app.r.js')(app);
+]);
+
+require('./app.run.js')(app); // Runs required files during the beginning.
+require('./app.r.js')(app); // Loads the routes.

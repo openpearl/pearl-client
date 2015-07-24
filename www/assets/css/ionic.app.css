@@ -14,21 +14,20 @@ $assertive:                       #ef473a !default;
 $royal:                           #886aea !default;
 $dark:                            #444 !default;
 */
-.input-bubble:active {
+.prl-bubble:active, .prl-input-bubble:active {
   box-shadow: none; }
 
 .nav-upper-padding {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); }
 
-.input-bubble {
+.prl-bubble, .prl-input-bubble {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); }
 
 body {
   font-size: 16px; }
 
 .pane {
-  background-color: black;
-  background: linear-gradient(#EBF6F0, #C7E4EE); }
+  background-color: #FAFAFA; }
 
 .nav-upper-padding {
   width: 100%;
@@ -45,26 +44,38 @@ body {
 .slider {
   height: 100%; }
 
-.list {
-  padding: 10px;
+label.item {
+  border: 0px; }
+
+.padding-container {
+  padding: 0 10px; }
+
+.item-input {
+  padding: 0 10px; }
+
+.vertical-center {
+  height: 100%;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   -webkit-flex-direction: column;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
   -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center; }
-  .list > * {
-    width: 100%;
-    padding: 0; }
 
-label.item {
-  border: 0px; }
+#logo {
+  text-align: center;
+  font-weight: 100;
+  font-size: 48pt;
+  color: rgba(0, 0, 0, 0.7); }
+
+#login-page {
+  background: linear-gradient(#EBF6F0, #C7E4EE); }
+
+#chat-page {
+  background: linear-gradient(#EBF6F0, #C7E4EE); }
 
 .chat-history {
   padding-top: 40px; }
@@ -83,11 +94,21 @@ prl-chat-scroll {
   display: flex;
   margin-top: 10px; }
 
-.chat-bubble, .input-bubble {
+.animate-enter {
+  opacity: 0;
+  transition: all ease 0.5s; }
+
+.animate-enter.animate-enter-stagger {
+  transition-delay: 1s;
+  transition-duration: 0s; }
+
+.chat-bubble, .prl-bubble, .prl-input-bubble {
   border-radius: 12px;
   border-bottom-right-radius: 0px;
   padding: 5px 10px;
   box-sizing: content-box;
+  min-height: 1.25em;
+  min-width: 2em;
   -webkit-animation: fadein 0.5s;
           animation: fadein 0.5s; }
 
@@ -125,7 +146,11 @@ prl-chat-scroll {
   border-radius: 12px;
   border-top-left-radius: 0px; }
 
-prl-chat-input-space {
+.chat-bubble-password {
+  -webkit-text-security: disc;
+  text-security: disc; }
+
+#prl-input-space {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -147,13 +172,29 @@ prl-chat-input-space {
       -ms-flex-wrap: wrap;
           flex-wrap: wrap; }
 
-.input-bubble {
+.prl-bubble, .prl-input-bubble {
   background-color: #F99E33;
   color: white;
   height: -webkit-min-content;
   height: -moz-min-content;
   height: min-content;
   margin: 5px; }
+
+.prl-input-bubble {
+  width: 600px;
+  margin-left: 35px;
+  margin-right: 35px; }
+
+.input-bubble {
+  background-color: transparent;
+  color: white !important;
+  padding: 0;
+  margin: 0;
+  height: 0;
+  width: 100%; }
+
+.input-bubble:focus {
+  color: white; }
 
 .pl-full-width {
   display: -webkit-flex;
@@ -168,3 +209,11 @@ prl-chat-input-space {
     padding: 0; }
     .pl-full-width > label > input {
       width: 100%; }
+
+#testing {
+  height: 200px;
+  width: 100%;
+  background-color: red; }
+
+#settings-page {
+  background-color: #FAFAFA; }
