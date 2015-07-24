@@ -23,12 +23,15 @@ function ChatServ($http, $rootScope, ApiEndpoint) {
 
   // METHODS ******************************************************************
 
-  function requestNextCard(_card, callback) {
+  function requestNextCard(_card) {
+    console.log("CharServ requestNextCard");
+
     var card = _card;
     if (card === undefined) { return; }
     console.log('About to requestNextCard.');
 
     var url = ApiEndpoint.url + '/converse';
+    var _this = this;
     $http.post(url, card)
       .success(function(receivedCard, status, headers, config){
         console.log("requestNextCard success.");
@@ -39,7 +42,7 @@ function ChatServ($http, $rootScope, ApiEndpoint) {
           console.log("No more messages to receive.");
           return;
         }
-        callback(receivedCard);
+        _this.delegateNextCard(receivedCard);
       })
       .error(function(data, status, headers, config){
         console.log("requestNextCard error.");
@@ -69,7 +72,7 @@ function ChatServ($http, $rootScope, ApiEndpoint) {
 
     // Do another request if the next speaker is also an AI.
     if (nextSpeaker === "ai") {
-      this.requestNextCard(currentCard, this.delegateNextCard);
+      this.requestNextCard(currentCard);
     }
 
     // Populate choices if next speaker is a client.
@@ -99,7 +102,7 @@ function ChatServ($http, $rootScope, ApiEndpoint) {
   }
 
   function clearInputOptions() {
-    chatServ.inputOptions = {};
+    chatServ.inputOptions = {};  
     console.log("inputOptions are cleared.");
   }
 

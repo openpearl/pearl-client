@@ -26,6 +26,8 @@ function UserContextServ($q, $http, $rootScope, $ionicPlatform, $cordovaHealthKi
     httpSendUserContext: httpSendUserContext
   };
 
+  // METHODS ******************************************************************
+
   // Request Healthkit permissions.
   // TODO: Allow in the future to pass in permissions here.
   function localRequestPermissions(callback) {
@@ -110,8 +112,9 @@ function UserContextServ($q, $http, $rootScope, $ionicPlatform, $cordovaHealthKi
       }, function(healthkitData) {
         console.log("getSample from Healthkit success.");
         resolve(healthkitData);
-      }, function () {
+      }, function (error) {
         console.log("getSample from Healthkit error.");
+        console.log(error);
         reject();
       });
     });
