@@ -41,9 +41,9 @@ function ChatCtrl($scope, $rootScope, $ionicPlatform, $ionicSlideBoxDelegate, Us
   });
 
   // FIXME: Resume not functional and causing 10 digest runs.
-  // $ionicPlatform.on('resume', function() {
-  //   vm.doRefresh();
-  // });
+  $ionicPlatform.on('resume', function() {
+    vm.doRefresh();
+  });
 
   $rootScope.$on('pearl:refresh', function() {
     vm.doRefresh();
