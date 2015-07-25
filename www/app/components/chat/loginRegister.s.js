@@ -105,7 +105,7 @@ function LoginRegisterServ($http, $auth, $rootScope, ApiEndpoint,
       .then(function(resp) {
         console.log("Logged in.");
         console.log(resp);
-        $rootScope.$emit('refresh');
+        $rootScope.$emit('pearl:refresh');
       })
       .catch(function(resp) {
         console.log("Failed logging in.");
@@ -152,7 +152,13 @@ function LoginRegisterServ($http, $auth, $rootScope, ApiEndpoint,
       }).
       error(function(data, status, headers, config) {
         console.error("Error sending login-signup.");
-        console.log(registerData);
+        
+        console.log("dbg: data, status, headers, config");
+        console.log(data);
+        console.log(status);
+        console.log(headers);
+        console.log(config);
+        console.log("dbg: end");
       });
   }
 
