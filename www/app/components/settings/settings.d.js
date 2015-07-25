@@ -41,10 +41,10 @@ function SettingsCtrl($http, $state, $window, $ionicPlatform, ApiEndpoint, UserS
 
   // vm.httpGetGoals = GoalsServ.httpGetGoals;
 
-  $ionicPlatform.on('resume', function() {
-    console.log("Resuming.");
-    GoalsServ.httpGetGoals();
-  });
+  // $ionicPlatform.on('resume', function() {
+  //   console.log("Resuming.");
+  //   GoalsServ.httpGetGoals();
+  // });
 
   function refresh() {
     GoalsServ.httpGetGoals();

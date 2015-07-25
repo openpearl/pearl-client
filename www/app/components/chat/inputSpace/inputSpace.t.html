@@ -1,6 +1,6 @@
 <div id="prl-input-space">
   <div class="input-bubble-wrapper"
-    ng-repeat="(cardID, inputOption) in inputSpaceCtrl.ChatServ.inputOptions">
+    ng-repeat="(cardID, inputOption) in inputSpaceCtrl.ChatServ.inputOptions track by cardID">
     <div class="chat-bubble-wrapper" 
       ng-switch="inputOption.cardType || 'cat'">
   

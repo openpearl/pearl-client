@@ -20,6 +20,7 @@ function ChatServ($http, $rootScope, ApiEndpoint) {
   chatServ.addChatMessage = addChatMessage;
   chatServ.inputOptionToMessages = inputOptionToMessages;
   chatServ.clearInputOptions = clearInputOptions;
+  chatServ.clearAll = clearAll;
 
   // METHODS ******************************************************************
 
@@ -104,6 +105,11 @@ function ChatServ($http, $rootScope, ApiEndpoint) {
   function clearInputOptions() {
     chatServ.inputOptions = {};  
     console.log("inputOptions are cleared.");
+  }
+
+  function clearAll() {
+    chatServ.chatMessages = [];
+    chatServ.inputOptions = {};
   }
 
   // HELPERS ******************************************************************

@@ -40,11 +40,12 @@ function ChatCtrl($scope, $rootScope, $ionicPlatform, $ionicSlideBoxDelegate, Us
     vm.doRefresh();
   });
 
-  $ionicPlatform.on('resume', function() {
-    vm.doRefresh();
-  });
+  // FIXME: Resume not functional and causing 10 digest runs.
+  // $ionicPlatform.on('resume', function() {
+  //   vm.doRefresh();
+  // });
 
-  $rootScope.$on('refresh', function() {
+  $rootScope.$on('pearl:refresh', function() {
     vm.doRefresh();
   });
 
@@ -69,16 +70,15 @@ function ChatCtrl($scope, $rootScope, $ionicPlatform, $ionicSlideBoxDelegate, Us
 
     // TODO: This seems like a pretty bad way of doing things.
     // Refactor if possible.
-    ChatServ.chatMessages = [];
+    ChatServ.clearAll();
 
     UserContextServ.httpGetRequiredContext().then(
       function(data, status, headers, config) {
         $scope.$broadcast('scroll.refreshComplete');
         LoginRegisterServ.isLoggedIn = true;
         $ionicSlideBoxDelegate.update();
-        console.log("Logged in.");
+        console.log("doRefresh: httpGetRequiredContext.");
         console.log(data);
-  
         // If logged in...
         UserContextServ.httpSendUserContext();
     }, function() {

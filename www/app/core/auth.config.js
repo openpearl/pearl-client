@@ -4,6 +4,7 @@ module.exports = function(app) {
 
 function AuthConfiguration($authProvider, ApiEndpoint) {
   $authProvider.configure({
-    apiUrl: ApiEndpoint.url
+    apiUrl: ApiEndpoint.url,
+    storage: 'localStorage'
   });
 }
