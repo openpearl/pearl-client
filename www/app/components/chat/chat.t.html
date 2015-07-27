@@ -1,4 +1,10 @@
 <ion-view view-title="Pearl">
+  <button id="bt-settings" 
+    ng-click="chatCtrl.goToSettings()"
+    ng-show="chatCtrl.LoginRegisterServ.isLoggedIn">
+    <i class="ion-gear-a"></i>
+  </button>
+
   <ion-content class="chat-history" id="chat-page">
 
     <ion-refresher pulling-text="Pull to refresh!" 
@@ -7,6 +13,7 @@
 
     <prl-messages></prl-messages>
     <div id="spacer"></div>
+
   </ion-content>
 
   <prl-input-space></prl-input-space>

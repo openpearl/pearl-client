@@ -84,7 +84,7 @@ prl-chat-scroll {
   height: 70%; }
 
 #spacer {
-  height: 200px;
+  height: 30%;
   width: 100%; }
 
 .chat-bubble-wrapper {
@@ -196,6 +196,19 @@ prl-chat-scroll {
 .input-bubble:focus {
   color: white; }
 
+.ellipsis {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center; }
+  .ellipsis > img {
+    height: 6px; }
+
 .pl-full-width {
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -217,3 +230,20 @@ prl-chat-scroll {
 
 #settings-page {
   background-color: #FAFAFA; }
+
+#bt-settings {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 99;
+  border: 0px;
+  padding: 10px;
+  margin: 0;
+  opacity: 0.4; }
+  #bt-settings > i {
+    padding: 0;
+    margin: 0;
+    font-size: 24pt;
+    line-height: 1; }
+  #bt-settings:active, #bt-settings:hover {
+    opacity: 0.8; }

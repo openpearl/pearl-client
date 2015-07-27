@@ -26,9 +26,26 @@ function prlMessages($ionicScrollDelegate) {
   }
 }
 
-MessagesCtrl.$inject = ['ChatServ'];
+MessagesCtrl.$inject = ['$http', '$scope', 'ChatServ'];
 
-function MessagesCtrl(ChatServ) {
+function MessagesCtrl($http, $scope, ChatServ) {
   var vm = this;
   vm.CS = ChatServ;
+  vm.checkLoading = checkLoading;
+
+  vm.stillLoading = false;
+
+
+  function checkLoading() {
+    return $http.pendingRequests.length > 0;
+  }
+
+  $scope.$watch(vm.checkLoading, function(v) {
+    if (v) {
+      vm.stillLoading = true;
+    } else {
+      vm.stillLoading = false;
+    }
+  });
+
 }

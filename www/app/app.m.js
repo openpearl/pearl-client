@@ -40,3 +40,5 @@ var app = angular.module('app', [
 
 require('./app.run.js')(app); // Runs required files during the beginning.
 require('./app.r.js')(app); // Loads the routes.
+
+require('./shared/load.d.js')(app);
