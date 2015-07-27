@@ -10,6 +10,7 @@ function appRun($ionicPlatform, $cordovaStatusbar) {
     if (window.cordova && 
       window.cordova.plugins && 
       window.cordova.plugins.Keyboard) {
+      cordova.plugins.Keyboard.disableScroll(true);
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
 
