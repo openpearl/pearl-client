@@ -1,11 +1,12 @@
 module.exports = function(app) {
   app.directive('prlInputBubble', [
+    '$timeout',
     prlInputBubble
   ]);
 };
 
 // TODO: For future text inputs.
-function prlInputBubble() {
+function prlInputBubble($timeout) {
   return {
     restrict: 'E',
     scope: {
@@ -15,8 +16,23 @@ function prlInputBubble() {
     replace: true,
     controller: InputBubbleCtrl,
     controllerAs: "inputBubbleCtrl",
-    bindToController: true
+    bindToController: true,
+    link: InputBubbleLink
   };
+
+  function InputBubbleLink(scope, element, attribute) {
+    
+    // It seems that the rendering of Angular elements take more time.
+    // We must wait until everything has rendered before we can query 
+    // for our input.
+    // angular.element(document).ready(function () {
+    $timeout(function() {
+      // console.log(element[0].querySelector('input'));
+
+      // TODO: Focus not working. Potential race condition bug.
+      element[0].querySelector('input').focus();
+    });
+  }
 }
 
 InputBubbleCtrl.$inject = ['$rootScope'];
