@@ -1,13 +1,7 @@
 {
   "name": "Pearl Client iOS",
   "app_id": "46122480",
-  "gulpStartupTasks": [
-    "default"
-  ],
-  "watchPatterns": [
-    "www/**/*",
-    "!www/assets/lib/**/*"
-  ],
+  "watchPatterns": [],
   "proxies": [
     {
       "path": "/api",

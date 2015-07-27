@@ -21,8 +21,10 @@ ChatCtrl.$inject = ['$scope', '$rootScope', '$ionicPlatform', '$ionicSlideBoxDel
 function ChatCtrl($scope, $rootScope, $ionicPlatform, $ionicSlideBoxDelegate, UserContextServ, ChatServ, LoginRegisterServ) {
 
   var vm = this;
+  vm.LoginRegisterServ = LoginRegisterServ;
 
   // Methods.
+  vm.goToSettings = goToSettings;
   vm.doRefresh = function() {};
   
   // INITIAL RUN **************************************************************
@@ -64,6 +66,11 @@ function ChatCtrl($scope, $rootScope, $ionicPlatform, $ionicSlideBoxDelegate, Us
   });
 
   // METHODS ******************************************************************
+
+  function goToSettings() {
+    console.log("Going to settings.");
+    $ionicSlideBoxDelegate.slide(1);
+  }
 
   function doRefresh() {
     console.log("Refreshing the conversation!");
