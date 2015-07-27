@@ -15,8 +15,8 @@
   z-index: 99;
 
   border: 0px;
-  padding: 0;
-  margin: 10px;
+  padding: 10px;
+  margin: 0;
 
   opacity: 0.4;
 
@@ -27,7 +27,7 @@
     line-height: 1;
   }
 
-  &:active {
+  &:active, &:hover {
     opacity: 0.8;
   }
 }
