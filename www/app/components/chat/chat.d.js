@@ -21,6 +21,7 @@ ChatCtrl.$inject = ['$scope', '$rootScope', '$ionicPlatform', '$ionicSlideBoxDel
 function ChatCtrl($scope, $rootScope, $ionicPlatform, $ionicSlideBoxDelegate, UserContextServ, ChatServ, LoginRegisterServ) {
 
   var vm = this;
+  vm.LoginRegisterServ = LoginRegisterServ;
 
   // Methods.
   vm.goToSettings = goToSettings;

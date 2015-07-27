@@ -1,10 +1,7 @@
 {
   "name": "Pearl Client iOS",
   "app_id": "46122480",
-  "watchPatterns": [
-    "www/**/*",
-    "!www/assets/lib/**/*"
-  ],
+  "watchPatterns": [],
   "proxies": [
     {
       "path": "/api",

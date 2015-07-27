@@ -26,11 +26,26 @@ function prlInputBubble($timeout) {
     // We must wait until everything has rendered before we can query 
     // for our input.
     // angular.element(document).ready(function () {
+    // element[0].ready(function () {
+    console.log("New bubble loaded.");
+      // element[0].querySelector('input').focus();
+    // element.on('load', function(event) {
     $timeout(function() {
       // console.log(element[0].querySelector('input'));
-
       // TODO: Focus not working. Potential race condition bug.
-      element[0].querySelector('input').focus();
+      console.log("About to focus.");
+      var chosenElement = element[0].querySelector('input');
+      console.log(chosenElement);
+      chosenElement.blur();
+      cordova.plugins.Keyboard.show();
+      chosenElement.focus();
+      chosenElement.select();
+    });
+
+    scope.$watch('focus', function(value) {
+      if (value === 'true') {
+        doFocus();
+      }
     });
   }
 }
