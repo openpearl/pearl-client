@@ -9,7 +9,25 @@
 }
 
 #bt-settings {
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
+  z-index: 99;
+
+  border: 0px;
+  padding: 0;
+  margin: 10px;
+
+  opacity: 0.4;
+
+  & > i {
+    padding: 0;
+    margin: 0;
+    font-size: 24pt;
+    line-height: 1;
+  }
+
+  &:active {
+    opacity: 0.8;
+  }
 }

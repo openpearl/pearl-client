@@ -23,6 +23,7 @@ function ChatCtrl($scope, $rootScope, $ionicPlatform, $ionicSlideBoxDelegate, Us
   var vm = this;
 
   // Methods.
+  vm.goToSettings = goToSettings;
   vm.doRefresh = function() {};
   
   // INITIAL RUN **************************************************************
@@ -64,6 +65,11 @@ function ChatCtrl($scope, $rootScope, $ionicPlatform, $ionicSlideBoxDelegate, Us
   });
 
   // METHODS ******************************************************************
+
+  function goToSettings() {
+    console.log("Going to settings.");
+    $ionicSlideBoxDelegate.slide(1);
+  }
 
   function doRefresh() {
     console.log("Refreshing the conversation!");
