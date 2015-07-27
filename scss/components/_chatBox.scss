@@ -12,7 +12,7 @@ prl-chat-scroll {
 
 #spacer {
   // TODO: Change later to reflect all screens sizes.
-  height: 200px;
+  height: 30%;
   width: 100%;
 }
 
@@ -127,4 +127,21 @@ prl-chat-scroll {
 
 .input-bubble:focus {
   color: white;
+}
+
+// ============================================================================
+
+.ellipsis {
+  // font-size: 24pt;
+  // padding: 0;
+  // margin: 0;
+  // background-image: url('assets/img/dotdotdot.gif');
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  & > img {
+    height: 6px;
+  }
 }
