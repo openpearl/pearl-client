@@ -229,6 +229,10 @@ prl-chat-scroll {
     width: 30px;
     height: 30px; }
 
+a#btn-feedback {
+  text-decoration: none;
+  color: initial; }
+
 #move-line-container {
   height: 200px;
   padding: 5px !important;
