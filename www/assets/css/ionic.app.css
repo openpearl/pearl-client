@@ -230,7 +230,19 @@ prl-chat-scroll {
     height: 40px; }
 
 #move-line-container {
-  background-color: blue;
   height: 200px;
-  width: 100%;
-  border: 1px solid black; }
+  padding: 5px !important;
+  box-sizing: content-box;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2); }
+
+path {
+  stroke: steelblue;
+  stroke-width: 1;
+  fill: none; }
+
+text {
+  font-size: 7pt;
+  opacity: 0.4; }
+
+.swag {
+  stroke-width: 1; }

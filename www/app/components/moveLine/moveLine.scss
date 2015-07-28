@@ -1,7 +1,29 @@
 #move-line-container {
-  background-color: blue;
+  // background-color: yellow;
   height: 200px;
-  width: 100%;
+  // width: 100%;
+  padding: 5px !important;
+  box-sizing: content-box;  
 
-  border: 1px solid black;
+  border-bottom: 1px solid rgba(0,0,0,.2);
+}
+
+path {
+  stroke: steelblue;
+  stroke-width: 1;
+  fill: none;
+}
+ 
+line {
+  // stroke: black;
+}
+ 
+text {
+  // font-family: Arial;
+  font-size: 7pt;
+  opacity: 0.4;
+}
+
+.swag {
+  stroke-width: 1;
 }
