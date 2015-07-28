@@ -34,9 +34,14 @@ gulp.task('templates', function() {
   var source = 'www/app';
   var destination = 'www/_templates';
   gulp.src(source + '/**/*.t.html', {base: source})
-    .pipe(watch(source, {base: source}))
+    .pipe(watch(source + '/**/*.t.html', {base: source}))
     .pipe(flatten())  
     .pipe(gulp.dest(destination));
+
+  gulp.src(source + '/**/*.scss', {base: source})
+    .pipe(watch(source + '/**/*.scss', {base: source}))
+    .pipe(flatten())  
+    .pipe(gulp.dest('scss/components'));
 });
 
 gulp.task('watchify', function() {
