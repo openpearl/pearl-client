@@ -65,15 +65,6 @@ label.item {
       -ms-flex-pack: center;
           justify-content: center; }
 
-#logo {
-  text-align: center;
-  font-weight: 100;
-  font-size: 48pt;
-  color: rgba(0, 0, 0, 0.7); }
-
-#login-page {
-  background: linear-gradient(#EBF6F0, #C7E4EE); }
-
 #chat-page {
   background: linear-gradient(#EBF6F0, #C7E4EE); }
 
@@ -93,14 +84,6 @@ prl-chat-scroll {
   display: -ms-flexbox;
   display: flex;
   margin-top: 10px; }
-
-.animate-enter {
-  opacity: 0;
-  transition: all ease 0.5s; }
-
-.animate-enter.animate-enter-stagger {
-  transition-delay: 1s;
-  transition-duration: 0s; }
 
 .chat-bubble, .prl-bubble, .prl-input-bubble {
   border-radius: 12px;
@@ -150,6 +133,19 @@ prl-chat-scroll {
   -webkit-text-security: disc;
   text-security: disc; }
 
+.ellipsis {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center; }
+  .ellipsis > img {
+    height: 6px; }
+
 #prl-input-space {
   position: absolute;
   bottom: 0;
@@ -171,6 +167,20 @@ prl-chat-scroll {
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap; }
+
+.pl-full-width {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  padding: 0; }
+  .pl-full-width > label {
+    -webkit-flex: 2;
+        -ms-flex: 2;
+            flex: 2;
+    padding: 0; }
+    .pl-full-width > label > input {
+      width: 100%; }
 
 .prl-bubble, .prl-input-bubble {
   background-color: #F99E33;
@@ -196,33 +206,6 @@ prl-chat-scroll {
 .input-bubble:focus {
   color: white; }
 
-.ellipsis {
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-justify-content: center;
-      -ms-flex-pack: center;
-          justify-content: center; }
-  .ellipsis > img {
-    height: 6px; }
-
-.pl-full-width {
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  width: 100%;
-  padding: 0; }
-  .pl-full-width > label {
-    -webkit-flex: 2;
-        -ms-flex: 2;
-            flex: 2;
-    padding: 0; }
-    .pl-full-width > label > input {
-      width: 100%; }
-
 #testing {
   height: 200px;
   width: 100%;
@@ -245,3 +228,9 @@ prl-chat-scroll {
   #bt-settings > img {
     width: 40px;
     height: 40px; }
+
+#move-line-container {
+  background-color: blue;
+  height: 200px;
+  width: 100%;
+  border: 1px solid black; }

@@ -41,7 +41,7 @@ gulp.task('templates', function() {
   gulp.src(source + '/**/*.scss', {base: source})
     .pipe(watch(source + '/**/*.scss', {base: source}))
     .pipe(flatten())  
-    .pipe(gulp.dest('scss/components'));
+    .pipe(gulp.dest('scss/_components'));
 });
 
 gulp.task('watchify', function() {

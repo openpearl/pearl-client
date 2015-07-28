@@ -1,7 +1,9 @@
 {
   "name": "Pearl Client iOS",
   "app_id": "46122480",
-  "watchPatterns": [],
+  "watchPatterns": [
+    "www/assets/css/ionic.app.min.css"
+  ],
   "proxies": [
     {
       "path": "/api",

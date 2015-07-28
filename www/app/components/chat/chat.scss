@@ -1,0 +1,65 @@
+#chat-page {
+  background: linear-gradient($light, $sky);
+}
+
+.chat-history {
+  padding-top: 20px + $statusBarHeight;
+}
+
+prl-chat-scroll {
+  height: 70%;
+}
+
+#spacer {
+  // TODO: Change later to reflect all screens sizes.
+  height: 30%;
+  width: 100%;
+}
+
+.chat-bubble-wrapper {
+  width: 100%;
+  display: flex;
+  margin-top: 10px;
+}
+
+%bubble {
+  border-radius: 12px;
+  border-bottom-right-radius: 0px;
+  padding: 5px 10px;
+  box-sizing: content-box;
+  min-height: 1.25em;
+  min-width: 2em;
+  animation: fadein 0.5s;
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.chat-bubble {
+  margin-right: 10px;
+  background-color: $orange;
+  color: white; 
+  margin-left: auto;
+
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 70%;  
+
+  @extend %bubble;
+}
+
+.chat-bubble-left {
+  margin-left: 10px;
+  background-color: white;
+  color: black; 
+
+  border-radius: 12px;
+  border-top-left-radius: 0px;
+}
+
+.chat-bubble-password {
+  -webkit-text-security: disc;
+  text-security: disc;
+}
