@@ -222,18 +222,17 @@ prl-chat-scroll {
   border: 0px;
   padding: 10px;
   margin: 0;
-  opacity: 0.4; }
+  opacity: 0.2; }
   #bt-settings:active, #bt-settings:hover {
-    opacity: 0.8; }
+    opacity: 0.5; }
   #bt-settings > img {
-    width: 40px;
-    height: 40px; }
+    width: 30px;
+    height: 30px; }
 
 #move-line-container {
   height: 200px;
   padding: 5px !important;
-  box-sizing: content-box;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2); }
+  box-sizing: content-box; }
 
 path {
   stroke: steelblue;
@@ -243,6 +242,3 @@ path {
 text {
   font-size: 7pt;
   opacity: 0.4; }
-
-.swag {
-  stroke-width: 1; }

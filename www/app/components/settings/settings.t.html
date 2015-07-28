@@ -1,11 +1,45 @@
 <ion-view view-title="Settings">
   <ion-content scroll="true" id="settings-page">
 
-    <prl-move-line></prl-move-line>
+    <div class="card">
+      <div class="item item-divider">
+        Steps across time
+      </div>
+      <prl-move-line></prl-move-line>
+    </div>
+    
+          <!-- Searchbar through goals. -->
+    <!--       <label class="item item-input">
+            <i class="icon ion-search placeholder-icon"></i>
+            <input type="text" ng-model="searchText" 
+              placeholder="Search...">
+          </label> -->
+
+          <!-- Displays all goals. -->
+    <!--       <ul class="list">
+            <li class="item item-checkbox" 
+              ng-repeat="goal in ctrl.GoalsServ.goals | toArray | filter: searchText">
+               <label class="checkbox">
+                 <input type="checkbox" 
+                  ng-checked="goal.checked" 
+                  ng-click="ctrl.clickGoal(goal.$key)">
+               </label>
+               {{goal.name}}
+            </li>
+          </ul>
+        </div> -->
 
     <div class="padding-container">
+      
       <button
-        class="button button-block button-assertive" 
+        class="button button-outline button-block button-positive" 
+        ng-click="">
+        <i class="icon ion-chatbubble"></i>
+        Feedback?
+      </button>
+
+      <button
+        class="button button-outline button-block button-stable" 
         ng-click="ctrl.clickLogout();">
         <i class="icon ion-log-out"></i>
         Log out
@@ -23,27 +57,6 @@
 <!--       <div class="item item-divider">
         My Goals
       </div> -->
-
-      <!-- Searchbar through goals. -->
-<!--       <label class="item item-input">
-        <i class="icon ion-search placeholder-icon"></i>
-        <input type="text" ng-model="searchText" 
-          placeholder="Search...">
-      </label> -->
-
-      <!-- Displays all goals. -->
-<!--       <ul class="list">
-        <li class="item item-checkbox" 
-          ng-repeat="goal in ctrl.GoalsServ.goals | toArray | filter: searchText">
-           <label class="checkbox">
-             <input type="checkbox" 
-              ng-checked="goal.checked" 
-              ng-click="ctrl.clickGoal(goal.$key)">
-           </label>
-           {{goal.name}}
-        </li>
-      </ul>
-    </div> -->
 
   </ion-content>
 </ion-view>
