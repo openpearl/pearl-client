@@ -39,23 +39,13 @@ function SettingsCtrl($http, $state, $window, $ionicPlatform, ApiEndpoint, UserS
   vm.clickLogout = clickLogout;
   vm.clickGoal = clickGoal;
 
-  // vm.httpGetGoals = GoalsServ.httpGetGoals;
-
-  // $ionicPlatform.on('resume', function() {
-  //   console.log("Resuming.");
-  //   GoalsServ.httpGetGoals();
-  // });
+  $ionicPlatform.on('resume', function() {
+    console.log("Resuming.");
+    GoalsServ.httpGetGoals();
+  });
 
   function refresh() {
     GoalsServ.httpGetGoals();
-  }
-
-  function clickLogout() {
-    UserServ.submitLogout(function() {
-      // $state.go('slider');
-      // $state.go('slider', {}, {reload: true});
-      $window.location.reload(true);
-    });
   }
 
   function clickGoal(goalID) {
@@ -65,5 +55,13 @@ function SettingsCtrl($http, $state, $window, $ionicPlatform, ApiEndpoint, UserS
     // Toggle the checked state of the goal.
     var goalCheck = !GoalsServ.goals[goalID].checked;
     GoalsServ.httpToggleGoal(goalID, goalCheck);
+  }
+
+  function clickLogout() {
+    UserServ.submitLogout(function() {
+      // $state.go('slider');
+      // $state.go('slider', {}, {reload: true});
+      $window.location.reload(true);
+    });
   }
 }
