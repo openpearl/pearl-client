@@ -48,7 +48,9 @@ function prlMoveLine() {
       {timestamp: d3.time.hour.offset(currentTime, -3), steps: 2342},
       {timestamp: d3.time.hour.offset(currentTime, -5), steps: 1000},
       {timestamp: d3.time.hour.offset(currentTime, -8), steps: 200},
-      {timestamp: today, steps: 0},
+      {timestamp: d3.time.hour.offset(currentTime, -14), steps: 200},
+
+      {timestamp: today, steps: 6892},
       {timestamp: d3.time.day.offset(today, -1), steps: 3000},
       {timestamp: d3.time.day.offset(today, -2), steps: 5000},
       {timestamp: d3.time.day.offset(today, -3), steps: 2000},
@@ -77,7 +79,7 @@ function prlMoveLine() {
 
     // Break the data into two parts for a piecewise graph.
     for (var i in data) {
-      if (today > data[i].timestamp) {
+      if (today >= data[i].timestamp) {
         var liveData = data.splice(0, i);
         break;
       }
