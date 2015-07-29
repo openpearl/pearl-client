@@ -41,16 +41,19 @@ function prlMoveLine() {
     // Get the max point of all the data.
     var dMax = 0;
     for (var i in data) {
-      dMax = dMax + d3.max(data[i]);
+      if (dMax < d3.max(data[i])) {
+        dMax = d3.max(data[i]);
+      }
     }
 
     // Set correctly scaled ranges for our x and y axes.
-    var y = d3.scale.linear()
-      .domain([0, dMax]).range([0 + margin, height - margin]);
+    var yScale = d3.scale.linear()
+      // .domain([0, dMax]).range([0 + margin, height - margin]);
+      .domain([0, dMax]).range([height - margin, 0 + margin]);
     
-    var x = {};
+    var xScale = {};
     for (var j in data) {
-      x[j] = d3.scale.linear()
+      xScale[j] = d3.scale.linear()
         .domain([0, data[j].length - 1])
         .range([0 + margin, width - margin]);
     }
@@ -63,71 +66,38 @@ function prlMoveLine() {
 
     // Group the SVG and shift it to the right location.
     var g = vis.append("svg:g")
-      .attr("transform", "translate(0, " + height +  ")");
+      // .attr("transform", "translate(0, " + height +  ")");
+      .attr("transform", "translate(0,0)");
 
     // Create a helper that generates nice line functions.
     var lines = {};
     for (var k in data) {
-      lines[k] = 
+      lines[k] = d3.svg.line()
+        .x(function(d,i) { return xScale[k](i); })
+        .y(function(d) { return yScale(d); });
     }
 
-    var lineToday = d3.svg.line()
-      .xToday(function(d,i) { return x(i); })
-      .y(function(d) { return -1 * y(d); });
-    var lineLastWeek = d3.svg.line()
-      .xLastWeek(function(d,i) { return x(i); })
-      .y(function(d) { return -1 * y(d); });
-    var lineLastMonth = d3.svg.line()
-      .xLastMonth(function(d,i) { return x(i); })
-      .y(function(d) { return -1 * y(d); });
-    var lineLastYear = d3.svg.line()
-      .xLastYear(function(d,i) { return x(i); })
-      .y(function(d) { return -1 * y(d); });
+    // Append and render the lines first.
+    for (var l in data) {
+      g.append("svg:path").attr("d", lines[l](data[l]));
+    }
 
-    g.append("svg:path").attr("d", lineToday(dToday));
-    g.append("svg:path").attr("d", lineToday(dToday));
-    g.append("svg:path").attr("d", lineToday(dToday));
-    g.append("svg:path").attr("d", lineToday(dToday));
+    var xAxis = d3.svg.axis().scale(xScale["today"]).ticks(4).orient('top');
+    var yAxis = d3.svg.axis().scale(yScale).ticks(4).orient('right');
 
-    // g.append("svg:line")
-    //   .attr("x1", x(0))
-    //   .attr("y1", -1 * y(0))
-    //   .attr("x2", x(width))
-    //   .attr("y2", -1 * y(0));
+    // Add the x-axis.
+    vis.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      // .attr("transform", "translate(0,50)")
+      .call(xAxis);
 
-    // g.append("svg:line")
-    //   .attr("x1", x(0))
-    //   .attr("y1", -1 * y(0))
-    //   .attr("x2", x(0))
-    //   .attr("y2", -1 * y(d3.max(dToday)));
-
-    g.selectAll(".xLabel")
-      .dToday(x.ticks(5))
-      .enter().append("svg:text")
-      .attr("class", "xLabel")
-      .text(String)
-      .attr("x", function(d) { return x(d); })
-      .attr("y", -1 * margin - 5)
-      .attr("text-anchor", "middle")
+    // Add the y-axis.
+    vis.append("g")
+      .attr("class", "y axis")
+      .attr("transform", "translate(0,0)")
+      .call(yAxis)
       .filter(function (d, i) { return d === 0;  })
-      .remove();
-      // .filter(function (d, i) {
-      //   console.log(i);
-      //   console.log(dTodayLength); 
-      //   return i === dTodayLength - 1;
-      // })
-      // .remove();
-     
-    g.selectAll(".yLabel")
-      .dToday(y.ticks(4))
-      .enter().append("svg:text")
-      .attr("class", "yLabel")
-      .text(String)
-      .attr("x", margin + 5)
-      .attr("y", function(d) { return -1 * y(d); })
-      .attr("text-anchor", "right")
-      .attr("dy", 4)
-      .filter(function (d) { return d === 0;  })
       .remove();
   }
 }
