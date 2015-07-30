@@ -23,7 +23,11 @@ function UserContextServ($q, $http, $rootScope, $ionicPlatform, $cordovaHealthKi
 
     // Server.
     httpGetRequiredContext: httpGetRequiredContext,
-    httpSendUserContext: httpSendUserContext
+    httpSendUserContext: httpSendUserContext,
+
+    // Graphing (temporarily here.)
+    stepCountGraphData: [],
+    getStepCountGraphData: getStepCountGraphData 
   };
 
   // METHODS ******************************************************************
@@ -73,6 +77,18 @@ function UserContextServ($q, $http, $rootScope, $ionicPlatform, $cordovaHealthKi
 
     var finished = _.after(Object.size(contextRequest), function() {
       console.log("httpSendUserContext => userContext");
+
+      // Format to UNIX time.
+      for (var i in userContext) {
+        var sample = userContext[i];
+        for (var j in sample) {
+          var point = sample[j];
+
+          point.startDate = moment(point.startDate).unix();
+          point.endDate = moment(point.endDate).unix();
+        }
+      }
+
       console.log(userContext);
 
       $http.post(url, userContext)
@@ -104,6 +120,21 @@ function UserContextServ($q, $http, $rootScope, $ionicPlatform, $cordovaHealthKi
     }
   }
 
+  function getStepCountGraphData() {
+    var url = ApiEndpoint.url + "/context/graphs";
+    $http.get(url)
+      .success(function(response, status, headers, config) {
+        console.log("Getting step graph successful.");
+        console.log(response);
+        userContextServ.stepCountGraphData = response.data;
+        $rootScope.$emit("stepsData:loaded");
+      })
+      .error(function(data, status, headers, config) {
+        console.log("Unable to httpSendUserContext.");
+        console.log(data);  
+      });
+  }
+
   // HELPERS. ********************
   
   function getSample(sampleType, startDate, endDate) {
@@ -115,7 +146,6 @@ function UserContextServ($q, $http, $rootScope, $ionicPlatform, $cordovaHealthKi
     // Return a promise.
     return $q(function (resolve, reject) {
       window.plugins.healthkit.querySampleType({
-      // window.plugins.healthkit.sumQuantityType({
         'startDate': startDate,
         'endDate': endDate,
         'sampleType': sampleType

@@ -29,9 +29,10 @@ SettingsCtrl.$inject = [
     '$ionicPlatform',
     'ApiEndpoint',
     'UserServ',
+    'UserContextServ',
     'GoalsServ'];
 
-function SettingsCtrl($http, $state, $window, $timeout, $ionicPlatform, ApiEndpoint, UserServ, GoalsServ) {
+function SettingsCtrl($http, $state, $window, $timeout, $ionicPlatform, ApiEndpoint, UserServ, UserContextServ, GoalsServ) {
 
   var vm = this;
   vm.GoalsServ = GoalsServ;
@@ -54,6 +55,7 @@ function SettingsCtrl($http, $state, $window, $timeout, $ionicPlatform, ApiEndpo
 
   function refresh() {
     GoalsServ.httpGetGoals();
+    UserContextServ.getStepCountGraphData();
   }
 
   function toggleGoals(goalCategory) {

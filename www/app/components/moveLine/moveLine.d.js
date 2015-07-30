@@ -1,10 +1,12 @@
 module.exports = function(app) {
   app.directive('prlMoveLine', [
+    '$rootScope',
+    'UserContextServ',
     prlMoveLine
   ]);
 };
 
-function prlMoveLine() {
+function prlMoveLine($rootScope, UserContextServ) {
   return {
     restrict: 'EA',
     scope: {},
@@ -16,8 +18,11 @@ function prlMoveLine() {
     link: MoveLineLink
   };
 
-  function MoveLineLink() {
-    
+  function MoveLineLink(scope, element, attrs) {
+    $rootScope.$on('stepsData:loaded', drawStepsGraph);
+  }
+
+  function drawStepsGraph() {
     // Calculate the size of our graph. 
     var domElement = document.getElementById('move-line-container');
     var style = null;
@@ -43,39 +48,50 @@ function prlMoveLine() {
     // console.log(pastMonth);
     // console.log(pastYear);
 
-    var data = [
-      {timestamp: currentTime, steps: 4506},
-      {timestamp: d3.time.hour.offset(currentTime, -3), steps: 2342},
-      {timestamp: d3.time.hour.offset(currentTime, -5), steps: 1000},
-      {timestamp: d3.time.hour.offset(currentTime, -8), steps: 200},
-      {timestamp: d3.time.hour.offset(currentTime, -14), steps: 200},
+    var data = UserContextServ.stepCountGraphData;
+    console.log(data);    
+    if (data.length === 0) {
+      return;
+    }
 
-      {timestamp: today, steps: 6892},
-      {timestamp: d3.time.day.offset(today, -1), steps: 3000},
-      {timestamp: d3.time.day.offset(today, -2), steps: 5000},
-      {timestamp: d3.time.day.offset(today, -3), steps: 2000},
-      {timestamp: d3.time.day.offset(today, -4), steps: 4000},
+    // var data = [
+    //   {timestamp: currentTime, steps: 4506},
+    //   {timestamp: d3.time.hour.offset(currentTime, -3), steps: 2342},
+    //   {timestamp: d3.time.hour.offset(currentTime, -5), steps: 1000},
+    //   {timestamp: d3.time.hour.offset(currentTime, -8), steps: 200},
+    //   {timestamp: d3.time.hour.offset(currentTime, -14), steps: 200},
+
+    //   {timestamp: today, steps: 6892},
+    //   {timestamp: d3.time.day.offset(today, -1), steps: 3000},
+    //   {timestamp: d3.time.day.offset(today, -2), steps: 5000},
+    //   {timestamp: d3.time.day.offset(today, -3), steps: 2000},
+    //   {timestamp: d3.time.day.offset(today, -4), steps: 4000},
       
-      // {timestamp: pastWeek, steps: 6347},
-      {timestamp: d3.time.week.offset(today, -1), steps: 1245},
-      {timestamp: d3.time.week.offset(today, -2), steps: 6231},
-      {timestamp: d3.time.week.offset(today, -3), steps: 7332},
-      {timestamp: d3.time.week.offset(today, -4), steps: 3623},
+    //   // {timestamp: pastWeek, steps: 6347},
+    //   {timestamp: d3.time.week.offset(today, -1), steps: 1245},
+    //   {timestamp: d3.time.week.offset(today, -2), steps: 6231},
+    //   {timestamp: d3.time.week.offset(today, -3), steps: 7332},
+    //   {timestamp: d3.time.week.offset(today, -4), steps: 3623},
 
-      {timestamp: d3.time.month.offset(pastWeek, -1), steps: 1000},
-      {timestamp: d3.time.month.offset(pastWeek, -2), steps: 4123},
-      {timestamp: d3.time.month.offset(pastWeek, -3), steps: 5142},
-      {timestamp: d3.time.month.offset(pastWeek, -4), steps: 5167},
-      {timestamp: d3.time.month.offset(pastWeek, -5), steps: 1234},
-      {timestamp: d3.time.month.offset(pastWeek, -6), steps: 6234},
-      {timestamp: d3.time.month.offset(pastWeek, -7), steps: 1000},
-      {timestamp: d3.time.month.offset(pastWeek, -8), steps: 4123},
-      {timestamp: d3.time.month.offset(pastWeek, -9), steps: 1252},
-      {timestamp: d3.time.month.offset(pastWeek, -10), steps: 5623},
-      {timestamp: d3.time.month.offset(pastWeek, -11), steps: 1234},
-      {timestamp: d3.time.month.offset(pastWeek, -12), steps: 1234},
-      {timestamp: d3.time.month.offset(pastWeek, -13), steps: 1234},
-    ];
+    //   {timestamp: d3.time.month.offset(pastWeek, -1), steps: 1000},
+    //   {timestamp: d3.time.month.offset(pastWeek, -2), steps: 4123},
+    //   {timestamp: d3.time.month.offset(pastWeek, -3), steps: 5142},
+    //   {timestamp: d3.time.month.offset(pastWeek, -4), steps: 5167},
+    //   {timestamp: d3.time.month.offset(pastWeek, -5), steps: 1234},
+    //   {timestamp: d3.time.month.offset(pastWeek, -6), steps: 6234},
+    //   {timestamp: d3.time.month.offset(pastWeek, -7), steps: 1000},
+    //   {timestamp: d3.time.month.offset(pastWeek, -8), steps: 4123},
+    //   {timestamp: d3.time.month.offset(pastWeek, -9), steps: 1252},
+    //   {timestamp: d3.time.month.offset(pastWeek, -10), steps: 5623},
+    //   {timestamp: d3.time.month.offset(pastWeek, -11), steps: 1234},
+    //   {timestamp: d3.time.month.offset(pastWeek, -12), steps: 1234},
+    //   {timestamp: d3.time.month.offset(pastWeek, -13), steps: 1234},
+    // ];
+
+    // Format the time correctly.
+    for (var j in data) {
+      data[j].timestamp = new Date(data[j].timestamp * 1000);
+    }
 
     // Break the data into two parts for a piecewise graph.
     for (var i in data) {
@@ -242,8 +258,8 @@ function prlMoveLine() {
           }
         })
         .text(function(d) { return d; });
-
   }
+
 }
 
 MoveLineCtrl.$inject = [];
