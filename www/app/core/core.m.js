@@ -2,7 +2,6 @@
 // require('../../assets/js/browserSettings.js');
 
 var appCore = angular.module('app.core', [
-  'ngCookies',
 	'ionic',
   // 'ngAnimate',
   'ngCordova',

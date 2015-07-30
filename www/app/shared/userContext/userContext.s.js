@@ -56,7 +56,6 @@ function UserContextServ($q, $http, $rootScope, $ionicPlatform, $cordovaHealthKi
   }
 
   function localFetchUserContext(callback) {
-
   }
 
   function httpGetRequiredContext() {
@@ -65,33 +64,44 @@ function UserContextServ($q, $http, $rootScope, $ionicPlatform, $cordovaHealthKi
   }
 
   function httpSendUserContext(contextRequest) {
+    console.log("I am now going to send user context.");
+    console.log(Object.size(contextRequest));
 
-    console.log("I am now going to send user context."); 
+    // Do this after all data is collected from HealthKit.
+    var url = ApiEndpoint.url + "/context/";
+    var userContext = {};
 
-    // TODO: Provide the serve the choice of choose the time and date.
-    var m = moment().startOf('day');  
-    var startDate = m.toDate();  
-    var endDate = moment(m).add(1, 'd').toDate();
+    var finished = _.after(Object.size(contextRequest), function() {
+      console.log("httpSendUserContext => userContext");
+      console.log(userContext);
 
-    getSample('HKQuantityTypeIdentifierStepCount', startDate, endDate)
-      .then(function(steps) {
+      $http.post(url, userContext)
+        .success(function(data, status, headers, config) {
+          $rootScope.$emit('converse:ready');  
+        })
+        .error(function(data, status, headers, config) {
+          console.log("Unable to httpSendUserContext.");
+          console.log(data);  
+        });
+    });
 
-        // TODO: Make this more general and flexible.
-        var url = ApiEndpoint.url + "/context/";
-        var userContext = {"HKQuantityTypeIdentifierStepCount": steps};
+    // Fetch all request data from HealthKit.
+    for (var i in  contextRequest) {
+      var sampleRequest = contextRequest[i];
 
-        console.log("httpSendUserContext => userContext");
-        console.log(userContext);
+      var m = moment().startOf('day');  
 
-        $http.post(url, userContext)
-          .success(function(data, status, headers, config) {
-            $rootScope.$emit('converse:ready');  
-          })
-          .error(function(data, status, headers, config) {
-            console.log("Unable to httpSendUserContext.");
-            console.log(data);  
-          });
-      });
+      var sampleType = sampleRequest.sampleType;
+      
+      var startDate = new Date(sampleRequest.startDate * 1000) || new Date(0);
+      var endDate = new Date(sampleRequest.endDate * 1000) || moment(m).add(1, 'd').toDate();
+
+      getSample(sampleType, startDate, endDate)
+        .then(function(sample) {
+          userContext[sampleType] = sample;
+          finished();
+        });
+    }
   }
 
   // HELPERS. ********************
