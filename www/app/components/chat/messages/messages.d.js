@@ -1,11 +1,12 @@
 module.exports = function(app) {app
   .directive('prlMessages', [
+    '$timeout',
     '$ionicScrollDelegate', 
     prlMessages
   ])
 ;};
 
-function prlMessages($ionicScrollDelegate) {
+function prlMessages($timeout, $ionicScrollDelegate) {
   return {
     restrict: 'EA',
     scope: {},
@@ -18,9 +19,13 @@ function prlMessages($ionicScrollDelegate) {
   };
 
   function MessagesLink(scope, element, attrs) {
+    
     scope.$watch('messagesCtrl.CS.chatMessages', function(newValue, oldValue) {
       if (newValue) {
-        $ionicScrollDelegate.scrollBottom(true);
+        $timeout(function() {
+          $ionicScrollDelegate.$getByHandle('messagesScroll')
+            .scrollBottom(true);
+        }, 200);
       }
     }, true);
   }

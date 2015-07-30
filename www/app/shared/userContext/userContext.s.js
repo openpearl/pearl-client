@@ -64,7 +64,7 @@ function UserContextServ($q, $http, $rootScope, $ionicPlatform, $cordovaHealthKi
     return $http.get(url);
   }
 
-  function httpSendUserContext() {
+  function httpSendUserContext(contextRequest) {
 
     console.log("I am now going to send user context."); 
 

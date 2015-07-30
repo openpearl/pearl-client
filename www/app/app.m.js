@@ -1,3 +1,14 @@
+// TODO: Move this to a better home.
+Object.size = function(obj) {
+  var size = 0, key;
+  for (key in obj) {
+      if (obj.hasOwnProperty(key)) size++;
+  }
+  return size;
+};
+
+// ACTUAL CODE ****************************************************************
+
 // Core.
 var CoreM = require('./core/core.m.js');
 

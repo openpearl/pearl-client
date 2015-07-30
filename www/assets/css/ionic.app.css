@@ -65,6 +65,9 @@ label.item {
       -ms-flex-pack: center;
           justify-content: center; }
 
+.scroll-bar-indicator {
+  display: none; }
+
 #chat-page {
   background: linear-gradient(#EBF6F0, #C7E4EE); }
 
@@ -75,7 +78,7 @@ prl-chat-scroll {
   height: 70%; }
 
 #spacer {
-  height: 30%;
+  height: 120px;
   width: 100%; }
 
 .chat-bubble-wrapper {
@@ -232,6 +235,12 @@ prl-chat-scroll {
 a#btn-feedback {
   text-decoration: none;
   color: initial; }
+
+.goal-category {
+  font-size: 10pt;
+  font-weight: 300;
+  background-color: white;
+  border-top: 5px solid black; }
 
 #move-line-container {
   height: 200px;

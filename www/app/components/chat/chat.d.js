@@ -87,6 +87,9 @@ function ChatCtrl($scope, $rootScope, $ionicPlatform, $ionicSlideBoxDelegate, Us
         console.log("doRefresh: httpGetRequiredContext.");
         console.log(data);
         // If logged in...
+
+        // TODO: Pipe start and end times as well as goal.
+
         UserContextServ.httpSendUserContext();
     }, function() {
       LoginRegisterServ.isLoggedIn = false;

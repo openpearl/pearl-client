@@ -1,5 +1,7 @@
 <ion-view view-title="Settings">
-  <ion-content scroll="true" id="settings-page">
+  <ion-content 
+    scroll="true"
+    id="settings-page">
 
     <div class="card">
       <div class="item item-divider">
@@ -8,56 +10,65 @@
       <prl-move-line></prl-move-line>
     </div>
     
-    <!-- Searchbar through goals. -->
-    <!-- <label class="item item-input">
-      <i class="icon ion-search placeholder-icon"></i>
-      <input type="text" ng-model="searchText" 
-        placeholder="Search...">
-    </label> -->
+    <div class="card">
+      
+      <div class="item item-divider">
+        Goals
+      </div>
 
-    <!-- Displays all goals. -->
-    <!-- <ul class="list">
-      <li class="item item-checkbox" 
-        ng-repeat="goal in ctrl.GoalsServ.goals | toArray | filter: searchText">
-         <label class="checkbox">
-           <input type="checkbox" 
-            ng-checked="goal.checked" 
-            ng-click="ctrl.clickGoal(goal.$key)">
-         </label>
-         {{goal.name}}
-      </li>
-    </ul> -->
+      <!-- Searchbar through goals. -->
+      <label class="item item-input">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input type="text" ng-model="searchText" 
+          placeholder="Search...">
+      </label>
+
+      <!-- Displays all goals. -->
+      <ul class="list">
+        <div ng-repeat="(index, goalCategory) in settingsCtrl.GoalsServ.goalCategories track by index">
+        <!-- <li class="item item-checkbox" 
+          ng-repeat="goal in ctrl.GoalsServ.goals | toArray | filter: searchText"> -->
+           
+          <div class="item item-divider goal-category"
+            ng-click="settingsCtrl.toggleGoals(goalCategory)">
+            <i class="icon" 
+              ng-class="goalCategory.isExpanded ? 'ion-chevron-up' : 'ion-chevron-down'">
+            </i>
+            &nbsp;
+            {{goalCategory.name}} ({{goalCategory.goalsLength}})
+          </div>
+
+          <li class="item item-checkbox"
+            ng-show="goalCategory.isExpanded"
+            ng-repeat="(key, goal) in goalCategory.goals track by key">
+            <label class="checkbox">
+              <input type="checkbox" 
+                ng-checked="goal.checked" 
+                ng-click="ctrl.clickGoal()">
+            </label>
+            {{goal.name}}
+          </li>
+
+        </div>
+      </ul>
+    </div>
 
     <div class="padding-container">
-      
       <a href="mailto:david@goinvo.com?subject=Feedback!" 
         id="btn-feedback">
         <button
           class="button button-outline button-block button-positive">
-          <i class="icon ion-chatbubble"></i>
+          <i class="icon ion-chatbubble"></i> 
           Feedback?
         </button>
       </a>
-
       <button
         class="button button-outline button-block button-stable" 
-        ng-click="ctrl.clickLogout();">
+        ng-click="settingsCtrl.clickLogout();">
         <i class="icon ion-log-out"></i>
         Log out
       </button>
-
-<!--       <button
-        class="button button-block button-balanced" 
-        ng-click="ctrl.refresh();">
-        <i class="icon ion-refresh"></i>
-        Refresh
-      </button> -->
     </div>
-
-    <!-- <div class="card"> -->
-<!--       <div class="item item-divider">
-        My Goals
-      </div> -->
 
   </ion-content>
 </ion-view>
