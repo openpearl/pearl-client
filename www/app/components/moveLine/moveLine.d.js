@@ -93,15 +93,28 @@ function prlMoveLine($rootScope, UserContextServ) {
       data[j].timestamp = new Date(data[j].timestamp * 1000);
     }
 
+    // Sort the data.
+    var _tempData = _.sortBy(data, 'timestamp');
+    _tempData.reverse();
+    data = _tempData;
+
     // Break the data into two parts for a piecewise graph.
+    var liveData = [];
     for (var i in data) {
       if (today >= data[i].timestamp) {
-        var liveData = data.splice(0, i);
+        liveData = data.splice(0, i);
         break;
       }
     }
 
-    var earliestDate = data[data.length - 1].date;
+    // Produce cumulation graph here.
+    liveData.reverse();
+    var sum = 0;
+    for (var k in liveData) {
+      sum += liveData[k].steps;
+      liveData[k].steps = sum;
+    }
+    liveData.reverse();
 
     // Create the actual visualization.
     var vis = d3.select("#move-line-container").append("svg")
