@@ -1,0 +1,50 @@
+#testing {
+  height: 200px;
+  width: 100%;
+  background-color: red;
+}
+
+#settings-page {
+  background-color: $light_background;
+}
+
+#bt-settings {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 99;
+
+  border: 0px;
+  padding: 10px;
+  margin: 0;
+
+  opacity: 0.2;
+
+  // & > i {
+  //   padding: 0;
+  //   margin: 0;
+  //   font-size: 24pt;
+  //   line-height: 1;
+  // }
+
+  &:active, &:hover {
+    opacity: 0.5;
+  }
+
+  & > img {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+a#btn-feedback {
+  text-decoration: none;
+  color: initial;
+}
+
+.goal-category {
+  font-size: 10pt;
+  font-weight: 300;
+  background-color: white;
+  border-top: 5px solid black;
+}

@@ -31,9 +31,12 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 @import "./base/base";
 
 // Components
-@import "./components/login";
-@import "./components/chatBox";
-@import "./components/textInputArea";
-@import "./components/settings";
+@import "./_components/chat";
+@import "./_components/messages";
+@import "./_components/inputSpace";
+@import "./_components/inputBubble";
+
+@import "./_components/settings";
+@import "./_components/moveLine";
 
 // Pages

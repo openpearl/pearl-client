@@ -80,14 +80,14 @@ function ChatCtrl($scope, $rootScope, $ionicPlatform, $ionicSlideBoxDelegate, Us
     ChatServ.clearAll();
 
     UserContextServ.httpGetRequiredContext().then(
-      function(data, status, headers, config) {
+      function(response, status, headers, config) {
         $scope.$broadcast('scroll.refreshComplete');
         LoginRegisterServ.isLoggedIn = true;
         $ionicSlideBoxDelegate.update();
         console.log("doRefresh: httpGetRequiredContext.");
-        console.log(data);
+        console.log(response.data);
         // If logged in...
-        UserContextServ.httpSendUserContext();
+        UserContextServ.httpSendUserContext(response.data);
     }, function() {
       LoginRegisterServ.isLoggedIn = false;
       console.log("Not logged in yet.");

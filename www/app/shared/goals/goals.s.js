@@ -10,7 +10,7 @@ module.exports = function(app) {
 function GoalsServ($http, UserServ, ApiEndpoint) {
 
   var goalsServ = {
-    goals: {},
+    goalCategories: [],
 
     // localGetGoals: localGetGoals,
 
@@ -24,13 +24,28 @@ function GoalsServ($http, UserServ, ApiEndpoint) {
   //   return goalsServ.goals;
   // }
 
-  function httpGetGoals() {
+  function httpGetGoals(callback) {
     var url = ApiEndpoint.url + '/goals';
     $http.get(url)
       .success(function(data) {
-        goalsServ.goals = data;
+        // console.log(data);
+
+        var goalCategories = [];
+        for (var category in data.data) {
+          goalCategories.push(data.data[category]);          
+        }
+
+        for (var i in goalCategories) {
+          goalCategories[i].goalsLength = 0;
+          if (goalCategories[i].goals) {
+            goalCategories[i].goalsLength = 
+              Object.size(goalCategories[i].goals);
+          }
+        }
+
+        goalsServ.goalCategories = goalCategories;
         console.log("httpGetGoals successful.");
-        console.log(goalsServ.goals);
+        console.log(goalsServ.goalCategories);
       })  
       .error(function(error) {
         console.log("httpGetGoals unsuccessful.");

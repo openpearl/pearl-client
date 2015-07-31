@@ -23,7 +23,11 @@ function UserContextServ($q, $http, $rootScope, $ionicPlatform, $cordovaHealthKi
 
     // Server.
     httpGetRequiredContext: httpGetRequiredContext,
-    httpSendUserContext: httpSendUserContext
+    httpSendUserContext: httpSendUserContext,
+
+    // Graphing (temporarily here.)
+    stepCountGraphData: [],
+    getStepCountGraphData: getStepCountGraphData 
   };
 
   // METHODS ******************************************************************
@@ -56,7 +60,6 @@ function UserContextServ($q, $http, $rootScope, $ionicPlatform, $cordovaHealthKi
   }
 
   function localFetchUserContext(callback) {
-
   }
 
   function httpGetRequiredContext() {
@@ -64,33 +67,72 @@ function UserContextServ($q, $http, $rootScope, $ionicPlatform, $cordovaHealthKi
     return $http.get(url);
   }
 
-  function httpSendUserContext() {
+  function httpSendUserContext(contextRequest) {
+    console.log("I am now going to send user context.");
+    console.log(Object.size(contextRequest));
 
-    console.log("I am now going to send user context."); 
+    // Do this after all data is collected from HealthKit.
+    var url = ApiEndpoint.url + "/context/";
+    var userContext = {};
 
-    // TODO: Provide the serve the choice of choose the time and date.
-    var m = moment().startOf('day');  
-    var startDate = m.toDate();  
-    var endDate = moment(m).add(1, 'd').toDate();
+    var finished = _.after(Object.size(contextRequest), function() {
+      console.log("httpSendUserContext => userContext");
 
-    getSample('HKQuantityTypeIdentifierStepCount', startDate, endDate)
-      .then(function(steps) {
+      // Format to UNIX time.
+      for (var i in userContext) {
+        var sample = userContext[i];
+        for (var j in sample) {
+          var point = sample[j];
 
-        // TODO: Make this more general and flexible.
-        var url = ApiEndpoint.url + "/context/";
-        var userContext = {"HKQuantityTypeIdentifierStepCount": steps};
+          point.startDate = moment(point.startDate).unix();
+          point.endDate = moment(point.endDate).unix();
+        }
+      }
 
-        console.log("httpSendUserContext => userContext");
-        console.log(userContext);
+      console.log(userContext);
 
-        $http.post(url, userContext)
-          .success(function(data, status, headers, config) {
-            $rootScope.$emit('converse:ready');  
-          })
-          .error(function(data, status, headers, config) {
-            console.log("Unable to httpSendUserContext.");
-            console.log(data);  
-          });
+      $http.post(url, userContext)
+        .success(function(data, status, headers, config) {
+          userContextServ.getStepCountGraphData();
+          $rootScope.$emit('converse:ready');  
+        })
+        .error(function(data, status, headers, config) {
+          console.log("Unable to httpSendUserContext.");
+          console.log(data);  
+        });
+    });
+
+    // Fetch all request data from HealthKit.
+    for (var i in  contextRequest) {
+      var sampleRequest = contextRequest[i];
+
+      var m = moment().startOf('day');  
+
+      var sampleType = sampleRequest.sampleType;
+      
+      var startDate = new Date(sampleRequest.startDate * 1000) || new Date(0);
+      var endDate = new Date(sampleRequest.endDate * 1000) || moment(m).add(1, 'd').toDate();
+
+      getSample(sampleType, startDate, endDate)
+        .then(function(sample) {
+          userContext[sampleType] = sample;
+          finished();
+        });
+    }
+  }
+
+  function getStepCountGraphData() {
+    var url = ApiEndpoint.url + "/context/graphs";
+    $http.get(url)
+      .success(function(response, status, headers, config) {
+        console.log("Getting step graph successful.");
+        console.log(response);
+        userContextServ.stepCountGraphData = response.data;
+        $rootScope.$emit("stepsData:loaded");
+      })
+      .error(function(data, status, headers, config) {
+        console.log("Unable to httpSendUserContext.");
+        console.log(data);  
       });
   }
 
@@ -105,7 +147,6 @@ function UserContextServ($q, $http, $rootScope, $ionicPlatform, $cordovaHealthKi
     // Return a promise.
     return $q(function (resolve, reject) {
       window.plugins.healthkit.querySampleType({
-      // window.plugins.healthkit.sumQuantityType({
         'startDate': startDate,
         'endDate': endDate,
         'sampleType': sampleType
