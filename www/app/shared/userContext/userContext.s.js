@@ -93,6 +93,7 @@ function UserContextServ($q, $http, $rootScope, $ionicPlatform, $cordovaHealthKi
 
       $http.post(url, userContext)
         .success(function(data, status, headers, config) {
+          userContextServ.getStepCountGraphData();
           $rootScope.$emit('converse:ready');  
         })
         .error(function(data, status, headers, config) {

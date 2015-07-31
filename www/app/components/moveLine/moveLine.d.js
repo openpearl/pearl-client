@@ -117,7 +117,13 @@ function prlMoveLine($rootScope, UserContextServ) {
     liveData.reverse();
 
     // Create the actual visualization.
-    var vis = d3.select("#move-line-container").append("svg")
+    // var vis = null;
+    // if (vis) {
+    //   vis.remove();
+    // }
+
+    d3.select("#move-line-container").html("");
+    vis = d3.select("#move-line-container").append("svg")
       .attr("width", width)
       .attr("height", height);
 

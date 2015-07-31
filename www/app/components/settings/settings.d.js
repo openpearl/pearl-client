@@ -55,7 +55,7 @@ function SettingsCtrl($http, $state, $window, $timeout, $ionicPlatform, ApiEndpo
 
   function refresh() {
     GoalsServ.httpGetGoals();
-    UserContextServ.getStepCountGraphData();
+    // UserContextServ.getStepCountGraphData();
   }
 
   function toggleGoals(goalCategory) {
