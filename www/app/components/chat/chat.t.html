@@ -2,10 +2,12 @@
   <button id="bt-settings" 
     ng-click="chatCtrl.goToSettings()"
     ng-show="chatCtrl.LoginRegisterServ.isLoggedIn">
-    <i class="ion-gear-a"></i>
+    <img src="assets/img/settings_200.png"></img>
   </button>
 
-  <ion-content class="chat-history" id="chat-page">
+  <ion-content delegate-handle="messagesScroll" 
+    class="chat-history" 
+    id="chat-page">
 
     <ion-refresher pulling-text="Pull to refresh!" 
       on-refresh="chatCtrl.doRefresh()">

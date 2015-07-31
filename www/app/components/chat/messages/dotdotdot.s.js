@@ -1,6 +1,5 @@
 module.exports = function(app) {app
   .factory('DotDotDot', [
-    '$ionicScrollDelegate', 
     DotDotDot
   ])
 

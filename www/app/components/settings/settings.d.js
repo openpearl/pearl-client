@@ -7,12 +7,13 @@ module.exports = function(app) {
 function PrlSettings() {
   return {
     restrict: 'EA',
-    scope: {},
-    templateUrl: 'app/components/settings/settings.t.html',
+    // scope: {},
+    scope: true,
+    templateUrl: '_templates/settings.t.html',
     replace: true,
     bindToController: true,
     controller: SettingsCtrl,
-    controllerAs: 'ctrl',
+    controllerAs: 'settingsCtrl',
     link: SettingsLink
   };
 
@@ -24,38 +25,48 @@ SettingsCtrl.$inject = [
     '$http',
     '$state',
     '$window',
+    '$timeout',
     '$ionicPlatform',
     'ApiEndpoint',
     'UserServ',
+    'UserContextServ',
     'GoalsServ'];
 
-function SettingsCtrl($http, $state, $window, $ionicPlatform, ApiEndpoint, UserServ, GoalsServ) {
+function SettingsCtrl($http, $state, $window, $timeout, $ionicPlatform, ApiEndpoint, UserServ, UserContextServ, GoalsServ) {
 
   var vm = this;
   vm.GoalsServ = GoalsServ;
 
+  vm.canScroll = false;
+
   vm.refresh = refresh;
-
-  vm.clickLogout = clickLogout;
+  vm.toggleGoals = toggleGoals;
   vm.clickGoal = clickGoal;
+  vm.clickLogout = clickLogout;
 
-  // vm.httpGetGoals = GoalsServ.httpGetGoals;
+  $ionicPlatform.on('deviceready', function() {
+    vm.refresh();
+  });
 
-  // $ionicPlatform.on('resume', function() {
-  //   console.log("Resuming.");
-  //   GoalsServ.httpGetGoals();
-  // });
+  $ionicPlatform.on('resume', function() {
+    console.log("Resuming.");
+    vm.refresh();
+  });
 
   function refresh() {
     GoalsServ.httpGetGoals();
+    // UserContextServ.getStepCountGraphData();
   }
 
-  function clickLogout() {
-    UserServ.submitLogout(function() {
-      // $state.go('slider');
-      // $state.go('slider', {}, {reload: true});
-      $window.location.reload(true);
-    });
+  function toggleGoals(goalCategory) {
+    console.log("Toggling goals.");
+    console.log(goalCategory);
+
+    if (goalCategory.isExpanded === undefined) {
+      goalCategory.isExpanded = false;
+    }
+
+    goalCategory.isExpanded = !goalCategory.isExpanded;
   }
 
   function clickGoal(goalID) {
@@ -64,6 +75,14 @@ function SettingsCtrl($http, $state, $window, $ionicPlatform, ApiEndpoint, UserS
 
     // Toggle the checked state of the goal.
     var goalCheck = !GoalsServ.goals[goalID].checked;
-    GoalsServ.httpToggleGoal(goalID, goalCheck);
+    GoalsServ.  httpToggleGoal(goalID, goalCheck);
+  }
+
+  function clickLogout() {
+    UserServ.submitLogout(function() {
+      // $state.go('slider');
+      // $state.go('slider', {}, {reload: true});
+      $window.location.reload(true);
+    });
   }
 }

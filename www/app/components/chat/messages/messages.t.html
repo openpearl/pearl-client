@@ -1,7 +1,7 @@
 <div>
   <div 
     class="chat-bubble-wrapper"
-    ng-repeat="chatMessage in messagesCtrl.CS.chatMessages track by chatMessage.cardID">
+    ng-repeat="chatMessage in messagesCtrl.CS.chatMessages track by $index">
 
     <!-- TODO: This should not be hardcoded in the future. -->
     <div class="chat-bubble"
