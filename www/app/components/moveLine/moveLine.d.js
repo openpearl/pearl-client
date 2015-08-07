@@ -1,3 +1,5 @@
+// Creates a line graph of your current move steps.
+
 module.exports = function(app) {
   app.directive('prlMoveLine', [
     '$rootScope',

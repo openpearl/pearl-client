@@ -18,7 +18,8 @@ function LoginRegisterServ($http, $auth, $rootScope, ApiEndpoint,
     angular.extend(LoginRegisterServ.prototype, ChatServ);
 
   // Methods.
-  loginRegisterServ.requestNextCard = requestNextCard;
+  loginRegisterServ.getGuestToken = getGuestToken;
+  // loginRegisterServ.requestNextCard = requestNextCard;
   loginRegisterServ.submitLogin = submitLogin;
   loginRegisterServ.submitRegister = submitRegister;
 
@@ -26,59 +27,73 @@ function LoginRegisterServ($http, $auth, $rootScope, ApiEndpoint,
   loginRegisterServ.isLoggedIn = false;
   loginRegisterServ.msgStorage = LoginStoryboard.conversation;
   loginRegisterServ.dataStore = {
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: ""
+
+    guest_token: ""
+
+    // name: "",
+    // email: "",
+    // password: "",
+    // confirmPassword: ""
   };
   loginRegisterServ.choosingLogin = true;
 
   // METHODS ******************************************************************
 
-  // Provide the next blurbs in the list depending on the input ID.
-  function requestNextCard(card) {
-    console.log("LoginRegisterServ requestNextCard");
+  function getGuestToken() {
+    var route = ApiEndpoint.url + "/guest_token";
+    $http.get(route, function(response) {
+      loginRegisterServ.dataStore.guest_token = response.guest_token;
 
-    if (card === null || card === undefined) {
-      console.log("Login conversation is over!");
-
-      // Rudimentary login-register toggle.
-      // TODO: Refactor into a more readable and clearcut format.
-      if (loginRegisterServ.choosingLogin) {
-        this.submitLogin();
-        return;
-      } else {
-        this.submitRegister();
-        return;
-      }
-    }
-    
-    if (card.messages === "login") {
-      loginRegisterServ.choosingLogin = true;
-    } else if (card.messages === "register") {
-      loginRegisterServ.choosingLogin = false;
-    }
-
-    // Capture requested data such as email and password.
-    if (card.inputs) {
-      var input = card.inputs[0];
-      loginRegisterServ.dataStore[input] = card.messages;
-    }
-
-    var currentCard = loginRegisterServ.msgStorage[card.cardID];
-    var receivedCard = 
-      loginRegisterServ.msgStorage[currentCard.childrenCardIDs[0]];
-
-    receivedCard.childrenCards = [];
-    for (var i in receivedCard.childrenCardIDs) {
-      // TODO: Refactor to make more readable.
-      // Populates the children IDs with actual children.
-      receivedCard.childrenCards
-        .push(loginRegisterServ.msgStorage[receivedCard.childrenCardIDs[i]]);
-    }
-
-    this.delegateNextCard(receivedCard);
+      ChatServ.requestNextCard({
+        cardID: "root",
+        guest_token: loginRegisterServ.dataStore.guest_token
+      });
+    });
   }
+
+  // function requestNextCard(card) {
+  //   console.log("LoginRegisterServ requestNextCard");
+
+  //   if (card === null || card === undefined) {
+  //     console.log("Login conversation is over!");
+
+  //     // Rudimentary login-register toggle.
+  //     // TODO: Refactor into a more readable and clearcut format.
+  //     if (loginRegisterServ.choosingLogin) {
+  //       this.submitLogin();
+  //       return;
+  //     } else {
+  //       this.submitRegister();
+  //       return;
+  //     }
+  //   }
+    
+  //   if (card.messages === "login") {
+  //     loginRegisterServ.choosingLogin = true;
+  //   } else if (card.messages === "register") {
+  //     loginRegisterServ.choosingLogin = false;
+  //   }
+
+  //   // Capture requested data such as email and password.
+  //   if (card.inputs) {
+  //     var input = card.inputs[0];
+  //     loginRegisterServ.dataStore[input] = card.messages;
+  //   }
+
+  //   var currentCard = loginRegisterServ.msgStorage[card.cardID];
+  //   var receivedCard = 
+  //     loginRegisterServ.msgStorage[currentCard.childrenCardIDs[0]];
+
+  //   receivedCard.childrenCards = [];
+  //   for (var i in receivedCard.childrenCardIDs) {
+  //     // TODO: Refactor to make more readable.
+  //     // Populates the children IDs with actual children.
+  //     receivedCard.childrenCards
+  //       .push(loginRegisterServ.msgStorage[receivedCard.childrenCardIDs[i]]);
+  //   }
+
+  //   this.delegateNextCard(receivedCard);
+  // }
 
   function submitLogin() {
     var loginData = loginRegisterServ.dataStore;

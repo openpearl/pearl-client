@@ -55,6 +55,11 @@ function ChatServ($http, $rootScope, ApiEndpoint) {
     console.log("delegateNextCard");
     console.log(responseCard);
 
+    // TODO: Temporary fix.
+    if (responseCard.childrenCards === undefined) {
+      responseCard.childrenCards = [];
+    }
+
     if (responseCard.childrenCards.length === 0) {
       console.log("No more cards to add.");
       

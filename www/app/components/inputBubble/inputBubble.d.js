@@ -28,7 +28,7 @@ function prlInputBubble($timeout) {
     // angular.element(document).ready(function () {
     // element[0].ready(function () {
     console.log("New bubble loaded.");
-      // element[0].querySelector('input').focus();
+    // element[0].querySelector('input').focus();
     // element.on('load', function(event) {
     $timeout(function() {
       // console.log(element[0].querySelector('input'));
@@ -67,7 +67,11 @@ function InputBubbleCtrl($rootScope) {
   function submit() {
     console.log("Hitting submit.");
     if (vm.inputText !== "") {
-      vm.inputOption.messages = vm.inputText;
+      
+      // Create the cardBody and supply with proper key for the supplied data.
+      vm.inputOption.cardBody = {};
+      vm.inputOption.cardBody[vm.inputOption.inputs[0]] = vm.inputText;
+      
       $rootScope.$emit('chat:continue', vm.inputOption);
     }
   }
