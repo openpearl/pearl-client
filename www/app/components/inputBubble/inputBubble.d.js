@@ -35,11 +35,11 @@ function prlInputBubble($timeout) {
       // TODO: Focus not working. Potential race condition bug.
       console.log("About to focus.");
       var chosenElement = element[0].querySelector('input');
-      console.log(chosenElement);
-      chosenElement.blur();
-      cordova.plugins.Keyboard.show();
+      // console.log(chosenElement);
+      // chosenElement.blur();
+      // cordova.plugins.Keyboard.show();
       chosenElement.focus();
-      chosenElement.select();
+      // chosenElement.select();
     });
 
     scope.$watch('focus', function(value) {
