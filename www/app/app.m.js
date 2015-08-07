@@ -2,7 +2,7 @@
 Object.size = function(obj) {
   var size = 0, key;
   for (key in obj) {
-      if (obj.hasOwnProperty(key)) size++;
+    if (obj.hasOwnProperty(key)) size++;
   }
   return size;
 };
@@ -12,15 +12,13 @@ logger = function() {
   var pub = {};
 
   pub.enableLogger =  function enableLogger() {
-      if(oldConsoleLog == null)
-          return;
-
-      window['console']['log'] = oldConsoleLog;
+    if(oldConsoleLog === null) { return; }
+    window.console.log = oldConsoleLog;
   };
 
   pub.disableLogger = function disableLogger() {
-      oldConsoleLog = console.log;
-      window['console']['log'] = function() {};
+    oldConsoleLog = console.log;
+    window.console.log = function() {};
   };
 
   return pub;
@@ -33,16 +31,17 @@ logger = function() {
 // Core.
 var CoreM = require('./core/core.m.js');
 
-// Shared.
-var UserM = require('./shared/user/user.m.js');
-var GoalsM = require('./shared/goals/goals.m.js');
-var UserContextM = require('./shared/userContext/userContext.m.js');
+// Models.
+var UserM = require('./models/user/user.m.js');
+var GoalsM = require('./models/goals/goals.m.js');
+var UserContextM = require('./models/userContext/userContext.m.js');
 
 // Utils.
-var InputTypeM = require('./shared/inputType/inputType.d.js');
+// TODO: Put this in a folder.
+var InputTypeM = require('./components/inputType/inputType.d.js');
 
 // Layouts.
-var SliderM = require('./layout/slider/slider.m.js');
+var SliderM = require('./components/slider/slider.m.js');
 
 // Components.
 var ChatM = require('./components/chat/chat.m.js');
@@ -54,7 +53,7 @@ var app = angular.module('app', [
   // Core.
   CoreM.name,
 
-  // Shared.
+  // Models.
   UserM.name,
   GoalsM.name,
   UserContextM.name,
@@ -72,5 +71,3 @@ var app = angular.module('app', [
 
 require('./app.run.js')(app); // Runs required files during the beginning.
 require('./app.r.js')(app); // Loads the routes.
-
-require('./shared/load.d.js')(app);

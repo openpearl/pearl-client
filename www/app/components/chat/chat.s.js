@@ -153,6 +153,7 @@ function ChatServ($http, $rootScope, $auth, ApiEndpoint) {
       .then(function(resp) {
         console.log("Logged in.");
         console.log(resp);
+        chatServ.guestToken = undefined;
         $rootScope.$emit('pearl:refresh');
       })
       .catch(function(resp) {
