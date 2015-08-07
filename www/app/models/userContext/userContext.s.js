@@ -127,7 +127,11 @@ function UserContextServ($q, $http, $rootScope, $ionicPlatform, $cordovaHealthKi
       .success(function(response, status, headers, config) {
         console.log("Getting step graph successful.");
         console.log(response);
-        userContextServ.stepCountGraphData = response.data;
+
+        // TODO: Incoming data is nested.
+        for (var temp in response.data) {
+          userContextServ.stepCountGraphData = response.data[temp];
+        }
         $rootScope.$emit("stepsData:loaded");
       })
       .error(function(data, status, headers, config) {
