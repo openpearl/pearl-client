@@ -1,3 +1,5 @@
+// Creates a line graph of your current move steps.
+
 module.exports = function(app) {
   app.directive('prlMoveLine', [
     '$rootScope',
@@ -111,8 +113,8 @@ function prlMoveLine($rootScope, UserContextServ) {
     liveData.reverse();
     var sum = 0;
     for (var k in liveData) {
-      sum += liveData[k].steps;
-      liveData[k].steps = sum;
+      sum += liveData[k].quantity;
+      liveData[k].quantity = sum;
     }
     liveData.reverse();
 
@@ -174,7 +176,7 @@ function prlMoveLine($rootScope, UserContextServ) {
 
     var steps = [];
     for (var i in data) {
-      steps.push(data[i].steps);
+      steps.push(data[i].quantity);
     }
 
     var stepGoal = 10000; // Hard coded for now.
@@ -226,7 +228,7 @@ function prlMoveLine($rootScope, UserContextServ) {
 
     var stepsLineFn = d3.svg.line()
       .x(function(d) { return timeScale(d.timestamp); })
-      .y(function(d) { return height - stepsScale(d.steps); })
+      .y(function(d) { return height - stepsScale(d.quantity); })
       .interpolate('linear');
 
     lines.append("path")
@@ -245,7 +247,7 @@ function prlMoveLine($rootScope, UserContextServ) {
 
     var verticalDividerFn = d3.svg.line()
       .x(function(d) { return timeScale(d.timestamp); })
-      .y(function(d) { return height - stepsScale(d.steps); })
+      .y(function(d) { return height - stepsScale(d.quantity); })
       .interpolate('linear');
 
     lines.selectAll("vertical-divider")

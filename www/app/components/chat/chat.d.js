@@ -16,12 +16,11 @@ function PrlChat() {
   };
 }
 
-ChatCtrl.$inject = ['$scope', '$rootScope', '$ionicPlatform', '$ionicSlideBoxDelegate', 'UserContextServ', 'ChatServ', 'LoginRegisterServ'];
+ChatCtrl.$inject = ['$scope', '$rootScope', '$ionicPlatform', '$ionicSlideBoxDelegate', 'UserContextServ', 'ChatServ'];
 
-function ChatCtrl($scope, $rootScope, $ionicPlatform, $ionicSlideBoxDelegate, UserContextServ, ChatServ, LoginRegisterServ) {
+function ChatCtrl($scope, $rootScope, $ionicPlatform, $ionicSlideBoxDelegate, UserContextServ, ChatServ) {
 
   var vm = this;
-  vm.LoginRegisterServ = LoginRegisterServ;
 
   // Methods.
   vm.goToSettings = goToSettings;
@@ -60,9 +59,7 @@ function ChatCtrl($scope, $rootScope, $ionicPlatform, $ionicSlideBoxDelegate, Us
   // TODO: I'm not too happy about this method.
   // Needs better implementation.
   $rootScope.$on('chat:continue', function(event, card) {
-    if (LoginRegisterServ.isLoggedIn === false) { 
-      LoginRegisterServ.inputOptionToMessages(card); 
-    } else { ChatServ.inputOptionToMessages(card); }
+    ChatServ.inputOptionToMessages(card);
   });
 
   // METHODS ******************************************************************
@@ -82,18 +79,18 @@ function ChatCtrl($scope, $rootScope, $ionicPlatform, $ionicSlideBoxDelegate, Us
     UserContextServ.httpGetRequiredContext().then(
       function(response, status, headers, config) {
         $scope.$broadcast('scroll.refreshComplete');
-        LoginRegisterServ.isLoggedIn = true;
         $ionicSlideBoxDelegate.update();
         console.log("doRefresh: httpGetRequiredContext.");
         console.log(response.data);
         // If logged in...
+        ChatServ.isLoggedIn = true;
         UserContextServ.httpSendUserContext(response.data);
     }, function() {
-      LoginRegisterServ.isLoggedIn = false;
       console.log("Not logged in yet.");
 
       // Not logged in yet.
-      LoginRegisterServ.requestNextCard({cardID: "root"});
+      ChatServ.isLoggedIn = false;
+      ChatServ.getGuestToken();
       $scope.$broadcast('scroll.refreshComplete');
     });
   }
