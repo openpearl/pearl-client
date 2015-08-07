@@ -6,8 +6,6 @@ var ChatM = angular.module('components.chat', [
   InputSpaceM.name
 ]);
 
-require('./loginStoryboard.const.js')(ChatM);
-require('./loginRegister.s.js')(ChatM);
 require('./chat.s.js')(ChatM);
 require('./chat.d.js')(ChatM);
 

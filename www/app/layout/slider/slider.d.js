@@ -22,9 +22,9 @@ function prlSlider() {
   };
 }
 
-SliderCtrl.$inject = ['LoginRegisterServ'];
+SliderCtrl.$inject = ['ChatServ'];
 
-function SliderCtrl(LoginRegisterServ) {
+function SliderCtrl(ChatServ) {
   var vm = this;
-  vm.LoginRegisterServ = LoginRegisterServ;
+  vm.ChatServ = ChatServ;
 }

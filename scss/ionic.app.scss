@@ -28,7 +28,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 @import "./helpers/shadows";
 
 // Base
-@import "./base/base";
+@import "base";
 
 // Components
 @import "./_components/chat";
