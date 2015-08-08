@@ -53,8 +53,6 @@ function prlInputBubble($timeout) {
 InputBubbleCtrl.$inject = ['$rootScope'];
 
 function InputBubbleCtrl($rootScope) {
-  // FIXME: For some reason, I can't use `vm` in this situation.
-  // RESOLVED: Apparent, I've accidentally set a globa `vm`.
   var vm = this;
 
   // Data.

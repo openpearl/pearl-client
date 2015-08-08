@@ -1,32 +1,5 @@
-// TODO: Move this to a better home.
-Object.size = function(obj) {
-  var size = 0, key;
-  for (key in obj) {
-    if (obj.hasOwnProperty(key)) size++;
-  }
-  return size;
-};
-
-logger = function() {
-  var oldConsoleLog = null;
-  var pub = {};
-
-  pub.enableLogger =  function enableLogger() {
-    if(oldConsoleLog === null) { return; }
-    window.console.log = oldConsoleLog;
-  };
-
-  pub.disableLogger = function disableLogger() {
-    oldConsoleLog = console.log;
-    window.console.log = function() {};
-  };
-
-  return pub;
-}();
-
-// logger.disableLogger();
-
-// ACTUAL CODE ****************************************************************
+// Run pre script.
+require('./pre.js');
 
 // Core.
 var CoreM = require('./core/core.m.js');
@@ -37,7 +10,6 @@ var GoalsM = require('./models/goals/goals.m.js');
 var UserContextM = require('./models/userContext/userContext.m.js');
 
 // Utils.
-// TODO: Put this in a folder.
 var InputTypeM = require('./components/inputType/inputType.d.js');
 
 // Layouts.

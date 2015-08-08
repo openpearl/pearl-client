@@ -21,6 +21,7 @@ ChatCtrl.$inject = ['$scope', '$rootScope', '$ionicPlatform', '$ionicSlideBoxDel
 function ChatCtrl($scope, $rootScope, $ionicPlatform, $ionicSlideBoxDelegate, UserContextServ, ChatServ) {
 
   var vm = this;
+  vm.ChatServ = ChatServ;
 
   // Methods.
   vm.goToSettings = goToSettings;
@@ -41,7 +42,6 @@ function ChatCtrl($scope, $rootScope, $ionicPlatform, $ionicSlideBoxDelegate, Us
     vm.doRefresh();
   });
 
-  // FIXME: Resume not functional and causing 10 digest runs.
   $ionicPlatform.on('resume', function() {
     vm.doRefresh();
   });
