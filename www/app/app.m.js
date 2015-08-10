@@ -9,13 +9,11 @@ var UserM = require('./models/user/user.m.js');
 var GoalsM = require('./models/goals/goals.m.js');
 var UserContextM = require('./models/userContext/userContext.m.js');
 
-// Utils.
-var InputTypeM = require('./components/inputType/inputType.d.js');
-
 // Layouts.
 var SliderM = require('./components/slider/slider.m.js');
 
 // Components.
+var UtilsM = require('./components/utils/utils.m.js');
 var ChatM = require('./components/chat/chat.m.js');
 var SettingsM = require('./components/settings/settings.m.js');
 
@@ -36,6 +34,7 @@ var app = angular.module('app', [
   SliderM.name,
 
   // Components.
+  UtilsM.name,
   ChatM.name,
   SettingsM.name,
 

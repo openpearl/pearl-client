@@ -1,10 +1,17 @@
-.prl-bubble {
+.input-bubble-wrapper {
+  // width: max-content;
+  // max-width: 100%;
+}
+
+.include-wrapper {
+  // width: min-content;
+}
+
+%common-input-bubble-settings {
   @extend %bubble;
   background-color: $orange;
   color: white;
-  height: min-content;
   margin: 5px;
-
   @extend %sh2;
 
   &:active {
@@ -12,15 +19,18 @@
   }
 }
 
-.prl-input-bubble {
-  @extend .prl-bubble;
-  width: 600px;
-  margin-left: 35px;
-  margin-right: 35px;
+.prl-choice-bubble {
+  @extend %common-input-bubble-settings;
 }
 
-.input-bubble {
-  background-color: rgba(0,0,0,0);
+.prl-input-bubble {
+  @extend %common-input-bubble-settings;
+  // TODO: I have no idea how to get this to fit grandparent width.
+  width: 300px;
+}
+
+.input-bubble-typing {
+  background-color: $orange;
   color: white !important;
   padding: 0;
   margin: 0;
@@ -30,6 +40,6 @@
   width: 100%;
 }
 
-.input-bubble:focus {
+.input-bubble-typing:focus {
   color: white;
 }

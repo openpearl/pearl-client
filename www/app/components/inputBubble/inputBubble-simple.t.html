@@ -1,29 +1,29 @@
 <form class="prl-input-bubble"
   ng-submit="inputBubbleCtrl.submit()" 
-  ng-switch="inputBubbleCtrl.inputOption.cardType">
+  ng-switch="inputBubbleCtrl.card.cardType">
   
-  <input class="input-bubble" ng-switch-when="text" 
+  <input class="input-bubble-typing" ng-switch-when="text" 
     ng-model="inputBubbleCtrl.inputText" type="text" autofocus></input>
   
-  <input class="input-bubble" ng-switch-when="email" id="bubble-email"
-    ng-model="inputBubbleCtrl.inputText" type="text" autofocus></input>
+  <input class="input-bubble-typing" ng-switch-when="email"
+    ng-model="inputBubbleCtrl.inputText" type="email" autofocus></input>
   
-  <input class="input-bubble" ng-switch-when="tel" 
+  <input class="input-bubble-typing" ng-switch-when="tel" 
     ng-model="inputBubbleCtrl.inputText" type="tel" autofocus></input>
   
-  <input class="input-bubble" ng-switch-when="search" 
+  <input class="input-bubble-typing" ng-switch-when="search" 
     ng-model="inputBubbleCtrl.inputText" type="search" autofocus></input>
   
-  <input class="input-bubble" ng-switch-when="number" 
+  <input class="input-bubble-typing" ng-switch-when="number" 
     ng-model="inputBubbleCtrl.inputText" type="number" autofocus></input>
   
-  <input class="input-bubble" ng-switch-when="date" 
+  <input class="input-bubble-typing" ng-switch-when="date" 
     ng-model="inputBubbleCtrl.inputText" type="date" autofocus></input>
   
-  <input class="input-bubble" ng-switch-when="month" 
+  <input class="input-bubble-typing" ng-switch-when="month" 
     ng-model="inputBubbleCtrl.inputText" type="month" autofocus></input>
   
-  <input class="input-bubble" ng-switch-when="password" 
+  <input class="input-bubble-typing" ng-switch-when="password" 
     ng-model="inputBubbleCtrl.inputText" type="password" autofocus></input>
 
 </form>

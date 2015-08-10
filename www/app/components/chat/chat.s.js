@@ -45,9 +45,10 @@ function ChatServ($http, $rootScope, $auth, ApiEndpoint) {
     console.log("CharServ requestNextCard");
 
     var card = _card;
+    if (card === undefined) { card = {}; }
 
     // Add the guest token.
-    if (chatServ.guestToken) {
+    if (chatServ.guestToken !== undefined) {
       card.guest_token = chatServ.guestToken;
     }
 
