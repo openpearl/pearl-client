@@ -28,8 +28,6 @@ var app = angular.module('app', [
   GoalsM.name,
   UserContextM.name,
 
-  // Utils.
-
   // Layouts.
   SliderM.name,
 
