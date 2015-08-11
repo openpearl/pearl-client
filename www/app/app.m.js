@@ -5,6 +5,7 @@ require('./pre.js');
 var CoreM = require('./core/core.m.js');
 
 // Models.
+var LocalStorageM = require('./models/localStorage/localStorage.m.js');
 var UserM = require('./models/user/user.m.js');
 var GoalsM = require('./models/goals/goals.m.js');
 var UserContextM = require('./models/userContext/userContext.m.js');
@@ -24,6 +25,7 @@ var app = angular.module('app', [
   CoreM.name,
 
   // Models.
+  LocalStorageM.name,
   UserM.name,
   GoalsM.name,
   UserContextM.name,
