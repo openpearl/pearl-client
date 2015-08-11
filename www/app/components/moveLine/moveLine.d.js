@@ -129,7 +129,7 @@ function prlMoveLine($rootScope, UserContextServ) {
       .attr("width", width)
       .attr("height", height);
 
-    // Define the gradient
+    // Define the gradient.
     var gradient = vis.append("svg:defs")
         .append("svg:linearGradient")
         .attr("id", "gradient")
@@ -139,7 +139,7 @@ function prlMoveLine($rootScope, UserContextServ) {
         .attr("y2", "50%")
         .attr("spreadMethod", "pad");
 
-    // Define the gradient colors
+    // Define the gradient colors.
     gradient.append("svg:stop")
         .attr("offset", "0%")
         .attr("stop-color", "#000000")
@@ -191,6 +191,11 @@ function prlMoveLine($rootScope, UserContextServ) {
       .y(function(d) { return d.y; })
       .interpolate('linear');
 
+    // Define the shade scale.
+    var shadeScale = d3.scale.linear()
+      .domain([0, _stepsMax])
+      .range([0.4, 1]);
+
     // Draw goal.
     lines.append("path")
       .attr("class", "polylinear stepGoal")
@@ -209,46 +214,71 @@ function prlMoveLine($rootScope, UserContextServ) {
       })
       .text(format(stepGoal));
 
-    // markers.selectAll(".polylinear.point")
-    //   .data(data) // Compares number of data points and number of elements.
-    //   .enter()
-    //     .append("circle")
-    //     .attr({
-    //       "class": "polylinear point",
-    //       r: 1,
-    //       transform: function(d) { 
-    //         return (
-    //           "translate(" + 
-    //             timeScale(d.timestamp) + "," +
-    //             (300 - stepsScale(d.steps)) + 
-    //           ")"
-    //         ); 
-    //       }
-    //     });
+    markers.selectAll(".polylinear.point")
+      .data(data) // Compares number of data points and number of elements.
+      .enter()
+        .append("circle")
+        .attr({
+          "class": "polylinear point",
+          r: 3,
+          "opacity": function(d) {
+            return (shadeScale(d.quantity).toString());
+          },
+          transform: function(d) { 
+            return (
+              "translate(" + 
+                timeScale(d.timestamp) + "," +
+                (height - stepsScale(d.quantity)) + 
+              ")"
+            ); 
+          }
+        });
 
     var stepsLineFn = d3.svg.line()
       .x(function(d) { return timeScale(d.timestamp); })
       .y(function(d) { return height - stepsScale(d.quantity); })
       .interpolate('linear');
 
-    lines.append("path")
-      .attr("class", "stepsLine")
-      .attr({
-        d: stepsLineFn(data),
-      })
-      .attr('stroke', 'url(#gradient)');
+    d3.select(".chart")
+      .selectAll("div")
+        .data(data)
+      .enter().append("div")
+        .style("width", function(d) { return d * 10 + "px"; })
+        .text(function(d) { return d; });
 
+    // History daily data.
+    // lines.append("path")
+    //   .attr("class", "stepsLine")
+    //   .attr({
+    //     d: stepsLineFn(data),
+    //   })
+    //   .attr('stroke', 'url(#gradient)');
+
+    // History daily data. Bar graph.
+    lines.selectAll("stepsBarLine")
+      .data(data)
+      .enter()
+        .append("path")
+        .attr({
+          "class": "stepsBarLine",
+          "stroke-opacity": function(d) {
+            return (shadeScale(d.quantity).toString());
+          },
+          d: function(d, i) {
+            return (
+              "M" + timeScale(d.timestamp) + "," + 
+                height + "v-" + stepsScale(d.quantity) 
+            );
+          }
+        });
+
+    // Today's cumulative data.
     lines.append("path")
       .attr("class", "stepsLine")
       .attr({
         d: stepsLineFn(liveData),
       })
       .attr('stroke', 'black');
-
-    var verticalDividerFn = d3.svg.line()
-      .x(function(d) { return timeScale(d.timestamp); })
-      .y(function(d) { return height - stepsScale(d.quantity); })
-      .interpolate('linear');
 
     lines.selectAll("vertical-divider")
       .data(timeRange)

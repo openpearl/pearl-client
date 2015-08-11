@@ -248,6 +248,12 @@ a#btn-feedback {
   stroke: black;
   opacity: 0.9; }
 
+.stepsBarLine {
+  fill: none;
+  stroke: black;
+  stroke-width: 1.5px;
+  /*stroke: linear-gradient(to right, red , blue);*/ }
+
 .stepsLine {
   fill: none;
   /*stroke: black;*/
