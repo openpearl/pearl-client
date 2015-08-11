@@ -43,7 +43,7 @@ function ChatCtrl($scope, $rootScope, $ionicPlatform, $ionicSlideBoxDelegate, Us
   });
 
   $ionicPlatform.on('resume', function() {
-    vm.doRefresh();
+    // vm.doRefresh();
   });
 
   $rootScope.$on('pearl:refresh', function() {
