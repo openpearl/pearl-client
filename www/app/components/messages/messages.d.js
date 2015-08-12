@@ -31,15 +31,14 @@ function prlMessages($timeout, $ionicScrollDelegate) {
   }
 }
 
-MessagesCtrl.$inject = ['$http', '$scope', 'ChatServ'];
+MessagesCtrl.$inject = ['$http', '$scope', 'ChatServ', 'Error404Interceptor'];
 
-function MessagesCtrl($http, $scope, ChatServ) {
+function MessagesCtrl($http, $scope, ChatServ, Error404Interceptor) {
   var vm = this;
   vm.CS = ChatServ;
+  vm.E404 = Error404Interceptor;
   vm.checkLoading = checkLoading;
-
   vm.stillLoading = false;
-
 
   function checkLoading() {
     return $http.pendingRequests.length > 0;
@@ -52,5 +51,4 @@ function MessagesCtrl($http, $scope, ChatServ) {
       vm.stillLoading = false;
     }
   });
-
 }

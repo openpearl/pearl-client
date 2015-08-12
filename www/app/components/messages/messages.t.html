@@ -12,9 +12,19 @@
     </div>
 
   </div>
+
+  <!-- Still loading. -->
   <div class="chat-bubble-wrapper" ng-show="messagesCtrl.stillLoading">
     <div class="chat-bubble chat-bubble-left ellipsis">
       <img src="assets/img/dotdotdot.gif"></img>
     </div>
   </div>
+
+  <!-- No internet connection. -->
+  <div class="chat-bubble-wrapper" ng-show="messagesCtrl.E404.isOffline">
+    <div class="chat-bubble chat-bubble-left">
+      Aw shucks. Looks like we're not online right now. Come back in a few? 
+    </div>
+  </div>
+
 </div>
