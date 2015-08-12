@@ -260,16 +260,31 @@ a#btn-feedback {
   stroke-width: 1.5px;
   /*stroke: linear-gradient(to right, red , blue);*/ }
 
+.highlighted-circle {
+  opacity: 0; }
+
+.stepsLabel {
+  display: none; }
+
 .selected {
   transition: all .2s ease-in-out;
   -webkit-animation: SHW .5s;
           animation: SHW .5s;
   -webkit-animation-fill-mode: both;
           animation-fill-mode: both; }
-  .selected > circle {
+  .selected > .polylinear {
     fill: red; }
   .selected > path {
     stroke: red; }
+  .selected > .highlighted-circle {
+    opacity: 1;
+    fill: none;
+    stroke: red;
+    stroke-width: 1px; }
+  .selected > .stepsLabel {
+    display: block;
+    font-size: 12px;
+    opacity: .4; }
 
 @-webkit-keyframes SHW {
   from {

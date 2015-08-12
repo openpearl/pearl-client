@@ -258,6 +258,20 @@ function prlMoveLine($rootScope, UserContextServ) {
         }
       });
 
+    var barHighlightCircles = barLinePoints.append('circle')
+      .attr({
+        "class": 'highlighted-circle',
+        r: 6,
+        transform: function(d) { 
+          return (
+            "translate(" + 
+              timeScale(d.timestamp) + "," +
+              (height - stepsScale(d.quantity)) + 
+            ")"
+          ); 
+        }
+      });
+
     var barLines = barLinePoints.append('path')
       .attr({
         "class": "stepsBarLine",
@@ -271,6 +285,20 @@ function prlMoveLine($rootScope, UserContextServ) {
           );
         }
       });
+
+    var stepsText = barLinePoints.append('text')
+      .attr({
+        class: "stepsLabel",
+        transform: function(d, i) {
+          return (
+            "translate(" + 
+              (timeScale(d.timestamp) - 5) + "," +
+              (height - stepsScale(d.quantity) - 11) + 
+            ")"
+          );
+        }
+      })
+      .text(function(d) { return format(d.quantity); });
 
     barLinePoints.on('click', function(d) {
       console.log(d);

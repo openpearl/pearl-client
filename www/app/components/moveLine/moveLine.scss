@@ -31,18 +31,39 @@
   /*stroke: linear-gradient(to right, red , blue);*/
 }
 
+.highlighted-circle {
+  opacity: 0;
+}
+
+.stepsLabel {
+  display: none;
+}
+
 .selected {
 
   transition: all .2s ease-in-out;
   animation:SHW .5s;
   animation-fill-mode: both;
 
-  & > circle {
-    fill: red
+  & > .polylinear {
+    fill: red;
   }
 
   & > path {
-    stroke: red
+    stroke: red;
+  }
+
+  & > .highlighted-circle {
+    opacity: 1;
+    fill: none;
+    stroke: red;
+    stroke-width: 1px;
+  }
+
+  & > .stepsLabel {
+    display: block;
+    font-size: 12px;
+    opacity: .4;
   }
 }
 
