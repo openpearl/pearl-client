@@ -153,6 +153,7 @@ function prlMoveLine($rootScope, UserContextServ) {
     // Create groupings of lines and markers.
     var lines = vis.append("g");
     var markers = vis.append("g");
+    var stepsBarLine = vis.append("g");
 
     // Zooming stuff.
     var zoomFactor = 5;
@@ -214,26 +215,6 @@ function prlMoveLine($rootScope, UserContextServ) {
       })
       .text(format(stepGoal));
 
-    markers.selectAll(".polylinear.point")
-      .data(data) // Compares number of data points and number of elements.
-      .enter()
-        .append("circle")
-        .attr({
-          "class": "polylinear point",
-          r: 3,
-          "opacity": function(d) {
-            return (shadeScale(d.quantity).toString());
-          },
-          transform: function(d) { 
-            return (
-              "translate(" + 
-                timeScale(d.timestamp) + "," +
-                (height - stepsScale(d.quantity)) + 
-              ")"
-            ); 
-          }
-        });
-
     var stepsLineFn = d3.svg.line()
       .x(function(d) { return timeScale(d.timestamp); })
       .y(function(d) { return height - stepsScale(d.quantity); })
@@ -255,22 +236,58 @@ function prlMoveLine($rootScope, UserContextServ) {
     //   .attr('stroke', 'url(#gradient)');
 
     // History daily data. Bar graph.
-    lines.selectAll("stepsBarLine")
+    var barLinePoints = stepsBarLine.selectAll('.barLines')
       .data(data)
       .enter()
-        .append("path")
-        .attr({
-          "class": "stepsBarLine",
-          "stroke-opacity": function(d) {
-            return (shadeScale(d.quantity).toString());
-          },
-          d: function(d, i) {
-            return (
-              "M" + timeScale(d.timestamp) + "," + 
-                height + "v-" + stepsScale(d.quantity) 
-            );
-          }
-        });
+        .append('g');
+
+    var barCircles = barLinePoints.append('circle')
+      .attr({
+        "class": "polylinear point",
+        r: 3,
+        "opacity": function(d) {
+          return (shadeScale(d.quantity).toString());
+        },
+        transform: function(d) { 
+          return (
+            "translate(" + 
+              timeScale(d.timestamp) + "," +
+              (height - stepsScale(d.quantity)) + 
+            ")"
+          ); 
+        }
+      });
+
+    var barLines = barLinePoints.append('path')
+      .attr({
+        "class": "stepsBarLine",
+        "stroke-opacity": function(d) {
+          return (shadeScale(d.quantity).toString());
+        },
+        d: function(d, i) {
+          return (
+            "M" + timeScale(d.timestamp) + "," + 
+              height + "v-" + stepsScale(d.quantity) 
+          );
+        }
+      });
+
+    barLinePoints.on('click', function(d) {
+      console.log(d);
+
+      var _this = d3.select(this);
+      var dot = _this.selectAll('circle');
+      var line = _this.selectAll('path');
+
+      console.log(dot);
+      console.log(line);
+
+      // Find previously selected, unselect
+      d3.select(".selected").classed("selected", false);
+
+      // Select current item
+      _this.classed("selected", true);
+    });
 
     // Today's cumulative data.
     lines.append("path")

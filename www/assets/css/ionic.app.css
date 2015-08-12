@@ -248,17 +248,42 @@ a#btn-feedback {
   stroke: black;
   opacity: 0.9; }
 
+.stepsLine {
+  fill: none;
+  /*stroke: black;*/
+  stroke-width: 1.5px;
+  /*stroke: linear-gradient(to right, red , blue);*/ }
+
 .stepsBarLine {
   fill: none;
   stroke: black;
   stroke-width: 1.5px;
   /*stroke: linear-gradient(to right, red , blue);*/ }
 
-.stepsLine {
-  fill: none;
-  /*stroke: black;*/
-  stroke-width: 1.5px;
-  /*stroke: linear-gradient(to right, red , blue);*/ }
+.selected {
+  transition: all .2s ease-in-out;
+  -webkit-animation: SHW .5s;
+          animation: SHW .5s;
+  -webkit-animation-fill-mode: both;
+          animation-fill-mode: both; }
+  .selected > circle {
+    fill: red; }
+  .selected > path {
+    stroke: red; }
+
+@-webkit-keyframes SHW {
+  from {
+    opacity: 0; }
+
+  to {
+    opacity: 1; } }
+
+@keyframes SHW {
+  from {
+    opacity: 0; }
+
+  to {
+    opacity: 1; } }
 
 .vertical-divider {
   fill: none;
