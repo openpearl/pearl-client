@@ -42,8 +42,19 @@ function ChatCtrl($scope, $rootScope, $ionicPlatform, $ionicSlideBoxDelegate, Us
     vm.doRefresh();
   });
 
+  $ionicPlatform.on('pause', function() {
+    ChatServ.setTimestamp();
+  });
+
   $ionicPlatform.on('resume', function() {
-    // vm.doRefresh();
+    var timeDiff = ChatServ.getTimeDiff();
+    console.log(timeDiff);
+
+    // Only refresh the conversation if the resume is longer than delayMintues.
+    var delayMinutes = 30;
+    if (timeDiff >= delayMinutes * 60) {
+      vm.doRefresh();
+    }
   });
 
   $rootScope.$on('pearl:refresh', function() {

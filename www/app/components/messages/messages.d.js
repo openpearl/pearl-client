@@ -41,7 +41,23 @@ function MessagesCtrl($http, $scope, ChatServ, Error404Interceptor) {
   vm.stillLoading = false;
 
   function checkLoading() {
-    return $http.pendingRequests.length > 0;
+    // console.log("Pending requests:");
+    // console.log($http.pendingRequests);
+
+    var _pendingRequests = $http.pendingRequests.filter(
+      function(element, index, array) {
+      var re = /\/(converse|context)/;
+      regexConverse = re.exec(element.url);
+      re.lastIndex = 0;
+      // console.log(regexConverse);
+      if (regexConverse !== null) {
+        return true;        
+      }
+
+      return false;
+    });
+
+    return _pendingRequests.length > 0;
   }
 
   $scope.$watch(vm.checkLoading, function(v) {
