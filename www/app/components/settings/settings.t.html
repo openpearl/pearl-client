@@ -1,6 +1,6 @@
 <ion-view view-title="Settings">
   <ion-content 
-    scroll="true"
+    overflow-scroll="true"
     id="settings-page">
 
     <div class="card">
@@ -44,7 +44,7 @@
             <label class="checkbox">
               <input type="checkbox" 
                 ng-checked="goal.checked" 
-                ng-click="ctrl.clickGoal()">
+                ng-click="settingsCtrl.clickGoal(goal)">
             </label>
             {{goal.name}}
           </li>

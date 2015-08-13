@@ -1,0 +1,42 @@
+.input-bubble-wrapper {
+}
+
+.include-wrapper {
+}
+
+%common-input-bubble-settings {
+  @extend %bubble;
+  background-color: $orange;
+  color: white;
+  margin: 5px;
+  @extend %sh2;
+
+  &:active {
+    @extend %sh0;
+  }
+}
+
+.prl-choice-bubble {
+  @extend %common-input-bubble-settings;
+}
+
+.prl-input-bubble {
+  @extend %common-input-bubble-settings;
+  // TODO: I have no idea how to get this to fit grandparent width.
+  width: 250px;
+}
+
+.input-bubble-typing {
+  background-color: $orange;
+  color: white !important;
+  padding: 0;
+  margin: 0;
+  height: 0;
+
+  // TODO: Make this dynamic.
+  width: 100%;
+}
+
+.input-bubble-typing:focus {
+  color: white;
+}

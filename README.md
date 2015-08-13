@@ -4,17 +4,17 @@ iOS app for your personal assistant to your health.
 
 ## About
 
-PearlClient is the code repository for Pearl's iOS app. Inspired by apps such as [Lark](TODO: Future Link Here), PearlClient wants to bring friendly and intelligent health assistance with an open source community.
+PearlClient is the code repository for Pearl's iOS app. Inspired by apps such as [Lark](http://www.web.lark.com/#top), PearlClient wants to bring friendly and intelligent health assistance with an open source community.
 
 You can find out more about [Pearl at our homepage](https://www.openpearl.org).
 
-Pearl is developed at [Involution Studios](https://www.goinvo.com/) in [Arlington, MA](TODO: Google Maps).
+Pearl is developed at [Involution Studios](http://www.goinvo.com/) in [Arlington, MA](https://goo.gl/XKWvaD).
 
 ## For Developers
 
 ### Setup
 
-* Make sure you have [XCode](TODO: Link to XCode) and [Node.JS](https://www.nodejs.org). 
+* Make sure you have [XCode](https://developer.apple.com/xcode/) and [Node.JS](https://nodejs.org/). 
 
 * Install Ionic in the [following instructions](https://www.youtube.com/watch?v=1RQCjwnlTRk).
 
@@ -22,7 +22,7 @@ Pearl is developed at [Involution Studios](https://www.goinvo.com/) in [Arlingto
 
 * Run the app in the emulator using `ionic emulate ios`.
 
-  * Additional details can be found at the [Ionic Framework documentation](TODO: Link to Ionic install).
+  * Additional details can be found at the [Ionic Framework documentation](http://ionicframework.com/).
 
 ### Fun Facts
 

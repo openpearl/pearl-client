@@ -14,13 +14,13 @@ $assertive:                       #ef473a !default;
 $royal:                           #886aea !default;
 $dark:                            #444 !default;
 */
-.prl-bubble:active, .prl-input-bubble:active {
+.prl-choice-bubble:active, .prl-input-bubble:active {
   box-shadow: none; }
 
 .nav-upper-padding {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); }
 
-.prl-bubble, .prl-input-bubble {
+.prl-choice-bubble, .prl-input-bubble {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); }
 
 body {
@@ -88,7 +88,7 @@ prl-chat-scroll {
   display: flex;
   margin-top: 10px; }
 
-.chat-bubble, .prl-bubble, .prl-input-bubble {
+.chat-bubble, .prl-choice-bubble, .prl-input-bubble {
   border-radius: 12px;
   border-bottom-right-radius: 0px;
   padding: 5px 10px;
@@ -185,28 +185,23 @@ prl-chat-scroll {
     .pl-full-width > label > input {
       width: 100%; }
 
-.prl-bubble, .prl-input-bubble {
+.prl-choice-bubble, .prl-input-bubble {
   background-color: #F99E33;
   color: white;
-  height: -webkit-min-content;
-  height: -moz-min-content;
-  height: min-content;
   margin: 5px; }
 
 .prl-input-bubble {
-  width: 600px;
-  margin-left: 35px;
-  margin-right: 35px; }
+  width: 250px; }
 
-.input-bubble {
-  background-color: transparent;
+.input-bubble-typing {
+  background-color: #F99E33;
   color: white !important;
   padding: 0;
   margin: 0;
   height: 0;
   width: 100%; }
 
-.input-bubble:focus {
+.input-bubble-typing:focus {
   color: white; }
 
 #testing {
@@ -258,6 +253,52 @@ a#btn-feedback {
   /*stroke: black;*/
   stroke-width: 1.5px;
   /*stroke: linear-gradient(to right, red , blue);*/ }
+
+.stepsBarLine {
+  fill: none;
+  stroke: black;
+  stroke-width: 1.5px;
+  /*stroke: linear-gradient(to right, red , blue);*/ }
+
+.highlighted-circle {
+  opacity: 0; }
+
+.stepsLabel {
+  display: none; }
+
+.selected {
+  transition: all .2s ease-in-out;
+  -webkit-animation: SHW .5s;
+          animation: SHW .5s;
+  -webkit-animation-fill-mode: both;
+          animation-fill-mode: both; }
+  .selected > .polylinear {
+    fill: red; }
+  .selected > path {
+    stroke: red; }
+  .selected > .highlighted-circle {
+    opacity: 1;
+    fill: none;
+    stroke: red;
+    stroke-width: 1px; }
+  .selected > .stepsLabel {
+    display: block;
+    font-size: 12px;
+    opacity: .4; }
+
+@-webkit-keyframes SHW {
+  from {
+    opacity: 0; }
+
+  to {
+    opacity: 1; } }
+
+@keyframes SHW {
+  from {
+    opacity: 0; }
+
+  to {
+    opacity: 1; } }
 
 .vertical-divider {
   fill: none;

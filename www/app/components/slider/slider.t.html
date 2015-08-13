@@ -1,0 +1,22 @@
+<div>
+  <ion-view>
+    <ion-slide-box
+      show-pager="false" 
+      on-slide-changed="sliderCtrl.slideHasChanged($index)"
+      active-slide="sliderCtrl.currentSlide">
+
+      <!-- Dashboard Pane -->
+      <ion-slide title="Pearl">
+        <prl-chat></prl-chat>
+      </ion-slide>
+
+      <!-- Account Pane -->
+      <ion-slide
+        ng-if="sliderCtrl.ChatServ.isLoggedIn" 
+        title="Settings">
+        <prl-settings></prl-settings>
+      </ion-slide>
+
+    </ion-slide-box>
+  </ion-view>
+</div>
