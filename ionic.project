@@ -7,7 +7,7 @@
   "proxies": [
     {
       "path": "/api",
-      "proxyUrl": "https://1b68c6c2.ngrok.com"
+      "proxyUrl": "https://openpearl.herokuapp.com"
     }
   ]
 }

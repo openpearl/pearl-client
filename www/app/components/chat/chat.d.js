@@ -21,6 +21,7 @@ ChatCtrl.$inject = ['$scope', '$rootScope', '$ionicPlatform', '$ionicSlideBoxDel
 function ChatCtrl($scope, $rootScope, $ionicPlatform, $ionicSlideBoxDelegate, UserContextServ, ChatServ) {
 
   var vm = this;
+  vm.ChatServ = ChatServ;
 
   // Methods.
   vm.goToSettings = goToSettings;
@@ -41,9 +42,19 @@ function ChatCtrl($scope, $rootScope, $ionicPlatform, $ionicSlideBoxDelegate, Us
     vm.doRefresh();
   });
 
-  // FIXME: Resume not functional and causing 10 digest runs.
+  $ionicPlatform.on('pause', function() {
+    ChatServ.setTimestamp();
+  });
+
   $ionicPlatform.on('resume', function() {
-    vm.doRefresh();
+    var timeDiff = ChatServ.getTimeDiff();
+    console.log(timeDiff);
+
+    // Only refresh the conversation if the resume is longer than delayMintues.
+    var delayMinutes = 30;
+    if (timeDiff >= delayMinutes * 60) {
+      vm.doRefresh();
+    }
   });
 
   $rootScope.$on('pearl:refresh', function() {
@@ -82,6 +93,7 @@ function ChatCtrl($scope, $rootScope, $ionicPlatform, $ionicSlideBoxDelegate, Us
         $ionicSlideBoxDelegate.update();
         console.log("doRefresh: httpGetRequiredContext.");
         console.log(response.data);
+        
         // If logged in...
         ChatServ.isLoggedIn = true;
         UserContextServ.httpSendUserContext(response.data);

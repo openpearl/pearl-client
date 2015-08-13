@@ -12,6 +12,7 @@ function ChatServ($http, $rootScope, $auth, ApiEndpoint) {
   var chatServ = {};
 
   // Data.
+  chatServ.timestamp = 0;
   chatServ.chatMessages = [];
   chatServ.inputOptions = {};
   chatServ.guestToken = undefined;
@@ -19,6 +20,9 @@ function ChatServ($http, $rootScope, $auth, ApiEndpoint) {
 
   // Methods.
   chatServ.getGuestToken = getGuestToken;
+  chatServ.setTimestamp = setTimestamp;
+  chatServ.getTimeDiff = getTimeDiff;
+
   chatServ.requestNextCard = requestNextCard;
   chatServ.delegateNextCard = delegateNextCard;
   chatServ.addChatMessage = addChatMessage;
@@ -41,13 +45,26 @@ function ChatServ($http, $rootScope, $auth, ApiEndpoint) {
     });
   }
 
+  function setTimestamp() {
+    console.log("Setting the timestamp.");
+    chatServ.timestamp = Math.floor(Date.now() / 1000);
+  }
+
+  function getTimeDiff() {
+    var currentTime = Math.floor(Date.now() / 1000);
+    // console.log(currentTime);
+    // console.log(chatServ.timestamp);
+    return (currentTime - chatServ.timestamp);
+  }
+
   function requestNextCard(_card) {
     console.log("CharServ requestNextCard");
 
     var card = _card;
+    if (card === undefined) { card = {}; }
 
     // Add the guest token.
-    if (chatServ.guestToken) {
+    if (chatServ.guestToken !== undefined) {
       card.guest_token = chatServ.guestToken;
     }
 

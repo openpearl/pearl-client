@@ -12,17 +12,9 @@ function GoalsServ($http, UserServ, ApiEndpoint) {
   var goalsServ = {
     goalCategories: [],
 
-    // localGetGoals: localGetGoals,
-
     httpGetGoals: httpGetGoals,
     httpToggleGoal: httpToggleGoal
   };
-
-  // function localGetGoals() {
-  //   console.log("localGetGoals");
-  //   console.log(goalsServ.goals);
-  //   return goalsServ.goals;
-  // }
 
   function httpGetGoals(callback) {
     var url = ApiEndpoint.url + '/goals';
@@ -53,19 +45,14 @@ function GoalsServ($http, UserServ, ApiEndpoint) {
       });
   }
 
-  function httpToggleGoal(goalID, checked) {
-    var url = ApiEndpoint.url + '/goals/update';
-    var data = {};
-    data[goalID] = checked;
-
+  function httpToggleGoal(goal) {
+    var url = ApiEndpoint.url + '/goals';
     console.log("Toggling httpToggleGoal.");
-    console.log(data);
 
-    $http.patch(url, data)
-      .success(function(data) {
-        goalsServ.httpGetGoals();
+    $http.patch(url, {goals: goal})
+      .success(function(response) {
       })
-      .error(function(error) {
+      .error(function(response) {
         console.log("httpToggleGoal error: ");
         console.log(error);
       });

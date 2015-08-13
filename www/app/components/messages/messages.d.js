@@ -31,18 +31,33 @@ function prlMessages($timeout, $ionicScrollDelegate) {
   }
 }
 
-MessagesCtrl.$inject = ['$http', '$scope', 'ChatServ'];
+MessagesCtrl.$inject = ['$http', '$scope', 'ChatServ', 'Error404Interceptor'];
 
-function MessagesCtrl($http, $scope, ChatServ) {
+function MessagesCtrl($http, $scope, ChatServ, Error404Interceptor) {
   var vm = this;
   vm.CS = ChatServ;
+  vm.E404 = Error404Interceptor;
   vm.checkLoading = checkLoading;
-
   vm.stillLoading = false;
 
-
   function checkLoading() {
-    return $http.pendingRequests.length > 0;
+    // console.log("Pending requests:");
+    // console.log($http.pendingRequests);
+
+    var _pendingRequests = $http.pendingRequests.filter(
+      function(element, index, array) {
+      var re = /\/(converse|context)/;
+      regexConverse = re.exec(element.url);
+      re.lastIndex = 0;
+      // console.log(regexConverse);
+      if (regexConverse !== null) {
+        return true;        
+      }
+
+      return false;
+    });
+
+    return _pendingRequests.length > 0;
   }
 
   $scope.$watch(vm.checkLoading, function(v) {
@@ -52,5 +67,4 @@ function MessagesCtrl($http, $scope, ChatServ) {
       vm.stillLoading = false;
     }
   });
-
 }

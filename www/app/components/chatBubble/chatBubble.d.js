@@ -34,12 +34,7 @@ function ChatBubbleCtrl($scope) {
   handleText();
   $scope.chatBubbleType = "text";
 
-  // If no cardType present, render as text.
-  if (!vm.card.cardType) {
-    // $scope.chatBubbleType = "text";
-  
-  } else if (vm.card.cardType) {
-
+  if (vm.card.cardType) {
     // Render password as stars.
     if (vm.card.cardType === "password") {
       $scope.chatBubbleType = "password";
@@ -47,6 +42,7 @@ function ChatBubbleCtrl($scope) {
   }
 
   // HELPERS ******************************************************************
+  
   function handleText() {
     for (var attr in vm.card.cardBody) {
 

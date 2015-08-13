@@ -69,13 +69,15 @@ function SettingsCtrl($http, $state, $window, $timeout, $ionicPlatform, ApiEndpo
     goalCategory.isExpanded = !goalCategory.isExpanded;
   }
 
-  function clickGoal(goalID) {
+  function clickGoal(_goal) {
+    var goal = _goal;
+
     console.log("Goal clicked.");
-    console.log(goalID);
 
     // Toggle the checked state of the goal.
-    var goalCheck = !GoalsServ.goals[goalID].checked;
-    GoalsServ.  httpToggleGoal(goalID, goalCheck);
+    goal.checked = !goal.checked;
+
+    GoalsServ.httpToggleGoal(goal);
   }
 
   function clickLogout() {
