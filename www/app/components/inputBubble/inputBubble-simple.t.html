@@ -1,5 +1,5 @@
 <form class="prl-input-bubble"
-  ng-submit="inputBubbleCtrl.submit()" 
+  ng-submit="inputBubbleCtrl.submit($event)" 
   ng-switch="inputBubbleCtrl.card.cardType">
   
   <input class="input-bubble-typing" ng-switch-when="text" 

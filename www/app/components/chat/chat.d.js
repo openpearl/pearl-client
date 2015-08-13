@@ -82,6 +82,7 @@ function ChatCtrl($scope, $rootScope, $ionicPlatform, $ionicSlideBoxDelegate, Us
         $ionicSlideBoxDelegate.update();
         console.log("doRefresh: httpGetRequiredContext.");
         console.log(response.data);
+        
         // If logged in...
         ChatServ.isLoggedIn = true;
         UserContextServ.httpSendUserContext(response.data);

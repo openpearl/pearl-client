@@ -56,10 +56,19 @@ function InputBubbleCtrl($scope, $rootScope) {
   chooseInput();
 
   // METHODS ******************************************************************
-  function submit() {
+  
+  function submit(ev) {
     console.log("Hitting submit.");
-    
+
     if ($scope.inputBubbleType === 'simple') {
+
+      // Catch any blank submissions.
+      if (vm.inputText === "" || vm.inputText === undefined) {
+        ev.preventDefault();
+        shakeForm();
+        return;
+      }
+
       if (vm.inputText !== "") {
         // Create the cardBody and supply with proper key 
         // for the supplied data.
@@ -72,13 +81,24 @@ function InputBubbleCtrl($scope, $rootScope) {
   }
 
   // HELPERS ******************************************************************
+  
   function chooseInput() {
     var cardType = vm.card.cardType;
-    var simpleCardTypes = ['email', 'password'];
+    var simpleCardTypes = ['text', 'email', 'password'];
 
     $scope.inputBubbleType = 'choice';
     if (simpleCardTypes.indexOf(cardType) > -1) {
       $scope.inputBubbleType = "simple";
+    }
+  }
+
+  // TODO: Does this belong in the post-link?
+  function shakeForm() {
+    var l = 20;  
+    for( var i = 0; i < 10; i++ ) {
+      $(".prl-input-bubble").animate( { 
+        'margin-left': "+=" + ( l = -l ) + 'px' 
+      }, 50);
     }
   }
 }

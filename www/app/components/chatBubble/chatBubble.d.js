@@ -42,6 +42,7 @@ function ChatBubbleCtrl($scope) {
   }
 
   // HELPERS ******************************************************************
+  
   function handleText() {
     for (var attr in vm.card.cardBody) {
 
